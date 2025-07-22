@@ -8,6 +8,7 @@ import com.example.adventofcode.utils.DataLoader;
 public class DayTwelve2024 {
     private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData.txt");
     private static final HashSet<Region> regions = loadRegions();
+    public DayTwelve2024(){}
     public static void main(String[] args) {
         printGarden();
     }
@@ -23,6 +24,17 @@ public class DayTwelve2024 {
             }
         }
         return returnSet;
+    }
+    // private static Region generateRegion(HashSet<Coordinate> plots, Coordinate currentCoordinate, char plant){
+
+    // }
+    public static Boolean isNorthPartOfRegion(Coordinate c, char plant){
+        if(c.getY() - 1 < 0){
+            return false;
+        }
+        else{
+            return plant == garden[c.getY()][c.getX()];
+        }
     }
     private static void printGarden(){
         for(char[] row : garden){

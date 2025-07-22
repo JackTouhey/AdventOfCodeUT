@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import com.example.adventofcode.utils.Coordinate;
 
 class CoordinateTesting {
     private final HashSet<Coordinate> coordSet = new HashSet<>();;
-    @BeforeEach
+    @BeforeAll
     void setUp() {
         Coordinate c1 = new Coordinate(1, 1);
         Coordinate c2 = new Coordinate(1, 1);
@@ -21,7 +21,6 @@ class CoordinateTesting {
 
         Collections.addAll(coordSet, c1, c2, c3);
     }
-    
     @Test
     @DisplayName("Hashset coordinate test")
     void testHashSetSize() {

@@ -8,7 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class AppTest {
+import com.example.adventofcode.utils.Coordinate;
+
+class UnitTesting {
 
     @BeforeEach
     void setUp() {

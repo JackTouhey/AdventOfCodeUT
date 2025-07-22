@@ -1,4 +1,4 @@
-package com.example.adventofcode;
+package com.example.adventofcode.utils;
 
 import java.util.Objects;
 

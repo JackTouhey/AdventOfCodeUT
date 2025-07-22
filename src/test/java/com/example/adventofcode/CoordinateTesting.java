@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import com.example.adventofcode.utils.Coordinate;
 
-class UnitTesting {
+class CoordinateTesting {
 
     @BeforeEach
     void setUp() {

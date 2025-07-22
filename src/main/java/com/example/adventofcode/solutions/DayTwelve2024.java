@@ -10,7 +10,8 @@ public class DayTwelve2024 {
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
-        System.out.println(garden.length);
+        Region r = generateRegion(new HashSet<>(), new Coordinate(0,0));
+        r.printSelf();
     }
     private static HashSet<Region> loadRegions(){
         HashSet<Region> returnSet = new HashSet<>();
@@ -25,9 +26,41 @@ public class DayTwelve2024 {
         }
         return returnSet;
     }
-    // private static Region generateRegion(HashSet<Coordinate> plots, Coordinate currentCoordinate, char plant){
-
-    // }
+    private static Region generateRegion(HashSet<Coordinate> plots, Coordinate startingCoordinate){
+        char plant = garden[startingCoordinate.getX()][startingCoordinate.getY()];
+        populatePlot(plots, startingCoordinate, plant);
+        return new Region(plots, plant);
+    }
+    private static void populatePlot(HashSet<Coordinate> plots, Coordinate currentCoordinate, char plant){
+        plots.add(currentCoordinate);
+        if(!doesRegionContinue(plots, currentCoordinate, plant)){}
+        else{
+            if(isNorthPartOfRegion(currentCoordinate, plant)){
+                Coordinate north = new Coordinate(currentCoordinate.getX(), currentCoordinate.getY()-1);
+                if(!plots.contains(north)) { 
+                    populatePlot(plots, north, plant);
+                }
+            }
+            if(isSouthPartOfRegion(currentCoordinate, plant)){
+                Coordinate south = new Coordinate(currentCoordinate.getX(), currentCoordinate.getY()+1);
+                if(!plots.contains(south)) { 
+                    populatePlot(plots, south, plant);
+                }
+            }
+            if(isEastPartOfRegion(currentCoordinate, plant)){
+                Coordinate east = new Coordinate(currentCoordinate.getX()+1, currentCoordinate.getY());
+                if(!plots.contains(east)) { 
+                    populatePlot(plots, east, plant);
+                }
+            }
+            if(isWestPartOfRegion(currentCoordinate, plant)){
+                Coordinate west = new Coordinate(currentCoordinate.getX()-1, currentCoordinate.getY());
+                if(!plots.contains(west)) { 
+                    populatePlot(plots, west, plant);
+                }
+            }
+        }
+    }
     public static Boolean doesRegionContinue(HashSet<Coordinate> plots, Coordinate currentCoordinate, char plant){
         if(isNorthPartOfRegion(currentCoordinate, plant) && 
             !plots.contains(new Coordinate(currentCoordinate.getX(), currentCoordinate.getY()-1))){
@@ -41,13 +74,8 @@ public class DayTwelve2024 {
         && !plots.contains(new Coordinate(currentCoordinate.getX()+1, currentCoordinate.getY()))){
             return true;
         } 
-        else if(isWestPartOfRegion(currentCoordinate, plant)
-        && !plots.contains(new Coordinate(currentCoordinate.getX()-1, currentCoordinate.getY()))){
-            return true;
-        }
-        else{
-            return false;
-        }
+        else return isWestPartOfRegion(currentCoordinate, plant)
+            && !plots.contains(new Coordinate(currentCoordinate.getX()-1, currentCoordinate.getY()));
     }
     public static Boolean isNorthPartOfRegion(Coordinate c, char plant){
         if(c.getY() - 1 < 0){
@@ -96,5 +124,12 @@ class Region{
     public Region(HashSet<Coordinate> plots, char plant){
         this.plots = plots;
         this.plant = plant;
+    }
+    public void printSelf(){
+        System.out.print("Plant: " + plant + " plots: ");
+        for(Coordinate c : plots){
+            System.out.print(c.toString() + ", ");
+        }
+        System.out.println();
     }
 }

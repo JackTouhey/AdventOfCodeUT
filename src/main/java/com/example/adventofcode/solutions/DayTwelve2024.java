@@ -28,7 +28,27 @@ public class DayTwelve2024 {
     // private static Region generateRegion(HashSet<Coordinate> plots, Coordinate currentCoordinate, char plant){
 
     // }
-    // public static Boolean doesRegionContinue()
+    public static Boolean doesRegionContinue(HashSet<Coordinate> plots, Coordinate currentCoordinate, char plant){
+        if(isNorthPartOfRegion(currentCoordinate, plant) && 
+            !plots.contains(new Coordinate(currentCoordinate.getX(), currentCoordinate.getY()-1))){
+                return true;
+            }
+        else if(isSouthPartOfRegion(currentCoordinate, plant)
+        && !plots.contains(new Coordinate(currentCoordinate.getX(), currentCoordinate.getY()+1))){
+            return true;
+        }
+        else if(isEastPartOfRegion(currentCoordinate, plant)
+        && !plots.contains(new Coordinate(currentCoordinate.getX()+1, currentCoordinate.getY()))){
+            return true;
+        } 
+        else if(isWestPartOfRegion(currentCoordinate, plant)
+        && !plots.contains(new Coordinate(currentCoordinate.getX()-1, currentCoordinate.getY()))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     public static Boolean isNorthPartOfRegion(Coordinate c, char plant){
         if(c.getY() - 1 < 0){
             return false;

@@ -17,11 +17,26 @@ class DayTwelve2024Testing {
     @Test
     void isNorthPartOfRegionFailState(){
         Coordinate c1 = new Coordinate(0, 1);
-        assertTrue(DayTwelve2024.isNorthPartOfRegion(c1, 'V'));
+        assertFalse(DayTwelve2024.isNorthPartOfRegion(c1, 'V'));
     }
     @Test
     void isNorthPartOfRegionEdgeState(){
         Coordinate c1 = new Coordinate(0, 0);
         assertFalse(DayTwelve2024.isNorthPartOfRegion(c1, 'R'));
+    }
+    @Test
+    void isSouthPartOfRegionTest() {
+        Coordinate c1 = new Coordinate(0, 8);
+        assertTrue(DayTwelve2024.isSouthPartOfRegion(c1, 'M'));
+    }
+    @Test
+    void isSouthPartOfRegionFailState(){
+        Coordinate c1 = new Coordinate(0, 8);
+        assertFalse(DayTwelve2024.isSouthPartOfRegion(c1, 'V'));
+    }
+    @Test
+    void isSouthPartOfRegionEdgeState(){
+        Coordinate c1 = new Coordinate(0, 9);
+        assertFalse(DayTwelve2024.isSouthPartOfRegion(c1, 'M'));
     }
 }

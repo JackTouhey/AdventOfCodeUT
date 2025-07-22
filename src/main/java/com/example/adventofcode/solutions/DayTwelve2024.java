@@ -28,6 +28,7 @@ public class DayTwelve2024 {
     // private static Region generateRegion(HashSet<Coordinate> plots, Coordinate currentCoordinate, char plant){
 
     // }
+    // public static Boolean doesRegionContinue()
     public static Boolean isNorthPartOfRegion(Coordinate c, char plant){
         if(c.getY() - 1 < 0){
             return false;
@@ -42,6 +43,22 @@ public class DayTwelve2024 {
         }
         else{
             return plant == garden[c.getY()+1][c.getX()];
+        }
+    }
+    public static Boolean isWestPartOfRegion(Coordinate c, char plant){
+        if(c.getX() - 1 < 0){
+            return false;
+        }
+        else{
+            return plant == garden[c.getY()][c.getX()-1];
+        }
+    }
+    public static Boolean isEastPartOfRegion(Coordinate c, char plant){
+        if(c.getX() + 1 >= garden.length){
+            return false;
+        }
+        else{
+            return plant == garden[c.getY()][c.getX()+1];
         }
     }
     private static void printGarden(){

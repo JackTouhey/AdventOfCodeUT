@@ -3,6 +3,7 @@ package com.example.adventofcode;
 import java.util.Collections;
 import java.util.HashSet;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
@@ -55,5 +56,9 @@ class DayTwelve2024Testing {
         Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0), new Coordinate(5, 1));
         Coordinate c1 = new Coordinate(4, 1);
         assertFalse(DayTwelve2024.doesRegionContinue(plots, c1, 'I'));
+    }
+    @Test
+    void checkRegionsLoading(){
+        assertEquals(11, DayTwelve2024.getRegionsSize());
     }
 }

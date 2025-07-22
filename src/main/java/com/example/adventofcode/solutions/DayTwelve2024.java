@@ -10,9 +10,9 @@ public class DayTwelve2024 {
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
-        Region r = generateRegion(new HashSet<>(), new Coordinate(0,0));
-        r.printSelf();
+        System.out.println("regions loaded: " + regions.size());
     }
+    public static int getRegionsSize(){return regions.size();}
     private static HashSet<Region> loadRegions(){
         HashSet<Region> returnSet = new HashSet<>();
         HashSet<Coordinate> loadedPlots = new HashSet<>();
@@ -20,14 +20,17 @@ public class DayTwelve2024 {
             for(int x = 0; x < garden[y].length; x++){
                 Coordinate currentCoordinate = new Coordinate(x, y);
                 if(!loadedPlots.contains(currentCoordinate)){
-
+                    Region newRegion = generateRegion(new HashSet<>(), currentCoordinate);
+                    newRegion.printSelf();
+                    returnSet.add(newRegion);
+                    loadedPlots.addAll(newRegion.getPlots());
                 }
             }
         }
         return returnSet;
     }
     private static Region generateRegion(HashSet<Coordinate> plots, Coordinate startingCoordinate){
-        char plant = garden[startingCoordinate.getX()][startingCoordinate.getY()];
+        char plant = garden[startingCoordinate.getY()][startingCoordinate.getX()];
         populatePlot(plots, startingCoordinate, plant);
         return new Region(plots, plant);
     }
@@ -132,4 +135,5 @@ class Region{
         }
         System.out.println();
     }
+    public HashSet<Coordinate> getPlots(){return this.plots;}
 }

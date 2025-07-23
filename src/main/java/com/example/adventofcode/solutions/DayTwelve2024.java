@@ -7,11 +7,18 @@ import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 
 public class DayTwelve2024 {
-    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData.txt");
+    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveData.txt");
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
-        System.out.println("regions loaded: " + regions.size());
+        System.out.println("Total price of fencing for question one: " + calculatePriceQuestionOne());
+    }
+    private static int calculatePriceQuestionOne(){
+        int count = 0;
+        for(Region r : regions){
+            count += (r.getPlots().size() * calculatePerimeter(r));
+        }
+        return count;
     }
     public static int getRegionsSize(){return regions.size();}
     private static HashSet<Region> loadRegions(){
@@ -125,26 +132,26 @@ public class DayTwelve2024 {
         int perimeter = 0;
         for(Coordinate c : r.getPlots()){
             if(!isNorthPartOfRegion(c, r.getPlant()) || c.getY() == 0){
-                System.out.println("Perimeter detected north of " + c.toString());
+                // System.out.println("Perimeter detected north of " + c.toString());
                 perimeter++;
             }
             if(!isEastPartOfRegion(c, r.getPlant()) || c.getX() == garden[c.getY()].length-1){
-                System.out.println("Perimeter detected east of " + c.toString());
+                // System.out.println("Perimeter detected east of " + c.toString());
                 perimeter++;
             }
             if(!isSouthPartOfRegion(c, r.getPlant()) || c.getY() == garden.length-1){
-                System.out.println("Perimeter detected south of " + c.toString());
+                // System.out.println("Perimeter detected south of " + c.toString());
                 perimeter++;
             }
             if(!isWestPartOfRegion(c, r.getPlant()) || c.getX() == 0){
-                System.out.println("Perimeter detected west of " + c.toString());
+                // System.out.println("Perimeter detected west of " + c.toString());
                 perimeter++;
             }
         }
         return perimeter;
     }
     //I know this should be in the testing file but was having issues moving Region to the utils folder to make it 
-    //accessible by the test file, and as such employed this temporary solution
+    //accessible by the test file (which it should've been from the start9), and as such employed this temporary solution
     public static int testCalculatePerimeter(){
         HashSet<Coordinate> plots = new HashSet<>();
         Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),

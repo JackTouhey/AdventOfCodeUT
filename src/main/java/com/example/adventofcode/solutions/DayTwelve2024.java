@@ -2,6 +2,7 @@ package com.example.adventofcode.solutions;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
@@ -11,7 +12,7 @@ public class DayTwelve2024 {
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
-        System.out.println("Total price of fencing for question one: " + calculatePriceQuestionOne());
+        System.out.println("Perimiter test: " + basicTestOfCalculateSides());
     }
     private static int calculatePriceQuestionOne(){
         int count = 0;
@@ -113,7 +114,7 @@ public class DayTwelve2024 {
         }
     }
     public static Boolean isEastPartOfRegion(Coordinate c, char plant){
-        if(c.getX() + 1 >= garden.length){
+        if(c.getX() + 1 >= garden[c.getY()].length){
             return false;
         }
         else{
@@ -137,81 +138,97 @@ public class DayTwelve2024 {
         }
         return startCoordinate;
     }
-    private static int calculateSides(int turns, Coordinate currentCoordinate, Coordinate startCoordinate, char plant, String direction){
-        int currentX = currentCoordinate.getX();
-        int currentY = currentCoordinate.getY();
-        if(startCoordinate.equals(currentCoordinate) && turns > 0){
+    public static int calculateSides(Region region, Coordinate startPoint) {
+        Set<String> visited = new HashSet<>();
+        return calculateSides(0, startPoint, startPoint, region.getPlant(), "east", visited);
+    }
+    private static int calculateSides(int turns, Coordinate currentCoordinate, 
+                                    Coordinate startCoordinate, char plant, 
+                                    String direction, Set<String> visited) {
+        String state = currentCoordinate.getX() + "," + currentCoordinate.getY() + ":" + direction;
+        System.out.println("State: " + state);
+        if (visited.contains(state)) {
+            throw new RuntimeException("Infinite loop detected at " + state);
+        }
+        visited.add(state);
+        if (startCoordinate.equals(currentCoordinate) && turns > 0) {
             return turns;
         }
-        else{
-            switch (direction) {
-                case "east":
-                    if(isEastPartOfRegion(currentCoordinate, plant) && !isNorthPartOfRegion(currentCoordinate, plant)){
-                        return calculateSides(turns, new Coordinate(currentX+1, currentY), startCoordinate, plant, direction);
-                    }
-                    else if(isNorthPartOfRegion(currentCoordinate, plant)){
-                        direction = "north";
-                        return calculateSides(turns+1, new Coordinate(currentX, currentY-1), startCoordinate, plant, direction);
-                    }
-                    else if(isSouthPartOfRegion(currentCoordinate, plant)){
-                        direction = "south";
-                        return calculateSides(turns+1, new Coordinate(currentX, currentY+1), startCoordinate, plant, direction);
-                    }
-                    else{
-                        direction = "south";
-                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
-                    }
-                case "south":
-                    if(isSouthPartOfRegion(currentCoordinate, plant) && !isEastPartOfRegion(currentCoordinate, plant)){
-                        return calculateSides(turns, new Coordinate(currentX, currentY+1), startCoordinate, plant, direction);
-                    }
-                    else if(isEastPartOfRegion(currentCoordinate, plant)){
-                        direction = "east";
-                        return calculateSides(turns+1, new Coordinate(currentX+1, currentY), startCoordinate, plant, direction);
-                    }
-                    else if(isWestPartOfRegion(currentCoordinate, plant)){
-                        direction = "west";
-                        return calculateSides(turns+1, new Coordinate(currentX-1, currentY), startCoordinate, plant, direction);
-                    }
-                    else{
-                        direction = "west";
-                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
-                    }
-                case "west":
-                    if(isWestPartOfRegion(currentCoordinate, plant) && !isSouthPartOfRegion(currentCoordinate, plant)){
-                        return calculateSides(turns, new Coordinate(currentX-1, currentY), startCoordinate, plant, direction);
-                    }
-                    else if(isSouthPartOfRegion(currentCoordinate, plant)){
-                        direction = "south";
-                        return calculateSides(turns+1, new Coordinate(currentX, currentY+1), startCoordinate, plant, direction);
-                    }
-                    else if(isNorthPartOfRegion(currentCoordinate, plant)){
-                        direction = "north";
-                        return calculateSides(turns+1, new Coordinate(currentX, currentY-1), startCoordinate, plant, direction);
-                    }
-                    else{
-                        direction = "north";
-                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
-                    }
-                case "north":
-                    if(isNorthPartOfRegion(currentCoordinate, plant) && !isWestPartOfRegion(currentCoordinate, plant)){
-                        return calculateSides(turns, new Coordinate(currentX, currentY-1), startCoordinate, plant, direction);
-                    }
-                    else if(isWestPartOfRegion(currentCoordinate, plant)){
-                        direction = "west";
-                        return calculateSides(turns+1, new Coordinate(currentX-1, currentY), startCoordinate, plant, direction);
-                    }
-                    else if(isEastPartOfRegion(currentCoordinate, plant)){
-                        direction = "east";
-                        return calculateSides(turns+1, new Coordinate(currentX+1, currentY), startCoordinate, plant, direction);
-                    }
-                    else{
-                        direction = "east";
-                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
-                    }
-                default:
-                    throw new AssertionError("Calculate sides brokey :(");
-            }
+        int currentX = currentCoordinate.getX();
+        int currentY = currentCoordinate.getY();   
+        switch (direction) {
+            case "east":
+                if (isEastPartOfRegion(currentCoordinate, plant) && !isNorthPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns, new Coordinate(currentX + 1, currentY), 
+                                        startCoordinate, plant, direction, visited);
+                }
+                else if (isNorthPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX, currentY - 1), 
+                                        startCoordinate, plant, "north", visited);
+                }
+                else if (isSouthPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX, currentY + 1), 
+                                        startCoordinate, plant, "south", visited);
+                }
+                else {
+                    return calculateSides(turns + 1, currentCoordinate, 
+                                        startCoordinate, plant, "south", visited);
+                }
+                
+            case "south":
+                if (isSouthPartOfRegion(currentCoordinate, plant) && !isEastPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns, new Coordinate(currentX, currentY + 1), 
+                                        startCoordinate, plant, direction, visited);
+                }
+                else if (isEastPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX + 1, currentY), 
+                                        startCoordinate, plant, "east", visited);
+                }
+                else if (isWestPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX - 1, currentY), 
+                                        startCoordinate, plant, "west", visited);
+                }
+                else {
+                    return calculateSides(turns + 1, currentCoordinate, 
+                                        startCoordinate, plant, "west", visited);
+                }
+                
+            case "west":
+                if (isWestPartOfRegion(currentCoordinate, plant) && !isSouthPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns, new Coordinate(currentX - 1, currentY), 
+                                        startCoordinate, plant, direction, visited);
+                }
+                else if (isSouthPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX, currentY + 1), 
+                                        startCoordinate, plant, "south", visited);
+                }
+                else if (isNorthPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX, currentY - 1), 
+                                        startCoordinate, plant, "north", visited);
+                }
+                else {
+                    return calculateSides(turns + 1, currentCoordinate, 
+                                        startCoordinate, plant, "north", visited);
+                }
+            case "north":
+                if (isNorthPartOfRegion(currentCoordinate, plant) && !isWestPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns, new Coordinate(currentX, currentY - 1), 
+                                        startCoordinate, plant, direction, visited);
+                }
+                else if (isWestPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX - 1, currentY), 
+                                        startCoordinate, plant, "west", visited);
+                }
+                else if (isEastPartOfRegion(currentCoordinate, plant)) {
+                    return calculateSides(turns + 1, new Coordinate(currentX + 1, currentY), 
+                                        startCoordinate, plant, "east", visited);
+                }
+                else {
+                    return calculateSides(turns + 1, currentCoordinate, 
+                                        startCoordinate, plant, "east", visited);
+                }     
+            default:
+                throw new AssertionError("Turn machine brokey :( -> Invalid direction: " + direction);
         }
     }
     private static int calculatePerimeter(Region r){
@@ -257,9 +274,7 @@ public class DayTwelve2024 {
         Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
         new Coordinate(4, 1), new Coordinate(5, 1));
         Region r = new Region(plots, 'I');
-        int turns = 0;
-        calculateSides(turns, findStartPoint(r), findStartPoint(r), r.getPlant(), "east");
-        return turns;
+        return calculateSides(r, findStartPoint(r))+1;
     }
 }
 class Region{

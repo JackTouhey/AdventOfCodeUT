@@ -12,7 +12,17 @@ public class DayTwelve2024 {
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
-        System.out.println("Perimiter test: " + complexTestOfCalculateSides());
+        System.out.println("Question Two cost: " + calculatePriceQuestionTwo());
+    }
+    private static int calculatePriceQuestionTwo(){
+        int count = 0;
+        for(Region r : regions){
+            int sides = calculateSides(r, findStartPoint(r));
+            int price = r.getPlots().size() * sides;
+            System.out.println("Plant: " + r.getPlant() + " sides: " + sides);
+            count += price;
+        }
+        return count;
     }
     private static int calculatePriceQuestionOne(){
         int count = 0;
@@ -146,7 +156,7 @@ public class DayTwelve2024 {
                                     Coordinate startCoordinate, char plant, 
                                     String direction, Set<String> visited) {
         String state = currentCoordinate.getX() + "," + currentCoordinate.getY() + ":" + direction;
-        System.out.println("State: " + state + " turns: " + turns);
+        // System.out.println("State: " + state + " turns: " + turns);
         if (visited.contains(state)) {
             throw new RuntimeException("Infinite loop detected at " + state);
         }

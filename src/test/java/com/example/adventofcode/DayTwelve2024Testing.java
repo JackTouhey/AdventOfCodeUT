@@ -61,4 +61,8 @@ class DayTwelve2024Testing {
     void checkRegionsLoading(){
         assertEquals(11, DayTwelve2024.getRegionsSize());
     }
+    @Test
+    void calculatePerimeterTest(){
+        assertEquals(8, DayTwelve2024.testCalculatePerimeter());
+    }
 }

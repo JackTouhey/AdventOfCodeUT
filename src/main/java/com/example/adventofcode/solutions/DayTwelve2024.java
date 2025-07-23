@@ -1,5 +1,6 @@
 package com.example.adventofcode.solutions;
 
+import java.util.Collections;
 import java.util.HashSet;
 
 import com.example.adventofcode.utils.Coordinate;
@@ -21,7 +22,7 @@ public class DayTwelve2024 {
                 Coordinate currentCoordinate = new Coordinate(x, y);
                 if(!loadedPlots.contains(currentCoordinate)){
                     Region newRegion = generateRegion(new HashSet<>(), currentCoordinate);
-                    newRegion.printSelf();
+                    // newRegion.printSelf();
                     returnSet.add(newRegion);
                     loadedPlots.addAll(newRegion.getPlots());
                 }
@@ -120,6 +121,37 @@ public class DayTwelve2024 {
             System.out.println();
         }
     }
+    private static int calculatePerimeter(Region r){
+        int perimeter = 0;
+        for(Coordinate c : r.getPlots()){
+            if(!isNorthPartOfRegion(c, r.getPlant()) || c.getY() == 0){
+                System.out.println("Perimeter detected north of " + c.toString());
+                perimeter++;
+            }
+            if(!isEastPartOfRegion(c, r.getPlant()) || c.getX() == garden[c.getY()].length-1){
+                System.out.println("Perimeter detected east of " + c.toString());
+                perimeter++;
+            }
+            if(!isSouthPartOfRegion(c, r.getPlant()) || c.getY() == garden.length-1){
+                System.out.println("Perimeter detected south of " + c.toString());
+                perimeter++;
+            }
+            if(!isWestPartOfRegion(c, r.getPlant()) || c.getX() == 0){
+                System.out.println("Perimeter detected west of " + c.toString());
+                perimeter++;
+            }
+        }
+        return perimeter;
+    }
+    //I know this should be in the testing file but was having issues moving Region to the utils folder to make it 
+    //accessible by the test file, and as such employed this temporary solution
+    public static int testCalculatePerimeter(){
+        HashSet<Coordinate> plots = new HashSet<>();
+        Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
+        new Coordinate(4, 1), new Coordinate(5, 1));
+        Region r = new Region(plots, 'I');
+        return calculatePerimeter(r);
+    }
 }
 class Region{
     private final HashSet<Coordinate> plots;
@@ -136,4 +168,5 @@ class Region{
         System.out.println();
     }
     public HashSet<Coordinate> getPlots(){return this.plots;}
+    public char getPlant(){return this.plant;}
 }

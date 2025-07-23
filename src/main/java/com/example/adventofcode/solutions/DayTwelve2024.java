@@ -137,6 +137,83 @@ public class DayTwelve2024 {
         }
         return startCoordinate;
     }
+    private static int calculateSides(int turns, Coordinate currentCoordinate, Coordinate startCoordinate, char plant, String direction){
+        int currentX = currentCoordinate.getX();
+        int currentY = currentCoordinate.getY();
+        if(startCoordinate.equals(currentCoordinate) && turns > 0){
+            return turns;
+        }
+        else{
+            switch (direction) {
+                case "east":
+                    if(isEastPartOfRegion(currentCoordinate, plant) && !isNorthPartOfRegion(currentCoordinate, plant)){
+                        return calculateSides(turns, new Coordinate(currentX+1, currentY), startCoordinate, plant, direction);
+                    }
+                    else if(isNorthPartOfRegion(currentCoordinate, plant)){
+                        direction = "north";
+                        return calculateSides(turns+1, new Coordinate(currentX, currentY-1), startCoordinate, plant, direction);
+                    }
+                    else if(isSouthPartOfRegion(currentCoordinate, plant)){
+                        direction = "south";
+                        return calculateSides(turns+1, new Coordinate(currentX, currentY+1), startCoordinate, plant, direction);
+                    }
+                    else{
+                        direction = "south";
+                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
+                    }
+                case "south":
+                    if(isSouthPartOfRegion(currentCoordinate, plant) && !isEastPartOfRegion(currentCoordinate, plant)){
+                        return calculateSides(turns, new Coordinate(currentX, currentY+1), startCoordinate, plant, direction);
+                    }
+                    else if(isEastPartOfRegion(currentCoordinate, plant)){
+                        direction = "east";
+                        return calculateSides(turns+1, new Coordinate(currentX+1, currentY), startCoordinate, plant, direction);
+                    }
+                    else if(isWestPartOfRegion(currentCoordinate, plant)){
+                        direction = "west";
+                        return calculateSides(turns+1, new Coordinate(currentX-1, currentY), startCoordinate, plant, direction);
+                    }
+                    else{
+                        direction = "west";
+                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
+                    }
+                case "west":
+                    if(isWestPartOfRegion(currentCoordinate, plant) && !isSouthPartOfRegion(currentCoordinate, plant)){
+                        return calculateSides(turns, new Coordinate(currentX-1, currentY), startCoordinate, plant, direction);
+                    }
+                    else if(isSouthPartOfRegion(currentCoordinate, plant)){
+                        direction = "south";
+                        return calculateSides(turns+1, new Coordinate(currentX, currentY+1), startCoordinate, plant, direction);
+                    }
+                    else if(isNorthPartOfRegion(currentCoordinate, plant)){
+                        direction = "north";
+                        return calculateSides(turns+1, new Coordinate(currentX, currentY-1), startCoordinate, plant, direction);
+                    }
+                    else{
+                        direction = "north";
+                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
+                    }
+                case "north":
+                    if(isNorthPartOfRegion(currentCoordinate, plant) && !isWestPartOfRegion(currentCoordinate, plant)){
+                        return calculateSides(turns, new Coordinate(currentX, currentY-1), startCoordinate, plant, direction);
+                    }
+                    else if(isWestPartOfRegion(currentCoordinate, plant)){
+                        direction = "west";
+                        return calculateSides(turns+1, new Coordinate(currentX-1, currentY), startCoordinate, plant, direction);
+                    }
+                    else if(isEastPartOfRegion(currentCoordinate, plant)){
+                        direction = "east";
+                        return calculateSides(turns+1, new Coordinate(currentX+1, currentY), startCoordinate, plant, direction);
+                    }
+                    else{
+                        direction = "east";
+                        return calculateSides(turns+1, currentCoordinate, startCoordinate, plant, direction);
+                    }
+                default:
+                    throw new AssertionError("Calculate sides brokey :(");
+            }
+        }
+    }
     private static int calculatePerimeter(Region r){
         int perimeter = 0;
         for(Coordinate c : r.getPlots()){
@@ -159,8 +236,8 @@ public class DayTwelve2024 {
         }
         return perimeter;
     }
-    //I know this should be in the testing file but was having issues moving Region to the utils folder to make it 
-    //accessible by the test file (which it should've been from the start), and as such employed this temporary solution
+    //I know these should be in the testing file but was having issues moving Region to the utils folder to make it 
+    //accessible by the test file (which it should've been from the start), and as such employed these substandard solution
     public static int testCalculatePerimeter(){
         HashSet<Coordinate> plots = new HashSet<>();
         Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
@@ -174,6 +251,15 @@ public class DayTwelve2024 {
         new Coordinate(4, 1), new Coordinate(5, 1));
         Region r = new Region(plots, 'I');
         return findStartPoint(r);
+    }
+    public static Integer basicTestOfCalculateSides(){
+        HashSet<Coordinate> plots = new HashSet<>();
+        Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
+        new Coordinate(4, 1), new Coordinate(5, 1));
+        Region r = new Region(plots, 'I');
+        int turns = 0;
+        calculateSides(turns, findStartPoint(r), findStartPoint(r), r.getPlant(), "east");
+        return turns;
     }
 }
 class Region{

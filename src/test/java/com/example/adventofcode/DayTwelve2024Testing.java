@@ -70,4 +70,8 @@ class DayTwelve2024Testing {
         Coordinate c1 = new Coordinate(4, 0);
         assertEquals(c1, DayTwelve2024.testFindStartPoint());
     }
+    @Test
+    void basicCalculateSidesTest(){
+        assertEquals(4, DayTwelve2024.basicTestOfCalculateSides());
+    }
 }

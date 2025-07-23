@@ -7,7 +7,7 @@ import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 
 public class DayTwelve2024 {
-    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveData.txt");
+    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData.txt");
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
@@ -128,6 +128,15 @@ public class DayTwelve2024 {
             System.out.println();
         }
     }
+    private static Coordinate findStartPoint(Region r){
+        Coordinate startCoordinate = new Coordinate(garden[0].length, garden.length);
+        for(Coordinate c : r.getPlots()){
+            if(startCoordinate.getX() + startCoordinate.getY() > c.getX() + c.getY()){
+                startCoordinate = c;
+            }
+        }
+        return startCoordinate;
+    }
     private static int calculatePerimeter(Region r){
         int perimeter = 0;
         for(Coordinate c : r.getPlots()){
@@ -151,13 +160,20 @@ public class DayTwelve2024 {
         return perimeter;
     }
     //I know this should be in the testing file but was having issues moving Region to the utils folder to make it 
-    //accessible by the test file (which it should've been from the start9), and as such employed this temporary solution
+    //accessible by the test file (which it should've been from the start), and as such employed this temporary solution
     public static int testCalculatePerimeter(){
         HashSet<Coordinate> plots = new HashSet<>();
         Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
         new Coordinate(4, 1), new Coordinate(5, 1));
         Region r = new Region(plots, 'I');
         return calculatePerimeter(r);
+    }
+    public static Coordinate testFindStartPoint(){
+        HashSet<Coordinate> plots = new HashSet<>();
+        Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
+        new Coordinate(4, 1), new Coordinate(5, 1));
+        Region r = new Region(plots, 'I');
+        return findStartPoint(r);
     }
 }
 class Region{

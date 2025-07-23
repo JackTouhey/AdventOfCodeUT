@@ -65,4 +65,9 @@ class DayTwelve2024Testing {
     void calculatePerimeterTest(){
         assertEquals(8, DayTwelve2024.testCalculatePerimeter());
     }
+    @Test 
+    void findStartPointTest(){
+        Coordinate c1 = new Coordinate(4, 0);
+        assertEquals(c1, DayTwelve2024.testFindStartPoint());
+    }
 }

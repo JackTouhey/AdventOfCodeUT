@@ -74,4 +74,8 @@ class DayTwelve2024Testing {
     void basicCalculateSidesTest(){
         assertEquals(4, DayTwelve2024.basicTestOfCalculateSides());
     }
+    @Test
+    void complexCalculateSidesTest(){
+        assertEquals(10, DayTwelve2024.complexTestOfCalculateSides());
+    }
 }

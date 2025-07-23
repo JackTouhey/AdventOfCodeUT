@@ -12,7 +12,7 @@ public class DayTwelve2024 {
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
-        System.out.println("Perimiter test: " + basicTestOfCalculateSides());
+        System.out.println("Perimiter test: " + complexTestOfCalculateSides());
     }
     private static int calculatePriceQuestionOne(){
         int count = 0;
@@ -140,18 +140,18 @@ public class DayTwelve2024 {
     }
     public static int calculateSides(Region region, Coordinate startPoint) {
         Set<String> visited = new HashSet<>();
-        return calculateSides(0, startPoint, startPoint, region.getPlant(), "east", visited);
+        return calculateSides(1, startPoint, startPoint, region.getPlant(), "east", visited);
     }
     private static int calculateSides(int turns, Coordinate currentCoordinate, 
                                     Coordinate startCoordinate, char plant, 
                                     String direction, Set<String> visited) {
         String state = currentCoordinate.getX() + "," + currentCoordinate.getY() + ":" + direction;
-        System.out.println("State: " + state);
+        System.out.println("State: " + state + " turns: " + turns);
         if (visited.contains(state)) {
             throw new RuntimeException("Infinite loop detected at " + state);
         }
         visited.add(state);
-        if (startCoordinate.equals(currentCoordinate) && turns > 0) {
+        if (startCoordinate.equals(currentCoordinate) && turns > 1) {
             return turns;
         }
         int currentX = currentCoordinate.getX();
@@ -269,12 +269,21 @@ public class DayTwelve2024 {
         Region r = new Region(plots, 'I');
         return findStartPoint(r);
     }
-    public static Integer basicTestOfCalculateSides(){
+    public static int basicTestOfCalculateSides(){
         HashSet<Coordinate> plots = new HashSet<>();
         Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
         new Coordinate(4, 1), new Coordinate(5, 1));
         Region r = new Region(plots, 'I');
-        return calculateSides(r, findStartPoint(r))+1;
+        return calculateSides(r, findStartPoint(r));
+    }
+    public static int complexTestOfCalculateSides(){
+        HashSet<Coordinate> plots = new HashSet<>();
+        Collections.addAll(plots, new Coordinate(0, 0), new Coordinate(1, 0),
+        new Coordinate(2, 0), new Coordinate(3, 0), new Coordinate(0, 1), new Coordinate(1, 1),
+        new Coordinate(2, 1), new Coordinate(3, 1), new Coordinate(2, 2), new Coordinate(3, 2),
+        new Coordinate(4, 2), new Coordinate(2, 3));
+        Region r = new Region(plots, 'R');
+        return calculateSides(r, findStartPoint(r));
     }
 }
 class Region{

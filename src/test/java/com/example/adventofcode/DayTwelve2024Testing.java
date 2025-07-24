@@ -13,6 +13,7 @@ import com.example.adventofcode.utils.Coordinate;
 
 
 class DayTwelve2024Testing {
+    //Requires original test data
     @Test
     void isNorthPartOfRegionTest() {
         Coordinate c1 = new Coordinate(0, 1);
@@ -70,7 +71,7 @@ class DayTwelve2024Testing {
         Coordinate c1 = new Coordinate(4, 0);
         assertEquals(c1, DayTwelve2024.testFindStartPoint());
     }
-    //Testing on test data 2
+    //Requires test data 2
     @Test
     void isConvexCornerTopLeft(){
         Coordinate c1 = new Coordinate(0, 0);
@@ -93,6 +94,31 @@ class DayTwelve2024Testing {
     }
     @Test
     void isConvexCornerFailState(){
+        Coordinate c1 = new Coordinate(1, 1);
+        assertFalse(DayTwelve2024.isConvexCorner(c1, 'A'));
+    }
+    @Test 
+    void isConcaveCornerTopLeft(){
+        Coordinate c1 = new Coordinate(0, 2);
+        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    }
+    @Test 
+    void isConcaveCornerTopRight(){
+        Coordinate c1 = new Coordinate(5, 0);
+        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    }
+    @Test 
+    void isConcaveCornerBottomLeft(){
+        Coordinate c1 = new Coordinate(0, 5);
+        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    }
+    @Test 
+    void isConcaveCornerBottomRight(){
+        Coordinate c1 = new Coordinate(3, 5);
+        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    }
+    @Test
+    void isConcaveCornerFailState(){
         Coordinate c1 = new Coordinate(1, 1);
         assertFalse(DayTwelve2024.isConvexCorner(c1, 'A'));
     }

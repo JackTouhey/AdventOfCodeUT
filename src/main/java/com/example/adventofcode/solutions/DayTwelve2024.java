@@ -7,7 +7,7 @@ import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 
 public class DayTwelve2024 {
-    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData2.txt");
+    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData.txt");
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
@@ -25,16 +25,25 @@ public class DayTwelve2024 {
     }
     private static int calculateCorners(Region r){
         int count = 0;
+        System.out.println("Calculating corners on plant " + r.getPlant());
         for(Coordinate c : r.getPlots()){
-            if(isConvexCorner(c, r.getPlant())){
-                count++;
+            if(r.getPlots().size() == 1){
+                count += 4;
             }
-            if(isConcaveCorner(c, r.getPlant())){
-                count++;
-            }
-            if(isPoint(c, r.getPlant())){
-                System.out.println("point found " + c.toString());
-                count += 3;
+            else{
+                if(isConvexCorner(c, r.getPlant())){
+                    count++;
+                    System.out.println("Found convex corner at " + c.toString() + " count: " + count);
+                }
+                int concaveCorners = countConcaveCorners(c, r.getPlant());
+                if(concaveCorners > 0){
+                    count += concaveCorners;
+                    System.out.println("Found " + concaveCorners + " concave corners at " + c.toString() + " count: " + count);
+                }
+                if(isPoint(c, r.getPlant())){
+                    count += 2;
+                    System.out.println("point found " + c.toString() + " count: " + count);
+                }
             }
         }
         return count;
@@ -211,33 +220,43 @@ public class DayTwelve2024 {
     public static Boolean isConvexCorner(Coordinate c, char plant){
         //Top left corner
         if(isSouthPartOfRegion(c, plant) && isEastPartOfRegion(c, plant) && !isWestPartOfRegion(c, plant) && !isNorthPartOfRegion(c, plant)){
+            // System.out.println("Found top left convex corner for plant " + plant + "at" + c.toString());
             return true;
         }
         //Top right corner
         else if(isSouthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant) && !isNorthPartOfRegion(c, plant)){
+            // System.out.println("Found top right convex corner for plant " + plant + "at" + c.toString());
             return true;
         }
         //Bottom left corner
         else if(isNorthPartOfRegion(c, plant) && isEastPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && !isWestPartOfRegion(c, plant)){
+            // System.out.println("Found bottom left convex corner for plant " + plant + "at" + c.toString());
             return true;
         }
         else return isNorthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant);
     }
-    public static Boolean isConcaveCorner(Coordinate c, char plant){
+    public static int countConcaveCorners(Coordinate c, char plant){
+        int count = 0;
         //Top left corner
         if(isEastPartOfRegion(c, plant) && isSouthPartOfRegion(c, plant) && !isSEPartOfRegion(c, plant)){
-            return true;
+            // System.out.println("Found top left concave corner for plant " + plant + "at" + c.toString());
+            count++;
         }
         //Top right corner
-        else if(isWestPartOfRegion(c, plant) && isSouthPartOfRegion(c, plant) && !isSWPartOfRegion(c, plant)){
-            return true;
+        if(isWestPartOfRegion(c, plant) && isSouthPartOfRegion(c, plant) && !isSWPartOfRegion(c, plant)){
+            // System.out.println("Found top right concave corner for plant " + plant + "at" + c.toString());
+            count++;
         }
         //Bottom left corner
-        else if(isEastPartOfRegion(c, plant) && isNorthPartOfRegion(c, plant) && !isNEPartOfRegion(c, plant)){
-            return true;
+        if(isEastPartOfRegion(c, plant) && isNorthPartOfRegion(c, plant) && !isNEPartOfRegion(c, plant)){
+            // System.out.println("Found bottom left concave corner for plant " + plant + "at" + c.toString());
+            count++;
         }
         //Bottom right corner
-        else return isWestPartOfRegion(c, plant) && isNorthPartOfRegion(c, plant) && !isNWPartOfRegion(c, plant);
+        if (isWestPartOfRegion(c, plant) && isNorthPartOfRegion(c, plant) && !isNWPartOfRegion(c, plant)){
+            count++;
+        }
+        return count;
     }
     public static Boolean isPoint(Coordinate c, char plant){
         //Top point

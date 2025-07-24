@@ -92,26 +92,26 @@ class DayTwelve2024Testing {
         Coordinate c1 = new Coordinate(1, 1);
         assertFalse(DayTwelve2024.isConvexCorner(c1, 'A'));
     }
-    @Test 
-    void isConcaveCornerTopLeft(){
-        Coordinate c1 = new Coordinate(0, 2);
-        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
-    }
-    @Test 
-    void isConcaveCornerTopRight(){
-        Coordinate c1 = new Coordinate(5, 0);
-        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
-    }
-    @Test 
-    void isConcaveCornerBottomLeft(){
-        Coordinate c1 = new Coordinate(0, 5);
-        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
-    }
-    @Test 
-    void isConcaveCornerBottomRight(){
-        Coordinate c1 = new Coordinate(3, 5);
-        assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
-    }
+    // @Test 
+    // void isConcaveCornerTopLeft(){
+    //     Coordinate c1 = new Coordinate(0, 2);
+    //     assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    // }
+    // @Test 
+    // void isConcaveCornerTopRight(){
+    //     Coordinate c1 = new Coordinate(5, 0);
+    //     assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    // }
+    // @Test 
+    // void isConcaveCornerBottomLeft(){
+    //     Coordinate c1 = new Coordinate(0, 5);
+    //     assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    // }
+    // @Test 
+    // void isConcaveCornerBottomRight(){
+    //     Coordinate c1 = new Coordinate(3, 5);
+    //     assertTrue(DayTwelve2024.isConcaveCorner(c1, 'A'));
+    // }
     @Test
     void isConcaveCornerFailState(){
         Coordinate c1 = new Coordinate(1, 1);

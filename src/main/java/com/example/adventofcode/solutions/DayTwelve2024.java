@@ -7,7 +7,7 @@ import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 
 public class DayTwelve2024 {
-    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData.txt");
+    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData2.txt");
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
@@ -191,7 +191,7 @@ public class DayTwelve2024 {
         }
         return perimeter;
     }
-    private static Boolean isConvexCorner(Coordinate c, char plant){
+    public static Boolean isConvexCorner(Coordinate c, char plant){
         //Top left corner
         if(isSouthPartOfRegion(c, plant) && isEastPartOfRegion(c, plant) && !isWestPartOfRegion(c, plant) && !isNorthPartOfRegion(c, plant)){
             return true;
@@ -206,7 +206,7 @@ public class DayTwelve2024 {
         }
         else return isNorthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant);
     }
-
+    
     //I know this should be in the testing file but was having issues moving Region to the utils folder to make it 
     //accessible by the test file (which it should've been from the start), and as such employed this temporary solution
     public static int testCalculatePerimeter(){

@@ -70,4 +70,30 @@ class DayTwelve2024Testing {
         Coordinate c1 = new Coordinate(4, 0);
         assertEquals(c1, DayTwelve2024.testFindStartPoint());
     }
+    //Testing on test data 2
+    @Test
+    void isConvexCornerTopLeft(){
+        Coordinate c1 = new Coordinate(0, 0);
+        assertTrue(DayTwelve2024.isConvexCorner(c1, 'A'));
+    }
+    @Test
+    void isConvexCornerTopRight(){
+        Coordinate c1 = new Coordinate(5, 0);
+        assertTrue(DayTwelve2024.isConvexCorner(c1, 'A'));
+    }
+    @Test
+    void isConvexCornerBottomLeft(){
+        Coordinate c1 = new Coordinate(0, 5);
+        assertTrue(DayTwelve2024.isConvexCorner(c1, 'A'));
+    }
+    @Test
+    void isConvexCornerBottomRight(){
+        Coordinate c1 = new Coordinate(5, 5);
+        assertTrue(DayTwelve2024.isConvexCorner(c1, 'A'));
+    }
+    @Test
+    void isConvexCornerFailState(){
+        Coordinate c1 = new Coordinate(1, 1);
+        assertFalse(DayTwelve2024.isConvexCorner(c1, 'A'));
+    }
 }

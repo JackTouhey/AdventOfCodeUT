@@ -242,14 +242,17 @@ public class DayTwelve2024 {
     public static Boolean isPoint(Coordinate c, char plant){
         //Top point
         if(!isWestPartOfRegion(c, plant) && !isNorthPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant) && isSouthPartOfRegion(c, plant)){
+            // System.out.println("Top point found: " + c.toString());
             return true;
         }
         //Right point
-        else if(!isNorthPartOfRegion(c, plant) && isEastPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant)){
+        else if(!isNorthPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant)){
+            // System.out.println("Right point found: " + c.toString());
             return true;
         }
         //Bottom point
         else if(!isEastPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && !isWestPartOfRegion(c, plant) && isNorthPartOfRegion(c, plant)){
+            // System.out.println("Bottom point found: " + c.toString());
             return true;
         }
         //Left point

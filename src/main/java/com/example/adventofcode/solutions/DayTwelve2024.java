@@ -160,15 +160,6 @@ public class DayTwelve2024 {
             System.out.println();
         }
     }
-    private static Coordinate findStartPoint(Region r){
-        Coordinate startCoordinate = new Coordinate(garden[0].length, garden.length);
-        for(Coordinate c : r.getPlots()){
-            if(startCoordinate.getX() + startCoordinate.getY() > c.getX() + c.getY()){
-                startCoordinate = c;
-            }
-        }
-        return startCoordinate;
-    }
     private static int calculatePerimeter(Region r){
         int perimeter = 0;
         for(Coordinate c : r.getPlots()){
@@ -246,13 +237,6 @@ public class DayTwelve2024 {
         new Coordinate(4, 1), new Coordinate(5, 1));
         Region r = new Region(plots, 'I');
         return calculatePerimeter(r);
-    }
-    public static Coordinate testFindStartPoint(){
-        HashSet<Coordinate> plots = new HashSet<>();
-        Collections.addAll(plots, new Coordinate(4, 0), new Coordinate(5, 0),
-        new Coordinate(4, 1), new Coordinate(5, 1));
-        Region r = new Region(plots, 'I');
-        return findStartPoint(r);
     }
 }
 class Region{

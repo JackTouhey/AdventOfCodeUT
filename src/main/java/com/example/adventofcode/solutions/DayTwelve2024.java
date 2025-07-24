@@ -159,6 +159,23 @@ public class DayTwelve2024 {
         }
         return perimeter;
     }
+    private static Boolean isConvexCorner(Coordinate c, char plant){
+        //Top left corner
+        if(isSouthPartOfRegion(c, plant) && isEastPartOfRegion(c, plant) && !isWestPartOfRegion(c, plant) && !isNorthPartOfRegion(c, plant)){
+            return true;
+        }
+        //Top right corner
+        else if(isSouthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant) && !isNorthPartOfRegion(c, plant)){
+            return true;
+        }
+        //Bottom left corner
+        else if(isNorthPartOfRegion(c, plant) && isEastPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && !isWestPartOfRegion(c, plant)){
+            return true;
+        }
+        else if(isNorthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant)){
+            return false;
+        }
+    }
     //I know this should be in the testing file but was having issues moving Region to the utils folder to make it 
     //accessible by the test file (which it should've been from the start), and as such employed this temporary solution
     public static int testCalculatePerimeter(){

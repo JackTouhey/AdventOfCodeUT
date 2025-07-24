@@ -7,7 +7,7 @@ import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 
 public class DayTwelve2024 {
-    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveTestData.txt");
+    private static final char[][] garden = DataLoader.generateCharGrid("DataFiles\\DayTwelveData.txt");
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
@@ -33,16 +33,16 @@ public class DayTwelve2024 {
             else{
                 if(isConvexCorner(c, r.getPlant())){
                     count++;
-                    System.out.println("Found convex corner at " + c.toString() + " count: " + count);
+                    // System.out.println("Found convex corner at " + c.toString() + " count: " + count);
                 }
                 int concaveCorners = countConcaveCorners(c, r.getPlant());
                 if(concaveCorners > 0){
                     count += concaveCorners;
-                    System.out.println("Found " + concaveCorners + " concave corners at " + c.toString() + " count: " + count);
+                    // System.out.println("Found " + concaveCorners + " concave corners at " + c.toString() + " count: " + count);
                 }
                 if(isPoint(c, r.getPlant())){
                     count += 2;
-                    System.out.println("point found " + c.toString() + " count: " + count);
+                    // System.out.println("point found " + c.toString() + " count: " + count);
                 }
             }
         }

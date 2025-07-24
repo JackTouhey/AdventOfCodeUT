@@ -11,7 +11,33 @@ public class DayTwelve2024 {
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
-        System.out.println("Total price of fencing for question one: " + calculatePriceQuestionOne());
+        // System.out.println("Total price of fencing for question one: " + calculatePriceQuestionOne());
+        System.out.println("Total price of fencing for question two: " + calculatePriceQuestionTwo());
+    }
+    private static int calculatePriceQuestionTwo(){
+        int count = 0;
+        for(Region r : regions){
+            int corners = calculateCorners(r);
+            System.out.println("Plot " + r.getPlant() + " corners: " + corners);
+            count += r.getPlots().size() * corners;
+        }
+        return count;
+    }
+    private static int calculateCorners(Region r){
+        int count = 0;
+        for(Coordinate c : r.getPlots()){
+            if(isConvexCorner(c, r.getPlant())){
+                count++;
+            }
+            if(isConcaveCorner(c, r.getPlant())){
+                count++;
+            }
+            if(isPoint(c, r.getPlant())){
+                System.out.println("point found " + c.toString());
+                count += 3;
+            }
+        }
+        return count;
     }
     private static int calculatePriceQuestionOne(){
         int count = 0;
@@ -19,6 +45,28 @@ public class DayTwelve2024 {
             count += (r.getPlots().size() * calculatePerimeter(r));
         }
         return count;
+    }
+    private static int calculatePerimeter(Region r){
+        int perimeter = 0;
+        for(Coordinate c : r.getPlots()){
+            if(!isNorthPartOfRegion(c, r.getPlant()) || c.getY() == 0){
+                // System.out.println("Perimeter detected north of " + c.toString());
+                perimeter++;
+            }
+            if(!isEastPartOfRegion(c, r.getPlant()) || c.getX() == garden[c.getY()].length-1){
+                // System.out.println("Perimeter detected east of " + c.toString());
+                perimeter++;
+            }
+            if(!isSouthPartOfRegion(c, r.getPlant()) || c.getY() == garden.length-1){
+                // System.out.println("Perimeter detected south of " + c.toString());
+                perimeter++;
+            }
+            if(!isWestPartOfRegion(c, r.getPlant()) || c.getX() == 0){
+                // System.out.println("Perimeter detected west of " + c.toString());
+                perimeter++;
+            }
+        }
+        return perimeter;
     }
     public static int getRegionsSize(){return regions.size();}
     private static HashSet<Region> loadRegions(){
@@ -159,28 +207,6 @@ public class DayTwelve2024 {
             }
             System.out.println();
         }
-    }
-    private static int calculatePerimeter(Region r){
-        int perimeter = 0;
-        for(Coordinate c : r.getPlots()){
-            if(!isNorthPartOfRegion(c, r.getPlant()) || c.getY() == 0){
-                // System.out.println("Perimeter detected north of " + c.toString());
-                perimeter++;
-            }
-            if(!isEastPartOfRegion(c, r.getPlant()) || c.getX() == garden[c.getY()].length-1){
-                // System.out.println("Perimeter detected east of " + c.toString());
-                perimeter++;
-            }
-            if(!isSouthPartOfRegion(c, r.getPlant()) || c.getY() == garden.length-1){
-                // System.out.println("Perimeter detected south of " + c.toString());
-                perimeter++;
-            }
-            if(!isWestPartOfRegion(c, r.getPlant()) || c.getX() == 0){
-                // System.out.println("Perimeter detected west of " + c.toString());
-                perimeter++;
-            }
-        }
-        return perimeter;
     }
     public static Boolean isConvexCorner(Coordinate c, char plant){
         //Top left corner

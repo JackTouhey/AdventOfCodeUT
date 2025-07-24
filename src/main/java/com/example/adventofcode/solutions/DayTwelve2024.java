@@ -113,11 +113,43 @@ public class DayTwelve2024 {
         }
     }
     public static Boolean isEastPartOfRegion(Coordinate c, char plant){
-        if(c.getX() + 1 >= garden.length){
+        if(c.getX() + 1 >= garden[c.getY()].length){
             return false;
         }
         else{
             return plant == garden[c.getY()][c.getX()+1];
+        }
+    }
+    public static Boolean isNWPartOfRegion(Coordinate c, char plant){
+        if(c.getX()-1 < 0 || c.getY()-1 < 0){
+            return false;
+        }
+        else{
+            return plant == garden[c.getY()-1][c.getX()-1];
+        }
+    }
+    public static Boolean isNEPartOfRegion(Coordinate c, char plant){
+        if(c.getX()+1 >= garden[c.getY()].length || c.getY()-1 < 0){
+            return false;
+        }
+        else{
+            return plant == garden[c.getY()-1][c.getX()+1];
+        }
+    }
+    public static Boolean isSWPartOfRegion(Coordinate c, char plant){
+        if(c.getX()-1 < 0 || c.getY()+1 >= garden.length){
+            return false;
+        }
+        else{
+            return plant == garden[c.getY()+1][c.getX()-1];
+        }
+    }
+    public static Boolean isSEPartOfRegion(Coordinate c, char plant){
+        if(c.getX()+1 >= garden[c.getY()].length || c.getY()+1 >= garden.length){
+            return false;
+        }
+        else{
+            return plant == garden[c.getY()+1][c.getX()+1];
         }
     }
     private static void printGarden(){
@@ -174,6 +206,7 @@ public class DayTwelve2024 {
         }
         else return isNorthPartOfRegion(c, plant) && isWestPartOfRegion(c, plant) && !isSouthPartOfRegion(c, plant) && !isEastPartOfRegion(c, plant);
     }
+
     //I know this should be in the testing file but was having issues moving Region to the utils folder to make it 
     //accessible by the test file (which it should've been from the start), and as such employed this temporary solution
     public static int testCalculatePerimeter(){

@@ -11,8 +11,9 @@ public class DayTwelve2024 {
     private static final HashSet<Region> regions = loadRegions();
     public DayTwelve2024(){}
     public static void main(String[] args) {
+        printGarden();
         // System.out.println("Total price of fencing for question one: " + calculatePriceQuestionOne());
-        System.out.println("Total price of fencing for question two: " + calculatePriceQuestionTwo());
+        // System.out.println("Total price of fencing for question two: " + calculatePriceQuestionTwo());
     }
     private static int calculatePriceQuestionTwo(){
         int count = 0;

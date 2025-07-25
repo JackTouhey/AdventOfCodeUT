@@ -14,7 +14,7 @@ public class DayThirteen2024 {
     public DayThirteen2024(){}
     private static void printMachines(){
         for(ClawMachine c : clawMachines){
-            System.out.println(c.toString());
+            System.out.println(c.toString() + " isSolvable " + c.isSolvable());
         }
     }
 }

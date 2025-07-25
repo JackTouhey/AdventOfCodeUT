@@ -3,6 +3,7 @@ package com.example.adventofcode.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class DataLoader {
@@ -154,5 +155,36 @@ public class DataLoader {
             } catch (Exception e) {}
         }
         return grid;
+    }
+    public static HashSet<ClawMachine> loadDayThirteen(String filePath){
+        HashSet<ClawMachine> returnSet = new HashSet<>();
+        try(Scanner sc = new Scanner(new File(filePath))){
+            while(sc.hasNext()){
+                Scanner buttonAScanner = new Scanner(sc.nextLine());
+                Scanner buttonBScanner = new Scanner(sc.nextLine());
+                Scanner prizeScanner = new Scanner(sc.nextLine());
+                buttonAScanner.useDelimiter(",");
+                buttonBScanner.useDelimiter(",");
+                prizeScanner.useDelimiter(",");
+                int buttonAX = Integer.parseInt(buttonAScanner.next().substring(12));
+                int buttonAY = Integer.parseInt(buttonAScanner.next().substring(3));
+                int buttonBX = Integer.parseInt(buttonBScanner.next().substring(12));
+                int buttonBY = Integer.parseInt(buttonBScanner.next().substring(3));
+                int prizeX = Integer.parseInt(prizeScanner.next().substring(9));
+                int prizeY = Integer.parseInt(prizeScanner.next().substring(3));
+                buttonAScanner.close();
+                buttonBScanner.close();
+                prizeScanner.close();
+                Coordinate buttonA = new Coordinate(buttonAX, buttonAY);
+                Coordinate buttonB = new Coordinate(buttonBX, buttonBY);
+                Coordinate prize = new Coordinate(prizeX, prizeY);
+                returnSet.add(new ClawMachine(buttonA, buttonB, prize));
+                if(sc.hasNext()){
+                    sc.nextLine();
+                }   
+            }
+        }
+        catch(FileNotFoundException e){}
+        return returnSet;
     }
 }

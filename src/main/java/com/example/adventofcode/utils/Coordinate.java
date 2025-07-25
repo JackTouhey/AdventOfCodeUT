@@ -19,6 +19,10 @@ public class Coordinate {
         return this.y; 
     }
     
+    public Coordinate addCoordinate(Coordinate c){
+        return new Coordinate(this.x + c.getX(), this.y + c.getY());
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

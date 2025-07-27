@@ -27,10 +27,12 @@ public class DayThirteen2024 {
         double xPushes = (double)prize.getX()/button.getX();
         double yPushes = (double)prize.getY()/button.getY();
         double startingPushes = xPushes < yPushes ? xPushes : yPushes;
+        System.out.println("xPushes: " + xPushes + " yPushes: " + yPushes + " prizeY: " + prize.getY() + " bY: " + button.getY());
         return (int)Math.ceil(startingPushes);
     }
     public static HashMap<String, Integer> getAandBcount(ClawMachine cm){
         Boolean isStartingA = isButtonACheapest(cm);
+        System.out.println("isStartingA: " + isStartingA);
         if(isStartingA){
             return findPushesStartingA(cm);
         }
@@ -43,14 +45,16 @@ public class DayThirteen2024 {
         int currentAPushes = getStartingPushes(cm.getButtonA(), cm.getPrize());
         int currentBPushes = 0;
         while(currentAPushes > 0){
+            System.out.println("About to check before reducing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
             if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                 aAndBCount.put("A", currentAPushes);
                 aAndBCount.put("B", currentBPushes);
                 return aAndBCount;
             }
             currentAPushes--;
-            while(currentBPushes * cm.getButtonB().getX() <= cm.getPrize().getX() &&
-            currentBPushes * cm.getButtonB().getY() <= cm.getPrize().getY()){
+            while((currentAPushes * cm.getButtonA().getX()) + (currentBPushes * cm.getButtonB().getX()) <= cm.getPrize().getX() &&
+            (currentAPushes * cm.getButtonA().getY()) + (currentBPushes * cm.getButtonB().getY()) <= cm.getPrize().getY()){
+                System.out.println("About to check before increasing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
                 currentBPushes++;
                 if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                     aAndBCount.put("A", currentAPushes);
@@ -66,14 +70,16 @@ public class DayThirteen2024 {
         int currentAPushes = 0;
         int currentBPushes = getStartingPushes(cm.getButtonB(), cm.getPrize());
         while(currentBPushes > 0){
+            System.out.println("About to check before reducing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
             if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                 aAndBCount.put("A", currentAPushes);
                 aAndBCount.put("B", currentBPushes);
                 return aAndBCount;
             }
             currentBPushes--;
-            while(currentAPushes * cm.getButtonA().getX() <= cm.getPrize().getX() &&
-            currentAPushes * cm.getButtonA().getY() <= cm.getPrize().getY()){
+            while((currentAPushes * cm.getButtonA().getX()) + (currentBPushes * cm.getButtonB().getX()) <= cm.getPrize().getX() &&
+            (currentAPushes * cm.getButtonA().getY()) + (currentBPushes * cm.getButtonB().getY()) <= cm.getPrize().getY()){
+                System.out.println("About to check before increasing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
                 currentAPushes++;
                 if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                     aAndBCount.put("A", currentAPushes);

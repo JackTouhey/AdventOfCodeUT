@@ -33,8 +33,8 @@ public class DayThirteen2024Testing {
     }
     @Test
     void testFindButtonAPushes(){
-        Coordinate b = new Coordinate(94, 34);
-        Coordinate a = new Coordinate(22,67);
+        Coordinate a = new Coordinate(94, 34);
+        Coordinate b = new Coordinate(22,67);
         Coordinate prize = new Coordinate(8400,5400);
         ClawMachine cm = new ClawMachine(a, b, prize);
         assertEquals(80, DayThirteen2024.getAandBcount(cm).get("A"));

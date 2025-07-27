@@ -35,13 +35,16 @@ public class DayThirteen2024 {
         int currentAPushes = isStartingA ? getStartingPushes(cm.getButtonA(), cm.getPrize()) : 0;
         int currentBPushes = isStartingA ? 0 : getStartingPushes(cm.getButtonB(), cm.getPrize());
         for(int i = isStartingA ? currentAPushes : currentBPushes; i > 0; i--){
-            if((currentAPushes * cm.getButtonA().getX()) + (currentBPushes * cm.getButtonB().getX()) == cm.getPrize().getX()
-            && (currentAPushes * cm.getButtonA().getY()) + (currentBPushes * cm.getButtonB().getY()) == cm.getPrize().getY()){
+            if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                 aAndBCount.put("A", currentAPushes);
                 aAndBCount.put("B", currentBPushes);
                 return aAndBCount;
             }
         }  
         return aAndBCount;      
+    }
+    public static Boolean doPushesGetPrize(int aPushes, int bPushes, ClawMachine cm){
+        return (aPushes * cm.getButtonA().getX()) + (bPushes * cm.getButtonB().getX()) == cm.getPrize().getX()
+            && (aPushes * cm.getButtonA().getY()) + (bPushes * cm.getButtonB().getY()) == cm.getPrize().getY();
     }
 }

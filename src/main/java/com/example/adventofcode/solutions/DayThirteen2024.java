@@ -10,9 +10,21 @@ import com.example.adventofcode.utils.DataLoader;
 public class DayThirteen2024 {
     private static final HashSet<ClawMachine> clawMachines = DataLoader.loadDayThirteen("DataFiles\\DayThirteenTestData.txt");
     public static void main(String[] args) {
-        printMachines();
+        // printMachines();
+        sumPrizes();
     }
     public DayThirteen2024(){}
+    public static void sumPrizes(){
+        int count = 0;
+        for(ClawMachine cm : clawMachines){
+            if(cm.isSolvable()){
+                HashMap<String, Integer> AandBCounts = getAandBcount(cm);
+                count += AandBCounts.get("A") * 3;
+                count += AandBCounts.get("B");
+            }
+        }
+        System.out.println("Count: " + count);
+    }
     private static void printMachines(){
         for(ClawMachine c : clawMachines){
             System.out.println(c.toString() + " isSolvable " + c.isSolvable() + " is a cheapest: " + isButtonACheapest(c));

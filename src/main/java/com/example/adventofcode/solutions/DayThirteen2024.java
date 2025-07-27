@@ -30,18 +30,39 @@ public class DayThirteen2024 {
         return (int)Math.ceil(startingPushes);
     }
     public static HashMap<String, Integer> getAandBcount(ClawMachine cm){
-        HashMap<String, Integer> aAndBCount = new HashMap<>();
         Boolean isStartingA = isButtonACheapest(cm);
-        int currentAPushes = isStartingA ? getStartingPushes(cm.getButtonA(), cm.getPrize()) : 0;
-        int currentBPushes = isStartingA ? 0 : getStartingPushes(cm.getButtonB(), cm.getPrize());
-        for(int i = isStartingA ? currentAPushes : currentBPushes; i > 0; i--){
+        if(isStartingA){
+            return findPushesStartingA(cm);
+        }
+        else{
+            return findPushesStartingB(cm);
+        }
+    }
+    public static HashMap<String, Integer> findPushesStartingA(ClawMachine cm){
+        HashMap<String, Integer> aAndBCount = new HashMap<>();
+        int currentAPushes = getStartingPushes(cm.getButtonA(), cm.getPrize());
+        int currentBPushes = 0;
+        while(currentAPushes > 0){
             if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                 aAndBCount.put("A", currentAPushes);
                 aAndBCount.put("B", currentBPushes);
                 return aAndBCount;
             }
-        }  
-        return aAndBCount;      
+        }
+        return aAndBCount;
+    }
+    public static HashMap<String, Integer> findPushesStartingB(ClawMachine cm){
+        HashMap<String, Integer> aAndBCount = new HashMap<>();
+        int currentAPushes = 0;
+        int currentBPushes = getStartingPushes(cm.getButtonB(), cm.getPrize());
+        while(currentBPushes > 0){
+            if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
+                aAndBCount.put("A", currentAPushes);
+                aAndBCount.put("B", currentBPushes);
+                return aAndBCount;
+            }
+        }
+        return aAndBCount;
     }
     public static Boolean doPushesGetPrize(int aPushes, int bPushes, ClawMachine cm){
         return (aPushes * cm.getButtonA().getX()) + (bPushes * cm.getButtonB().getX()) == cm.getPrize().getX()

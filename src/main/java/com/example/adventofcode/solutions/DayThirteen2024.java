@@ -48,6 +48,16 @@ public class DayThirteen2024 {
                 aAndBCount.put("B", currentBPushes);
                 return aAndBCount;
             }
+            currentAPushes--;
+            while(currentBPushes * cm.getButtonB().getX() <= cm.getPrize().getX() &&
+            currentBPushes * cm.getButtonB().getY() <= cm.getPrize().getY()){
+                currentBPushes++;
+                if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
+                    aAndBCount.put("A", currentAPushes);
+                    aAndBCount.put("B", currentBPushes);
+                    return aAndBCount;
+                }
+            }
         }
         return aAndBCount;
     }
@@ -60,6 +70,16 @@ public class DayThirteen2024 {
                 aAndBCount.put("A", currentAPushes);
                 aAndBCount.put("B", currentBPushes);
                 return aAndBCount;
+            }
+            currentBPushes--;
+            while(currentAPushes * cm.getButtonA().getX() <= cm.getPrize().getX() &&
+            currentAPushes * cm.getButtonA().getY() <= cm.getPrize().getY()){
+                currentAPushes++;
+                if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
+                    aAndBCount.put("A", currentAPushes);
+                    aAndBCount.put("B", currentBPushes);
+                    return aAndBCount;
+                }
             }
         }
         return aAndBCount;

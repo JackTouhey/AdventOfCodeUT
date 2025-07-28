@@ -8,7 +8,7 @@ import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 
 public class DayThirteen2024 {
-    private static final HashSet<ClawMachine> clawMachines = DataLoader.loadDayThirteen("DataFiles\\DayThirteenTestData.txt");
+    private static final HashSet<ClawMachine> clawMachines = DataLoader.loadDayThirteen("DataFiles\\DayThirteenData.txt");
     public static void main(String[] args) {
         // printMachines();
         sumPrizes();
@@ -19,8 +19,17 @@ public class DayThirteen2024 {
         for(ClawMachine cm : clawMachines){
             if(cm.isSolvable()){
                 HashMap<String, Integer> AandBCounts = getAandBcount(cm);
-                count += AandBCounts.get("A") * 3;
-                count += AandBCounts.get("B");
+                if(AandBCounts.get("A") == null){
+                    AandBCounts = getAandBcountReversed(cm);
+                    if(AandBCounts.get("A") != null){
+                        count += AandBCounts.get("A") * 3;
+                        count += AandBCounts.get("B");
+                    }
+                }
+                else{
+                    count += AandBCounts.get("A") * 3;
+                    count += AandBCounts.get("B");
+                }
             }
         }
         System.out.println("Count: " + count);
@@ -39,13 +48,23 @@ public class DayThirteen2024 {
         double xPushes = (double)prize.getX()/button.getX();
         double yPushes = (double)prize.getY()/button.getY();
         double startingPushes = xPushes < yPushes ? xPushes : yPushes;
-        System.out.println("xPushes: " + xPushes + " yPushes: " + yPushes + " prizeY: " + prize.getY() + " bY: " + button.getY());
+        System.out.println("xPushes: " + xPushes + " yPushes: " + yPushes + " prizeX: " + prize.getX() + " bX: " + button.getX() + " prizeY: " + prize.getY() + " bY: " + button.getY());
         return (int)Math.ceil(startingPushes);
     }
     public static HashMap<String, Integer> getAandBcount(ClawMachine cm){
         Boolean isStartingA = isButtonACheapest(cm);
         System.out.println("isStartingA: " + isStartingA);
         if(isStartingA){
+            return findPushesStartingA(cm);
+        }
+        else{
+            return findPushesStartingB(cm);
+        }
+    }
+    public static HashMap<String, Integer> getAandBcountReversed(ClawMachine cm){
+        Boolean isStartingA = isButtonACheapest(cm);
+        System.out.println("isStartingA: " + isStartingA);
+        if(!isStartingA){
             return findPushesStartingA(cm);
         }
         else{

@@ -9,6 +9,9 @@ public class ClawMachine {
         this.buttonA = buttonA;
         this.buttonB = buttonB;
     }
+    public Coordinate getButtonA(){return this.buttonA;}
+    public Coordinate getButtonB(){return this.buttonB;}
+    public Coordinate getPrize(){return this.prize;}
     public Boolean isSolvable(){
         int xGCD = getGCD(buttonA.getX(), buttonB.getX());
         int yGCD = getGCD(buttonA.getY(), buttonB.getY());

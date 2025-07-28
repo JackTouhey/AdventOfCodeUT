@@ -11,12 +11,17 @@ public class DayThirteen2024 {
     private static final HashSet<ClawMachine> clawMachines = DataLoader.loadDayThirteen("DataFiles\\DayThirteenData.txt");
     public static void main(String[] args) {
         // printMachines();
+        addToPrize(10000000000000L);
+        // printMachines();
         sumPrizes();
     }
     public DayThirteen2024(){}
     public static void sumPrizes(){
+        int currentMachine = 0;
         int count = 0;
         for(ClawMachine cm : clawMachines){
+            System.out.println("On machine: " + currentMachine);
+            currentMachine++;
             if(cm.isSolvable()){
                 HashMap<String, Integer> AandBCounts = getAandBcount(cm);
                 if(AandBCounts.get("A") == null){
@@ -33,6 +38,11 @@ public class DayThirteen2024 {
             }
         }
         System.out.println("Count: " + count);
+    }
+    private static void addToPrize(Long increase){
+        for(ClawMachine cm : clawMachines){
+            cm.setPrize(cm.getPrize().addCoordinate(increase, increase));;
+        }
     }
     private static void printMachines(){
         for(ClawMachine c : clawMachines){
@@ -76,7 +86,7 @@ public class DayThirteen2024 {
         int currentAPushes = getStartingPushes(cm.getButtonA(), cm.getPrize());
         int currentBPushes = 0;
         while(currentAPushes > 0){
-            System.out.println("About to check before reducing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
+            // System.out.println("About to check before reducing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
             if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                 aAndBCount.put("A", currentAPushes);
                 aAndBCount.put("B", currentBPushes);
@@ -85,7 +95,7 @@ public class DayThirteen2024 {
             currentAPushes--;
             while((currentAPushes * cm.getButtonA().getLongX()) + (currentBPushes * cm.getButtonB().getLongX()) <= cm.getPrize().getLongX() &&
             (currentAPushes * cm.getButtonA().getLongY()) + (currentBPushes * cm.getButtonB().getLongY()) <= cm.getPrize().getLongY()){
-                System.out.println("About to check before increasing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
+                // System.out.println("About to check before increasing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
                 currentBPushes++;
                 if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                     aAndBCount.put("A", currentAPushes);
@@ -101,7 +111,7 @@ public class DayThirteen2024 {
         int currentAPushes = 0;
         int currentBPushes = getStartingPushes(cm.getButtonB(), cm.getPrize());
         while(currentBPushes > 0){
-            System.out.println("About to check before reducing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
+            // System.out.println("About to check before reducing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
             if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                 aAndBCount.put("A", currentAPushes);
                 aAndBCount.put("B", currentBPushes);
@@ -110,7 +120,7 @@ public class DayThirteen2024 {
             currentBPushes--;
             while((currentAPushes * cm.getButtonA().getLongX()) + (currentBPushes * cm.getButtonB().getLongX()) <= cm.getPrize().getLongX() &&
             (currentAPushes * cm.getButtonA().getLongY()) + (currentBPushes * cm.getButtonB().getLongY()) <= cm.getPrize().getLongY()){
-                System.out.println("About to check before increasing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
+                // System.out.println("About to check before increasing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
                 currentAPushes++;
                 if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
                     aAndBCount.put("A", currentAPushes);

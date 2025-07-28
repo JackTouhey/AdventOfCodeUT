@@ -40,15 +40,15 @@ public class DayThirteen2024 {
         }
     }
     public static Boolean isButtonACheapest(ClawMachine cm){
-        double distancePerPointA = (((double)cm.getButtonA().getX()/cm.getPrize().getX()) + ((double)cm.getButtonA().getY()/cm.getPrize().getY())) / 3; 
-        double distancePerPointB = ((double)cm.getButtonB().getX()/cm.getPrize().getX()) + ((double)cm.getButtonB().getY()/cm.getPrize().getY());
+        double distancePerPointA = (((double)cm.getButtonA().getLongX()/cm.getPrize().getLongX()) + ((double)cm.getButtonA().getLongY()/cm.getPrize().getLongY())) / 3; 
+        double distancePerPointB = ((double)cm.getButtonB().getLongX()/cm.getPrize().getLongX()) + ((double)cm.getButtonB().getLongY()/cm.getPrize().getLongY());
         return distancePerPointA > distancePerPointB;
     }
     public static int getStartingPushes(Coordinate button, Coordinate prize){
-        double xPushes = (double)prize.getX()/button.getX();
-        double yPushes = (double)prize.getY()/button.getY();
+        double xPushes = (double)prize.getLongX()/button.getLongX();
+        double yPushes = (double)prize.getLongY()/button.getLongY();
         double startingPushes = xPushes < yPushes ? xPushes : yPushes;
-        System.out.println("xPushes: " + xPushes + " yPushes: " + yPushes + " prizeX: " + prize.getX() + " bX: " + button.getX() + " prizeY: " + prize.getY() + " bY: " + button.getY());
+        System.out.println("xPushes: " + xPushes + " yPushes: " + yPushes + " prizeX: " + prize.getLongX() + " bX: " + button.getLongX() + " prizeY: " + prize.getLongY() + " bY: " + button.getLongY());
         return (int)Math.ceil(startingPushes);
     }
     public static HashMap<String, Integer> getAandBcount(ClawMachine cm){
@@ -83,8 +83,8 @@ public class DayThirteen2024 {
                 return aAndBCount;
             }
             currentAPushes--;
-            while((currentAPushes * cm.getButtonA().getX()) + (currentBPushes * cm.getButtonB().getX()) <= cm.getPrize().getX() &&
-            (currentAPushes * cm.getButtonA().getY()) + (currentBPushes * cm.getButtonB().getY()) <= cm.getPrize().getY()){
+            while((currentAPushes * cm.getButtonA().getLongX()) + (currentBPushes * cm.getButtonB().getLongX()) <= cm.getPrize().getLongX() &&
+            (currentAPushes * cm.getButtonA().getLongY()) + (currentBPushes * cm.getButtonB().getLongY()) <= cm.getPrize().getLongY()){
                 System.out.println("About to check before increasing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
                 currentBPushes++;
                 if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
@@ -108,8 +108,8 @@ public class DayThirteen2024 {
                 return aAndBCount;
             }
             currentBPushes--;
-            while((currentAPushes * cm.getButtonA().getX()) + (currentBPushes * cm.getButtonB().getX()) <= cm.getPrize().getX() &&
-            (currentAPushes * cm.getButtonA().getY()) + (currentBPushes * cm.getButtonB().getY()) <= cm.getPrize().getY()){
+            while((currentAPushes * cm.getButtonA().getLongX()) + (currentBPushes * cm.getButtonB().getLongX()) <= cm.getPrize().getLongX() &&
+            (currentAPushes * cm.getButtonA().getLongY()) + (currentBPushes * cm.getButtonB().getLongY()) <= cm.getPrize().getLongY()){
                 System.out.println("About to check before increasing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
                 currentAPushes++;
                 if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
@@ -122,7 +122,7 @@ public class DayThirteen2024 {
         return aAndBCount;
     }
     public static Boolean doPushesGetPrize(int aPushes, int bPushes, ClawMachine cm){
-        return (aPushes * cm.getButtonA().getX()) + (bPushes * cm.getButtonB().getX()) == cm.getPrize().getX()
-            && (aPushes * cm.getButtonA().getY()) + (bPushes * cm.getButtonB().getY()) == cm.getPrize().getY();
+        return (aPushes * cm.getButtonA().getLongX()) + (bPushes * cm.getButtonB().getLongX()) == cm.getPrize().getLongX()
+            && (aPushes * cm.getButtonA().getLongY()) + (bPushes * cm.getButtonB().getLongY()) == cm.getPrize().getLongY();
     }
 }

@@ -3,7 +3,7 @@ package com.example.adventofcode.utils;
 public class ClawMachine {
     private final Coordinate buttonA;
     private final Coordinate buttonB;
-    private final Coordinate prize;
+    private Coordinate prize;
     public ClawMachine(Coordinate buttonA, Coordinate buttonB, Coordinate prize){
         this.prize = prize;
         this.buttonA = buttonA;
@@ -12,6 +12,7 @@ public class ClawMachine {
     public Coordinate getButtonA(){return this.buttonA;}
     public Coordinate getButtonB(){return this.buttonB;}
     public Coordinate getPrize(){return this.prize;}
+    public void setPrize(Coordinate c){this.prize = c;}
     public Boolean isSolvable(){
         int xGCD = getGCD(buttonA.getX(), buttonB.getX());
         int yGCD = getGCD(buttonA.getY(), buttonB.getY());

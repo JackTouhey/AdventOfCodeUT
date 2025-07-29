@@ -3,24 +3,32 @@ package com.example.adventofcode.utils;
 import java.util.Objects;
 
 public class Coordinate {
-    private final int x;
-    private final int y;
-    
+    private final long x;
+    private final long y;
     public Coordinate(int x, int y) {
+        this((long) x, (long) y);
+    }
+    public Coordinate(long x, long y) {
         this.x = x;
         this.y = y;
     }
-    
     public int getX() { 
-        return this.x; 
+        return (int) this.x; 
     }
-    
     public int getY() { 
-        return this.y; 
+        return (int) this.y; 
     }
-    
+    public long getLongX() {
+        return this.x;
+    }
+    public long getLongY() {
+        return this.y;
+    }
     public Coordinate addCoordinate(Coordinate c){
-        return new Coordinate(this.x + c.getX(), this.y + c.getY());
+        return new Coordinate(this.x + c.x, this.y + c.y);
+    }
+    public Coordinate addCoordinate(long deltaX, long deltaY) {
+        return new Coordinate(this.x + deltaX, this.y + deltaY);
     }
 
     @Override

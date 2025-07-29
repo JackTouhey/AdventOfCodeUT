@@ -1,10 +1,8 @@
 package com.example.adventofcode.solutions;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 import com.example.adventofcode.utils.ClawMachine;
-import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 
 public class DayThirteen2024 {
@@ -16,123 +14,97 @@ public class DayThirteen2024 {
         sumPrizes();
     }
     public DayThirteen2024(){}
-    public static void sumPrizes(){
-        int currentMachine = 0;
-        int count = 0;
-        for(ClawMachine cm : clawMachines){
-            System.out.println("On machine: " + currentMachine);
-            currentMachine++;
-            if(cm.isSolvable()){
-                HashMap<String, Integer> AandBCounts = getAandBcount(cm);
-                if(AandBCounts.get("A") == null){
-                    AandBCounts = getAandBcountReversed(cm);
-                    if(AandBCounts.get("A") != null){
-                        count += AandBCounts.get("A") * 3;
-                        count += AandBCounts.get("B");
-                    }
-                }
-                else{
-                    count += AandBCounts.get("A") * 3;
-                    count += AandBCounts.get("B");
-                }
+    public static void sumPrizes() {
+        long totalCost = 0;
+        int machineCount = 0;
+        
+        for (ClawMachine cm : clawMachines) {
+            System.out.println("Processing machine: " + machineCount++);
+            
+            Solution solution = solveMachine(cm);
+            if (solution != null) {
+                long cost = solution.aPresses * 3 + solution.bPresses;
+                totalCost += cost;
+                System.out.println("Solution found: A=" + solution.aPresses + ", B=" + solution.bPresses + ", Cost=" + cost);
             }
         }
-        System.out.println("Count: " + count);
+        
+        System.out.println("Total cost: " + totalCost);
     }
-    private static void addToPrize(Long increase){
-        for(ClawMachine cm : clawMachines){
-            cm.setPrize(cm.getPrize().addCoordinate(increase, increase));;
+    
+    private static void addToPrize(Long increase) {
+        for (ClawMachine cm : clawMachines) {
+            cm.setPrize(cm.getPrize().addCoordinate(increase, increase));
         }
     }
-    private static void printMachines(){
-        for(ClawMachine c : clawMachines){
-            System.out.println(c.toString() + " isSolvable " + c.isSolvable() + " is a cheapest: " + isButtonACheapest(c));
+    
+    /**
+     * Solves the claw machine problem using linear algebra.
+     * 
+     * We have the system:
+     * a * ax + b * bx = px
+     * a * ay + b * by = py
+     * 
+     * Where:
+     * - a, b are the number of button presses we want to find
+     * - ax, ay are button A's x,y movements
+     * - bx, by are button B's x,y movements  
+     * - px, py are the prize coordinates
+     * 
+     * Using Cramer's rule to solve for a and b.
+     */
+    public static Solution solveMachine(ClawMachine cm) {
+        long ax = cm.getButtonA().getLongX();
+        long ay = cm.getButtonA().getLongY();
+        long bx = cm.getButtonB().getLongX();
+        long by = cm.getButtonB().getLongY();
+        long px = cm.getPrize().getLongX();
+        long py = cm.getPrize().getLongY();
+        
+        // Calculate determinant of coefficient matrix
+        long determinant = ax * by - ay * bx;
+        
+        // If determinant is 0, the system has no unique solution
+        if (determinant == 0) {
+            return null;
         }
-    }
-    public static Boolean isButtonACheapest(ClawMachine cm){
-        double distancePerPointA = (((double)cm.getButtonA().getLongX()/cm.getPrize().getLongX()) + ((double)cm.getButtonA().getLongY()/cm.getPrize().getLongY())) / 3; 
-        double distancePerPointB = ((double)cm.getButtonB().getLongX()/cm.getPrize().getLongX()) + ((double)cm.getButtonB().getLongY()/cm.getPrize().getLongY());
-        return distancePerPointA > distancePerPointB;
-    }
-    public static int getStartingPushes(Coordinate button, Coordinate prize){
-        double xPushes = (double)prize.getLongX()/button.getLongX();
-        double yPushes = (double)prize.getLongY()/button.getLongY();
-        double startingPushes = xPushes < yPushes ? xPushes : yPushes;
-        System.out.println("xPushes: " + xPushes + " yPushes: " + yPushes + " prizeX: " + prize.getLongX() + " bX: " + button.getLongX() + " prizeY: " + prize.getLongY() + " bY: " + button.getLongY());
-        return (int)Math.ceil(startingPushes);
-    }
-    public static HashMap<String, Integer> getAandBcount(ClawMachine cm){
-        Boolean isStartingA = isButtonACheapest(cm);
-        System.out.println("isStartingA: " + isStartingA);
-        if(isStartingA){
-            return findPushesStartingA(cm);
+        
+        // Apply Cramer's rule
+        long numeratorA = px * by - py * bx;
+        long numeratorB = ax * py - ay * px;
+        
+        // Check if we get integer solutions
+        if (numeratorA % determinant != 0 || numeratorB % determinant != 0) {
+            return null;
         }
-        else{
-            return findPushesStartingB(cm);
+        
+        long aPresses = numeratorA / determinant;
+        long bPresses = numeratorB / determinant;
+        
+        // Verify solution is non-negative (can't have negative button presses)
+        if (aPresses < 0 || bPresses < 0) {
+            return null;
         }
+        
+        // Double-check our solution (optional verification step)
+        if (aPresses * ax + bPresses * bx != px || 
+            aPresses * ay + bPresses * by != py) {
+            return null;
+        }
+        
+        return new Solution(aPresses, bPresses);
     }
-    public static HashMap<String, Integer> getAandBcountReversed(ClawMachine cm){
-        Boolean isStartingA = isButtonACheapest(cm);
-        System.out.println("isStartingA: " + isStartingA);
-        if(!isStartingA){
-            return findPushesStartingA(cm);
+    
+    /**
+     * Simple class to hold the solution
+     */
+    private static class Solution {
+        final long aPresses;
+        final long bPresses;
+        
+        Solution(long aPresses, long bPresses) {
+            this.aPresses = aPresses;
+            this.bPresses = bPresses;
         }
-        else{
-            return findPushesStartingB(cm);
-        }
-    }
-    public static HashMap<String, Integer> findPushesStartingA(ClawMachine cm){
-        HashMap<String, Integer> aAndBCount = new HashMap<>();
-        int currentAPushes = getStartingPushes(cm.getButtonA(), cm.getPrize());
-        int currentBPushes = 0;
-        while(currentAPushes > 0){
-            // System.out.println("About to check before reducing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
-            if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
-                aAndBCount.put("A", currentAPushes);
-                aAndBCount.put("B", currentBPushes);
-                return aAndBCount;
-            }
-            currentAPushes--;
-            while((currentAPushes * cm.getButtonA().getLongX()) + (currentBPushes * cm.getButtonB().getLongX()) <= cm.getPrize().getLongX() &&
-            (currentAPushes * cm.getButtonA().getLongY()) + (currentBPushes * cm.getButtonB().getLongY()) <= cm.getPrize().getLongY()){
-                // System.out.println("About to check before increasing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
-                currentBPushes++;
-                if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
-                    aAndBCount.put("A", currentAPushes);
-                    aAndBCount.put("B", currentBPushes);
-                    return aAndBCount;
-                }
-            }
-        }
-        return aAndBCount;
-    }
-    public static HashMap<String, Integer> findPushesStartingB(ClawMachine cm){
-        HashMap<String, Integer> aAndBCount = new HashMap<>();
-        int currentAPushes = 0;
-        int currentBPushes = getStartingPushes(cm.getButtonB(), cm.getPrize());
-        while(currentBPushes > 0){
-            // System.out.println("About to check before reducing B currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
-            if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
-                aAndBCount.put("A", currentAPushes);
-                aAndBCount.put("B", currentBPushes);
-                return aAndBCount;
-            }
-            currentBPushes--;
-            while((currentAPushes * cm.getButtonA().getLongX()) + (currentBPushes * cm.getButtonB().getLongX()) <= cm.getPrize().getLongX() &&
-            (currentAPushes * cm.getButtonA().getLongY()) + (currentBPushes * cm.getButtonB().getLongY()) <= cm.getPrize().getLongY()){
-                // System.out.println("About to check before increasing A currentPushesA: " + currentAPushes + " currentPushesB: " + currentBPushes);
-                currentAPushes++;
-                if(doPushesGetPrize(currentAPushes, currentBPushes, cm)){
-                    aAndBCount.put("A", currentAPushes);
-                    aAndBCount.put("B", currentBPushes);
-                    return aAndBCount;
-                }
-            }
-        }
-        return aAndBCount;
-    }
-    public static Boolean doPushesGetPrize(int aPushes, int bPushes, ClawMachine cm){
-        return (aPushes * cm.getButtonA().getLongX()) + (bPushes * cm.getButtonB().getLongX()) == cm.getPrize().getLongX()
-            && (aPushes * cm.getButtonA().getLongY()) + (bPushes * cm.getButtonB().getLongY()) == cm.getPrize().getLongY();
     }
 }

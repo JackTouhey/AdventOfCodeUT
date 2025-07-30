@@ -17,7 +17,7 @@ public class RobotTesting {
     }
     @Test
     void moveOffRightSideTest(){
-        Coordinate start = new Coordinate(11,0);
+        Coordinate start = new Coordinate(10,0);
         Coordinate velocity = new Coordinate(3, 0);
         Robot r = new Robot(start, velocity, 7, 11);
         r.moveOnce();
@@ -49,7 +49,7 @@ public class RobotTesting {
     }
     @Test
     void moveOffBottomSideTest(){
-        Coordinate start = new Coordinate(0,7);
+        Coordinate start = new Coordinate(0,6);
         Coordinate velocity = new Coordinate(0, 3);
         Robot r = new Robot(start, velocity, 7, 11);
         r.moveOnce();
@@ -71,5 +71,40 @@ public class RobotTesting {
         r.moveOnce();
         assertEquals(5, r.getPosition().getY());
     }
-    
+    @Test
+    void moveOffNWsideTest(){
+        Coordinate start = new Coordinate(0,0);
+        Coordinate velocity = new Coordinate(-3, -3);
+        Robot r = new Robot(start, velocity, 7, 11);
+        r.moveOnce();
+        assertEquals(8, r.getPosition().getX());
+        assertEquals(4, r.getPosition().getY());
+    }
+    @Test
+    void moveOffNEsideTest(){
+        Coordinate start = new Coordinate(10,0);
+        Coordinate velocity = new Coordinate(3, -3);
+        Robot r = new Robot(start, velocity, 7, 11);
+        r.moveOnce();
+        assertEquals(3, r.getPosition().getX());
+        assertEquals(4, r.getPosition().getY());
+    }
+    @Test
+    void moveOffSWsideTest(){
+        Coordinate start = new Coordinate(0,6);
+        Coordinate velocity = new Coordinate(-3, 3);
+        Robot r = new Robot(start, velocity, 7, 11);
+        r.moveOnce();
+        assertEquals(8, r.getPosition().getX());
+        assertEquals(3, r.getPosition().getY());
+    }
+    @Test
+    void moveOffSEsideTest(){
+        Coordinate start = new Coordinate(10,6);
+        Coordinate velocity = new Coordinate(3, 3);
+        Robot r = new Robot(start, velocity, 7, 11);
+        r.moveOnce();
+        assertEquals(3, r.getPosition().getX());
+        assertEquals(3, r.getPosition().getY());
+    }
 }

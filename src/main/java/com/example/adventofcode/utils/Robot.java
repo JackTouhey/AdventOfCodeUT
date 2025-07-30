@@ -27,7 +27,7 @@ public class Robot {
         }
         //Check if moving off right side
         else if(position.getX() + velocity.getX() >= gridWidth){
-            this.position = new Coordinate(0 + (position.getX() + velocity.getX() - gridWidth), position.getY());
+            this.position = new Coordinate(0 + (position.getX() + velocity.getX() - (gridWidth-1)), position.getY());
         }
         else{
             this.position = position.addCoordinateX(velocity);
@@ -40,7 +40,7 @@ public class Robot {
         }
         //Check if moving off bottom side
         else if(position.getY() + velocity.getY() >= gridHeight){
-            this.position = new Coordinate(position.getX(), 0 + (position.getY() + velocity.getY() - gridHeight));
+            this.position = new Coordinate(position.getX(), 0 + (position.getY() + velocity.getY() - (gridHeight-1)));
         }
         else{
             this.position = position.addCoordinateY(velocity);

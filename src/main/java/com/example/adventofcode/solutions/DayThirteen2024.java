@@ -37,22 +37,6 @@ public class DayThirteen2024 {
             cm.setPrize(cm.getPrize().addCoordinate(increase, increase));
         }
     }
-    
-    /**
-     * Solves the claw machine problem using linear algebra.
-     * 
-     * We have the system:
-     * a * ax + b * bx = px
-     * a * ay + b * by = py
-     * 
-     * Where:
-     * - a, b are the number of button presses we want to find
-     * - ax, ay are button A's x,y movements
-     * - bx, by are button B's x,y movements  
-     * - px, py are the prize coordinates
-     * 
-     * Using Cramer's rule to solve for a and b.
-     */
     public static Solution solveMachine(ClawMachine cm) {
         long ax = cm.getButtonA().getLongX();
         long ay = cm.getButtonA().getLongY();

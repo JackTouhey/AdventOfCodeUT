@@ -15,6 +15,7 @@ public class Robot {
     public String toString() {
         return "Position: " + position.toString() + " Velocity: " + velocity.toString();
     }
+    public Coordinate getPosition(){return this.position;}
     public void moveOnce(){
         moveX();
     }

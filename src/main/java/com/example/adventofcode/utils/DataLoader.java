@@ -187,7 +187,7 @@ public class DataLoader {
         catch(FileNotFoundException e){}
         return returnSet;
     }
-    public static ArrayList<Robot> loadDayFourteen(String filePath){
+    public static ArrayList<Robot> loadDayFourteen(String filePath, int gridHeight, int gridWidth){
         ArrayList<Robot> returnList = new ArrayList<>();
         try(Scanner sc = new Scanner(new File(filePath))){
             while(sc.hasNext()){
@@ -209,7 +209,7 @@ public class DataLoader {
                     lineScanner.next();
                     lineScanner.useDelimiter(" ");
                     int velocityY = lineScanner.nextInt();
-                    returnList.add(new Robot(new Coordinate(startingX, startingY), new Coordinate(velocityX, velocityY)));
+                    returnList.add(new Robot(new Coordinate(startingX, startingY), new Coordinate(velocityX, velocityY), gridHeight, gridWidth));
                 }
             }
         }catch (FileNotFoundException e){}

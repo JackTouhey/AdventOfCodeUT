@@ -16,6 +16,11 @@ public class Robot {
         return "Position: " + position.toString() + " Velocity: " + velocity.toString();
     }
     public Coordinate getPosition(){return this.position;}
+    public void moveXtimes(int x){
+        for(int i = 0; i < x; i++){
+            moveOnce();
+        }
+    }
     public void moveOnce(){
         moveX();
         moveY();
@@ -44,6 +49,23 @@ public class Robot {
         }
         else{
             this.position = position.addCoordinateY(velocity);
+        }
+    }
+    public String getQuadrant(){
+        if(position.getX() < (gridWidth-1)/2 && position.getY() < (gridHeight-1)/2){
+            return "NW";
+        } 
+        else if(position.getX() > (gridWidth-1)/2 && position.getY() < (gridHeight-1)/2){
+            return "NE";
+        }
+        else if(position.getX() < (gridWidth-1)/2 && position.getY() > (gridHeight-1)/2){
+            return "SW";
+        }
+        else if(position.getX() > (gridWidth-1)/2 && position.getY() > (gridHeight-1)/2){
+            return "SE";
+        }
+        else{
+            return "No Quadrant";
         }
     }
 }

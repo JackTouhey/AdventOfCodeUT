@@ -187,4 +187,32 @@ public class DataLoader {
         catch(FileNotFoundException e){}
         return returnSet;
     }
+    public static ArrayList<Robot> loadDayFourteen(String filePath){
+        ArrayList<Robot> returnList = new ArrayList<>();
+        try(Scanner sc = new Scanner(new File(filePath))){
+            while(sc.hasNext()){
+                try (Scanner lineScanner = new Scanner(sc.nextLine())) {
+                    lineScanner.useDelimiter("");
+                    lineScanner.next();
+                    lineScanner.next();
+                    lineScanner.useDelimiter(",");
+                    int startingX = lineScanner.nextInt();
+                    lineScanner.useDelimiter("");
+                    lineScanner.next();
+                    int startingY = lineScanner.nextInt();
+                    lineScanner.next();
+                    lineScanner.next();
+                    lineScanner.next();
+                    lineScanner.useDelimiter(",");
+                    int velocityX = lineScanner.nextInt();
+                    lineScanner.useDelimiter("");
+                    lineScanner.next();
+                    lineScanner.useDelimiter(" ");
+                    int velocityY = lineScanner.nextInt();
+                    returnList.add(new Robot(new Coordinate(startingX, startingY), new Coordinate(velocityX, velocityY)));
+                }
+            }
+        }catch (FileNotFoundException e){}
+        return returnList;
+    }
 }

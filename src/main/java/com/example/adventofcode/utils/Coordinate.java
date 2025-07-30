@@ -27,6 +27,12 @@ public class Coordinate {
     public Coordinate addCoordinate(Coordinate c){
         return new Coordinate(this.x + c.x, this.y + c.y);
     }
+    public Coordinate addCoordinateX(Coordinate c){
+        return new Coordinate(this.x + c.x, this.y);
+    }
+    public Coordinate addCoordinateY(Coordinate c){
+        return new Coordinate(this.x, this.y + c.y);
+    }
     public Coordinate addCoordinate(long deltaX, long deltaY) {
         return new Coordinate(this.x + deltaX, this.y + deltaY);
     }

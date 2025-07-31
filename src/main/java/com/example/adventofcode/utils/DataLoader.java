@@ -199,7 +199,9 @@ public class DataLoader {
                     int startingX = lineScanner.nextInt();
                     lineScanner.useDelimiter("");
                     lineScanner.next();
+                    lineScanner.useDelimiter(" ");
                     int startingY = lineScanner.nextInt();
+                    lineScanner.useDelimiter("");
                     lineScanner.next();
                     lineScanner.next();
                     lineScanner.next();

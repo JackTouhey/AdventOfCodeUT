@@ -26,30 +26,15 @@ public class Robot {
         moveY();
     }
     private void moveX(){
-        //Check if moving off left side
-        if(position.getX() + velocity.getX() < 0){
-            this.position = new Coordinate(gridWidth + (position.getX() + velocity.getX()), position.getY());
-        }
-        //Check if moving off right side
-        else if(position.getX() + velocity.getX() >= gridWidth){
-            this.position = new Coordinate(0 + (position.getX() + velocity.getX() - (gridWidth-1)), position.getY());
-        }
-        else{
-            this.position = position.addCoordinateX(velocity);
-        }
+        int newX = (position.getX() + velocity.getX()) % gridWidth;
+        if (newX < 0) newX += gridWidth; 
+        this.position = new Coordinate(newX, position.getY());
     }
+
     private void moveY(){
-        //Check if moving off top side 
-        if(position.getY() + velocity.getY() < 0){
-            this.position = new Coordinate(position.getX(), gridHeight + (position.getY() + velocity.getY()));
-        }
-        //Check if moving off bottom side
-        else if(position.getY() + velocity.getY() >= gridHeight){
-            this.position = new Coordinate(position.getX(), 0 + (position.getY() + velocity.getY() - (gridHeight-1)));
-        }
-        else{
-            this.position = position.addCoordinateY(velocity);
-        }
+        int newY = (position.getY() + velocity.getY()) % gridHeight;
+        if (newY < 0) newY += gridHeight; 
+        this.position = new Coordinate(position.getX(), newY);
     }
     public String getQuadrant(){
         if(position.getX() < (gridWidth-1)/2 && position.getY() < (gridHeight-1)/2){

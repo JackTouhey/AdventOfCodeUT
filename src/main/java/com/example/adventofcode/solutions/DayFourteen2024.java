@@ -6,11 +6,10 @@ import com.example.adventofcode.utils.DataLoader;
 import com.example.adventofcode.utils.Robot;
 
 public class DayFourteen2024 {
-    private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenTestData.txt", 7, 11);
+    private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenData.txt", 103, 101);
     public static void main(String[] args) {
-        // moveRobotsXTimes(100);
-        // System.out.println("Safety Factor: " + getSafetyFactor());
-        printGrid(7, 11);
+        moveRobotsXTimes(100);
+        System.out.println("Safety factor: " + getSafetyFactor());
     }
     private static void moveRobotsXTimes(int x){
         for(Robot r : robots){
@@ -52,6 +51,11 @@ public class DayFourteen2024 {
                 }
             }
             System.out.println();
+        }
+    }
+    private static void printRobots(){
+        for(Robot r : robots){
+            System.out.println(r.toString());
         }
     }
 }

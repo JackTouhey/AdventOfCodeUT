@@ -107,4 +107,20 @@ public class RobotTesting {
         assertEquals(3, r.getPosition().getX());
         assertEquals(3, r.getPosition().getY());
     }
+    @Test
+    void testGetQuadrant(){
+        int height = 7;
+        int width = 11;
+        Coordinate velocity = new Coordinate(0, 0);
+        Robot NW = new Robot(new Coordinate(0, 0), velocity, height, width);
+        Robot NE = new Robot(new Coordinate(8, 0), velocity, height, width);
+        Robot SW = new Robot(new Coordinate(0, 5), velocity, height, width);
+        Robot SE = new Robot(new Coordinate(8, 5), velocity, height, width);
+        Robot noQuadrant = new Robot(new Coordinate(5, 3), velocity, height, width);
+        assertEquals("NW", NW.getQuadrant());
+        assertEquals("NE", NE.getQuadrant());
+        assertEquals("SW", SW.getQuadrant());
+        assertEquals("SE", SE.getQuadrant());
+        assertEquals("No Quadrant", noQuadrant.getQuadrant());
+    }
 }

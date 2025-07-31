@@ -8,9 +8,9 @@ import com.example.adventofcode.utils.Robot;
 public class DayFourteen2024 {
     private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenTestData.txt", 7, 11);
     public static void main(String[] args) {
-        for(Robot r : robots){
-            System.out.println(r.toString());
-        }
+        // moveRobotsXTimes(100);
+        // System.out.println("Safety Factor: " + getSafetyFactor());
+        printGrid(7, 11);
     }
     private static void moveRobotsXTimes(int x){
         for(Robot r : robots){
@@ -32,6 +32,26 @@ public class DayFourteen2024 {
                 }
             }
         }
+        System.out.println("NE: " + NEcount + " NW: " + NWcount + " SE: " + SEcount + " SW: " + SWcount);
         return NEcount * NWcount * SEcount * SWcount; 
+    }
+    private static void printGrid(int height, int width){
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+                int count = 0;
+                for(Robot r : robots){
+                    if(r.getPosition().getX() == x && r.getPosition().getY() == y){
+                        count++;
+                    }
+                }
+                if(count > 0){
+                    System.out.print(count);
+                }
+                else{
+                    System.out.print(".");
+                }
+            }
+            System.out.println();
+        }
     }
 }

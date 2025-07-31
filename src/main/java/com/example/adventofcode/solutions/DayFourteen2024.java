@@ -12,4 +12,26 @@ public class DayFourteen2024 {
             System.out.println(r.toString());
         }
     }
+    private static void moveRobotsXTimes(int x){
+        for(Robot r : robots){
+            r.moveXtimes(x);
+        }
+    }
+    private static int getSafetyFactor(){
+        int NEcount = 0;
+        int NWcount = 0;
+        int SEcount = 0;
+        int SWcount = 0;
+        for(Robot r : robots){
+            switch (r.getQuadrant()) {
+                case "NE" -> NEcount++;
+                case "NW" -> NWcount++;
+                case "SE" -> SEcount++;
+                case "SW" -> SWcount++;
+                default -> {
+                }
+            }
+        }
+        return NEcount * NWcount * SEcount * SWcount; 
+    }
 }

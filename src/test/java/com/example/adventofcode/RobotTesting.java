@@ -116,11 +116,19 @@ public class RobotTesting {
         Robot NE = new Robot(new Coordinate(8, 0), velocity, height, width);
         Robot SW = new Robot(new Coordinate(0, 5), velocity, height, width);
         Robot SE = new Robot(new Coordinate(8, 5), velocity, height, width);
-        Robot noQuadrant = new Robot(new Coordinate(5, 3), velocity, height, width);
+        Robot centre = new Robot(new Coordinate(5, 3), velocity, height, width);
+        Robot midLeft = new Robot(new Coordinate(0, 3), velocity, height, width);
+        Robot midTop = new Robot(new Coordinate(5, 0), velocity, height, width);
+        Robot midRight = new Robot(new Coordinate(10, 3), velocity, height, width);
+        Robot midBottom = new Robot(new Coordinate(5, 10), velocity, height, width);
         assertEquals("NW", NW.getQuadrant());
         assertEquals("NE", NE.getQuadrant());
         assertEquals("SW", SW.getQuadrant());
         assertEquals("SE", SE.getQuadrant());
-        assertEquals("No Quadrant", noQuadrant.getQuadrant());
+        assertEquals("No Quadrant", centre.getQuadrant());
+        assertEquals("No Quadrant", midLeft.getQuadrant());
+        assertEquals("No Quadrant", midTop.getQuadrant());
+        assertEquals("No Quadrant", midRight.getQuadrant());
+        assertEquals("No Quadrant", midBottom.getQuadrant());
     }
 }

@@ -6,10 +6,18 @@ import com.example.adventofcode.utils.DataLoader;
 import com.example.adventofcode.utils.Robot;
 
 public class DayFourteen2024 {
-    private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenData.txt", 103, 101);
+    private static final int HEIGHT = 103;
+    private static final int WIDTH = 101;
+    private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenData.txt", HEIGHT, WIDTH);
     public static void main(String[] args) {
         moveRobotsXTimes(100);
-        System.out.println("Safety factor: " + getSafetyFactor());
+        String[][] grid = generateRobotGrid();
+        for(String[] y : grid){
+            for(int x = 0; x < y.length; x++){
+                System.out.print(y[x]);
+            }
+            System.out.println();
+        }
     }
     private static void moveRobotsXTimes(int x){
         for(Robot r : robots){
@@ -53,9 +61,42 @@ public class DayFourteen2024 {
             System.out.println();
         }
     }
+    private static String[][] generateRobotGrid(){
+        String[][] returnGrid = new String[HEIGHT][WIDTH+1];
+        int y = 0;
+        for(String[] row : returnGrid){
+            for(int x = 0; x < row.length; x++){
+                int count = 0;
+                for(Robot r : robots){
+                    if(r.getPosition().getX() == x && r.getPosition().getY() == y){
+                        count++;
+                    }
+                }
+                if(count > 0){
+                    row[x] = String.valueOf(count);
+                }
+                else{
+                    row[x] = ".";
+                }
+            }
+            y++;
+        }
+        return returnGrid;
+    }
     private static void printRobots(){
         for(Robot r : robots){
             System.out.println(r.toString());
         }
     }
+    // private static Boolean isChristmasTree(){
+        
+    //     int currentTreeWidth = 0;
+    //     while () { 
+            
+    //     }
+    // }
+    // private static Boolean doesTreeContinue(int currentTreeWidth){
+    //     int mid = WIDTH/2 + 1;
+
+    // }
 }

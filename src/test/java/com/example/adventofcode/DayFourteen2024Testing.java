@@ -1,5 +1,6 @@
 package com.example.adventofcode;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -16,5 +17,16 @@ public class DayFourteen2024Testing {
             {"1","1","1","1","1","1","1","1","1"},
         };
         assertTrue(DayFourteen2024.isChristmasTree(grid));
+    }
+    @Test
+    void isChristmasTreeTestFailState(){
+        String[][] grid = {
+            {".",".",".",".","1",".",".",".","."},
+            {".",".",".","1","1","1",".",".","."},
+            {".",".","1","1","1","1","1",".","."},
+            {".","1","1","1","1","1","1","1","."},
+            {"1","1","1","1","1","1","1","1","."},
+        };
+        assertFalse(DayFourteen2024.isChristmasTree(grid));
     }
 }

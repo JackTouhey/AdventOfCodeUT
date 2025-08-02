@@ -88,28 +88,36 @@ public class DayFourteen2024 {
             System.out.println(r.toString());
         }
     }
-    private static Boolean isChristmasTree(){
-        String[][] grid = generateRobotGrid();
+    public static Boolean isChristmasTree(String[][] grid){
         int currentTreeWidth = 0;
-        while (doesTreeContinue(currentTreeWidth, grid) && currentTreeWidth < WIDTH/2) { 
+        System.out.println("Before while loop. currentTreeWidth: " + currentTreeWidth);
+        while (doesTreeContinue(currentTreeWidth, grid) && currentTreeWidth < grid[currentTreeWidth].length/2) { 
             currentTreeWidth++;
+            System.out.println("Within while loop. currentTreeWidth: " + currentTreeWidth);
         }
         return doesTreeContinue(currentTreeWidth, grid);
     }
     private static Boolean doesTreeContinue(int currentTreeWidth, String[][] grid){
-        int mid = WIDTH/2 + 1;
+        int mid = grid[currentTreeWidth].length/2;
+        System.out.println("Checking if tree continues. mid: " + mid);
         for(int x = 0; x < mid - currentTreeWidth; x++){
+            System.out.println("Checking pre-mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
             if(!".".equals(grid[currentTreeWidth][x])){
+                System.out.println("Pre-mid fail, returning false");
                 return false;
             }
         }
-        for(int x = mid - currentTreeWidth; x < mid + currentTreeWidth; x++){
+        for(int x = mid - currentTreeWidth; x <= mid + currentTreeWidth; x++){
+            System.out.println("Checking mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
             if(".".equals(grid[currentTreeWidth][x])){
+                System.out.println("Mid fail, returning false");
                 return false;
             }
         }
-        for(int x = mid + currentTreeWidth; x < grid.length; x++){
+        for(int x = mid + currentTreeWidth + 1; x < grid[currentTreeWidth].length; x++){
+            System.out.println("Checking post-mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
             if(!".".equals(grid[currentTreeWidth][x])){
+                System.out.println("Post-mid fail, returning false");
                 return false;
             }
         }

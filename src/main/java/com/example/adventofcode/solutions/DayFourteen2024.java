@@ -10,8 +10,19 @@ public class DayFourteen2024 {
     private static final int WIDTH = 101;
     private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenData.txt", HEIGHT, WIDTH);
     public static void main(String[] args) {
-        moveRobotsXTimes(100);
-        String[][] grid = generateRobotGrid();
+        printGrid(generateRobotGrid());
+        // System.out.println("Moves: " + findMovesToChristmasTree());
+    }
+    private static int findMovesToChristmasTree(){
+        int count = 0;
+        while(!isChristmasTree(generateRobotGrid())){
+            moveRobotsXTimes(1);
+            count++;
+            System.out.println("Count: " + count);
+        }
+        return count;
+    }
+    private static void printGrid(String[][] grid){
         for(String[] y : grid){
             for(int x = 0; x < y.length; x++){
                 System.out.print(y[x]);
@@ -62,7 +73,7 @@ public class DayFourteen2024 {
         }
     }
     private static String[][] generateRobotGrid(){
-        String[][] returnGrid = new String[HEIGHT][WIDTH+1];
+        String[][] returnGrid = new String[HEIGHT][WIDTH];
         int y = 0;
         for(String[] row : returnGrid){
             for(int x = 0; x < row.length; x++){
@@ -90,34 +101,34 @@ public class DayFourteen2024 {
     }
     public static Boolean isChristmasTree(String[][] grid){
         int currentTreeWidth = 0;
-        System.out.println("Before while loop. currentTreeWidth: " + currentTreeWidth);
+        // System.out.println("Before while loop. currentTreeWidth: " + currentTreeWidth);
         while (doesTreeContinue(currentTreeWidth, grid) && currentTreeWidth < grid[currentTreeWidth].length/2) { 
             currentTreeWidth++;
-            System.out.println("Within while loop. currentTreeWidth: " + currentTreeWidth);
+            // System.out.println("Within while loop. currentTreeWidth: " + currentTreeWidth);
         }
         return doesTreeContinue(currentTreeWidth, grid);
     }
     private static Boolean doesTreeContinue(int currentTreeWidth, String[][] grid){
         int mid = grid[currentTreeWidth].length/2;
-        System.out.println("Checking if tree continues. mid: " + mid);
+        // System.out.println("Checking if tree continues. mid: " + mid);
         for(int x = 0; x < mid - currentTreeWidth; x++){
-            System.out.println("Checking pre-mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
+            // System.out.println("Checking pre-mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
             if(!".".equals(grid[currentTreeWidth][x])){
-                System.out.println("Pre-mid fail, returning false");
+                // System.out.println("Pre-mid fail, returning false");
                 return false;
             }
         }
         for(int x = mid - currentTreeWidth; x <= mid + currentTreeWidth; x++){
-            System.out.println("Checking mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
+            // System.out.println("Checking mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
             if(".".equals(grid[currentTreeWidth][x])){
-                System.out.println("Mid fail, returning false");
+                // System.out.println("Mid fail, returning false");
                 return false;
             }
         }
         for(int x = mid + currentTreeWidth + 1; x < grid[currentTreeWidth].length; x++){
-            System.out.println("Checking post-mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
+            // System.out.println("Checking post-mid, currentWidth: " + currentTreeWidth + " x: " + x + " value: " + grid[currentTreeWidth][x]);
             if(!".".equals(grid[currentTreeWidth][x])){
-                System.out.println("Post-mid fail, returning false");
+                // System.out.println("Post-mid fail, returning false");
                 return false;
             }
         }

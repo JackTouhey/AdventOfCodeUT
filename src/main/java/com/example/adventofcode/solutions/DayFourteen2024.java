@@ -88,15 +88,31 @@ public class DayFourteen2024 {
             System.out.println(r.toString());
         }
     }
-    // private static Boolean isChristmasTree(){
-        
-    //     int currentTreeWidth = 0;
-    //     while () { 
-            
-    //     }
-    // }
-    // private static Boolean doesTreeContinue(int currentTreeWidth){
-    //     int mid = WIDTH/2 + 1;
-
-    // }
+    private static Boolean isChristmasTree(){
+        String[][] grid = generateRobotGrid();
+        int currentTreeWidth = 0;
+        while (doesTreeContinue(currentTreeWidth, grid) && currentTreeWidth < WIDTH/2) { 
+            currentTreeWidth++;
+        }
+        return doesTreeContinue(currentTreeWidth, grid);
+    }
+    private static Boolean doesTreeContinue(int currentTreeWidth, String[][] grid){
+        int mid = WIDTH/2 + 1;
+        for(int x = 0; x < mid - currentTreeWidth; x++){
+            if(!".".equals(grid[currentTreeWidth][x])){
+                return false;
+            }
+        }
+        for(int x = mid - currentTreeWidth; x < mid + currentTreeWidth; x++){
+            if(".".equals(grid[currentTreeWidth][x])){
+                return false;
+            }
+        }
+        for(int x = mid + currentTreeWidth; x < grid.length; x++){
+            if(!".".equals(grid[currentTreeWidth][x])){
+                return false;
+            }
+        }
+        return true;
+    }
 }

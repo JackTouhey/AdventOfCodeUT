@@ -10,8 +10,19 @@ public class DayFourteen2024 {
     private static final int WIDTH = 101;
     private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenData.txt", HEIGHT, WIDTH);
     public static void main(String[] args) {
-        printGrid(generateRobotGrid());
+        // printGrid(generateRobotGrid());
         // System.out.println("Moves: " + findMovesToChristmasTree());
+
+    }
+    private static void printXmoves(int x){
+        int count = 0;
+        for(int i = 0; i < x; i++){
+            System.out.println("Count: " + count);
+            printGrid(HEIGHT, WIDTH);
+            moveRobotsXTimes(1);
+            System.out.println();
+            count++;
+        }
     }
     private static int findMovesToChristmasTree(){
         int count = 0;
@@ -100,13 +111,15 @@ public class DayFourteen2024 {
         }
     }
     public static Boolean isChristmasTree(String[][] grid){
+        int currentY = getHighestRobotY(robots);
         int currentTreeWidth = 0;
         // System.out.println("Before while loop. currentTreeWidth: " + currentTreeWidth);
-        while (doesTreeContinue(currentTreeWidth,currentTreeWidth, grid) && currentTreeWidth < grid[currentTreeWidth].length/2) { 
+        while (doesTreeContinue(currentY, currentTreeWidth, grid) && currentTreeWidth < grid[currentTreeWidth].length/2) { 
             currentTreeWidth++;
+            currentY++;
             // System.out.println("Within while loop. currentTreeWidth: " + currentTreeWidth);
         }
-        return doesTreeContinue(currentTreeWidth, currentTreeWidth,grid);
+        return doesTreeContinue(currentY, currentTreeWidth,grid);
     }
     private static Boolean doesTreeContinue(int currentY, int currentTreeWidth, String[][] grid){
         int mid = grid[currentTreeWidth].length/2;

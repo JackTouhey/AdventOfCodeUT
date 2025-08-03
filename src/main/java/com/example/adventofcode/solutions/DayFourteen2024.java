@@ -134,7 +134,7 @@ public class DayFourteen2024 {
         }
         return true;
     }
-    private static int getHighestRobotY(){
+    public static int getHighestRobotY(ArrayList<Robot> robots){
         int min = HEIGHT;
         for(Robot r : robots){
             if(r.getPosition().getY() < min){
@@ -146,7 +146,7 @@ public class DayFourteen2024 {
         }
         return min;
     }
-    private static int getLowestRobotY(){
+    public static int getLowestRobotY(ArrayList<Robot> robots){
         int max = 0;
         for(Robot r : robots){
             if(r.getPosition().getY() > max){

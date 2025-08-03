@@ -146,4 +146,16 @@ public class DayFourteen2024 {
         }
         return min;
     }
+    private static int getLowestRobotY(){
+        int max = 0;
+        for(Robot r : robots){
+            if(r.getPosition().getY() > max){
+                max = r.getPosition().getY();
+            }
+            if(max == HEIGHT){
+                return max;
+            }
+        }
+        return max;
+    }
 }

@@ -45,4 +45,26 @@ public class DayFourteen2024Testing {
         assertEquals(1, DayFourteen2024.getHighestRobotY(robots));
         assertEquals(10, DayFourteen2024.getLowestRobotY(robots));
     }
+    @Test
+    void checkForTrunkTest(){
+        String[][] grid = {
+            {".",".",".",".","1",".",".",".","."},
+            {".",".",".","1","1","1",".",".","."},
+            {".",".","1","1","1","1","1",".","."},
+            {".","1","1","1","1","1","1","1","."},
+            {"1","1","1","1","1","1","1","1","."},
+        };
+        assertTrue(DayFourteen2024.checkForTrunk(grid, 0.8));
+    }
+    @Test
+    void checkForTrunkTestFailState(){
+        String[][] grid = {
+            {".",".",".",".",".",".",".",".","."},
+            {".",".",".","1","1","1",".",".","."},
+            {".",".","1","1","1","1","1",".","."},
+            {".","1","1","1",".","1","1","1","."},
+            {"1","1","1","1","1","1","1","1","."},
+        };
+        assertFalse(DayFourteen2024.checkForTrunk(grid, 0.8));
+    }
 }

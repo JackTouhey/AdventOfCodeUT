@@ -171,4 +171,16 @@ public class DayFourteen2024 {
         }
         return max;
     }
+    public static Boolean checkForTrunk(String[][] grid, double cutoffPercentage){
+        int mid = (grid[0].length/2);
+        int count = 0;
+        int cutoff = (int) (cutoffPercentage * grid.length);
+        System.out.println("Mid: " + mid + " cutoff: " + cutoff);
+        for (String[] row : grid) {
+            if (!".".equals(row[mid])) {
+                count++;
+            }
+        }
+        return count >= cutoff;
+    }
 }

@@ -183,4 +183,16 @@ public class DayFourteen2024 {
         }
         return count >= cutoff;
     }
+    public static void printTrunkPresentGrids(int movesToMake){
+        int moves = 0;
+        for(int i = 0; i < movesToMake; i++){
+            moveRobotsXTimes(1);
+            moves++;
+            String[][] grid = generateRobotGrid();
+            if(checkForTrunk(grid, 0.8)){
+                System.out.println("Trunk present after " + moves + " moves");
+                printGrid(grid); 
+            }
+        }
+    }
 }

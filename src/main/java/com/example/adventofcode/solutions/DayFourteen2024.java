@@ -10,9 +10,9 @@ public class DayFourteen2024 {
     private static final int WIDTH = 101;
     private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenData.txt", HEIGHT, WIDTH);
     public static void main(String[] args) {
-        // printGrid(generateRobotGrid());
-        // System.out.println("Moves: " + findMovesToChristmasTree());
-        printTrunkPresentGrids(100000);
+        moveRobotsXTimes(100000);
+        printTrunkPresentGrids(100000, 100000, 0.4);
+
     }
     private static void printXmoves(int x){
         int count = 0;
@@ -171,20 +171,20 @@ public class DayFourteen2024 {
         }
         return max;
     }
-    public static Boolean checkForTrunk(String[][] grid, double cutoffPercentage){
+    public static Boolean checkForTrunk(String[][] grid, double sensitivity){
         int mid = (grid[0].length/2);
         int count = 0;
-        int cutoff = (int) (cutoffPercentage * grid.length);
+        int cutoff = (int) (sensitivity * grid.length);
         // System.out.println("Mid: " + mid + " cutoff: " + cutoff);
         for (String[] row : grid) {
-            if (!".".equals(row[mid])) {
+            if (!".".equals(row[mid]) || !".".equals(row[mid-1]) || !".".equals(row[mid+1])) {
                 count++;
             }
         }
         return count >= cutoff;
     }
-    public static void printTrunkPresentGrids(int movesToMake){
-        int moves = 0;
+    public static void printTrunkPresentGrids(int offset, int movesToMake, double sensitivity){
+        int moves = offset;
         for(int i = 0; i < movesToMake; i++){
             moveRobotsXTimes(1);
             moves++;
@@ -192,9 +192,10 @@ public class DayFourteen2024 {
                 System.out.println("Checking moves: " + moves);
             } 
             String[][] grid = generateRobotGrid();
-            if(checkForTrunk(grid, 0.6)){
+            if(checkForTrunk(grid, sensitivity)){
                 System.out.println("Trunk present after " + moves + " moves");
                 printGrid(grid); 
+                System.out.println();
             }
         }
     }

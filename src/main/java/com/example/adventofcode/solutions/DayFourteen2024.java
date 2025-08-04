@@ -12,7 +12,7 @@ public class DayFourteen2024 {
     public static void main(String[] args) {
         // printGrid(generateRobotGrid());
         // System.out.println("Moves: " + findMovesToChristmasTree());
-        printTrunkPresentGrids(10000);
+        printTrunkPresentGrids(100000);
     }
     private static void printXmoves(int x){
         int count = 0;
@@ -188,7 +188,7 @@ public class DayFourteen2024 {
         for(int i = 0; i < movesToMake; i++){
             moveRobotsXTimes(1);
             moves++;
-            if(moves % 100 == 0){
+            if(moves % 1000 == 0){
                 System.out.println("Checking moves: " + moves);
             } 
             String[][] grid = generateRobotGrid();

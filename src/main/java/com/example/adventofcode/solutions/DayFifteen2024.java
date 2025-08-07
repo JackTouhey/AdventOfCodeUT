@@ -34,15 +34,51 @@ public class DayFifteen2024 {
         };
     }
     public static String[][] moveLeft(String[][] warehouse){
+        int robotY = robotLocation.getY();
+        int robotX = robotLocation.getX();
+        if(robotX > 1){
+            if(warehouse[robotY][robotX - 1].equals(".")){
+                warehouse[robotY][robotX - 1] = "@";
+                warehouse[robotY][robotX] = ".";
+                robotLocation = new Coordinate(robotX - 1, robotY);
+            }
+        }
         return warehouse;
     }
     public static String[][] moveUp(String[][] warehouse){
+        int robotY = robotLocation.getY();
+        int robotX = robotLocation.getX();
+        if(robotY > 1){
+            if(warehouse[robotY - 1][robotX].equals(".")){
+                warehouse[robotY - 1][robotX] = "@";
+                warehouse[robotY][robotX] = ".";
+                robotLocation = new Coordinate(robotX, robotY - 1);
+            }
+        }
         return warehouse;
     }
     public static String[][] moveRight(String[][] warehouse){
+        int robotY = robotLocation.getY();
+        int robotX = robotLocation.getX();
+        if(robotX < warehouse[robotY].length - 3){
+            if(warehouse[robotY][robotX + 1].equals(".")){
+                warehouse[robotY][robotX + 1] = "@";
+                warehouse[robotY][robotX] = ".";
+                robotLocation = new Coordinate(robotX - 1, robotY);
+            }
+        }
         return warehouse;
     }
     public static String[][] moveDown(String[][] warehouse){
+        int robotY = robotLocation.getY();
+        int robotX = robotLocation.getX();
+        if(robotY < warehouse.length - 3){
+            if(warehouse[robotY + 1][robotX].equals(".")){
+                warehouse[robotY + 1][robotX] = "@";
+                warehouse[robotY][robotX] = ".";
+                robotLocation = new Coordinate(robotX, robotY - 1);
+            }
+        }
         return warehouse;
     }
 }

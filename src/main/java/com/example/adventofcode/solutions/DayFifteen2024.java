@@ -11,7 +11,7 @@ public class DayFifteen2024 {
     private static final ArrayList<Character> moves = DataLoader.loadDayFifteenMoves(filePath);
     private static Coordinate robotLocation = findRobotCoordinate(warehouse);
     public static void main(String[] args) {
-        System.out.println("Robot at: " + robotLocation.toString());
+        
     }
     public static Coordinate findRobotCoordinate(String[][] grid){
         Coordinate returnCoord = new Coordinate(0, 0);
@@ -46,6 +46,10 @@ public class DayFifteen2024 {
                 Coordinate boxCoordinate = new Coordinate(robotX-1, robotY);
                 if(canBoxMoveLeft(warehouse, boxCoordinate)){
                     int boxesToMove = getBoxesToMoveLeft(warehouse, boxCoordinate);
+                    warehouse[robotY][boxCoordinate.getX()-boxesToMove] = "O";
+                    warehouse[robotY][boxCoordinate.getX()] = "@";
+                    warehouse[robotY][robotX] = ".";
+                    robotLocation = new Coordinate(robotX - 1, robotY);
                 }
             }
         }

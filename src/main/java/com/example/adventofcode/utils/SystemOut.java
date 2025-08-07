@@ -2,7 +2,7 @@ package com.example.adventofcode.utils;
 
 public class SystemOut {
     public SystemOut(){}
-    private static void printGrid(String[][] grid){
+    public static void printGrid(String[][] grid){
         for(String[] y : grid){
             for (String x : y) {
                 System.out.print(x);

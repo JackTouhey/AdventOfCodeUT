@@ -7,7 +7,7 @@ import com.example.adventofcode.utils.DataLoader;
 import com.example.adventofcode.utils.SystemOut;
 
 public class DayFifteen2024 {
-    private static final String filePath = "DataFiles\\DayFifteenTestData.txt";
+    private static final String filePath = "DataFiles\\DayFifteenData.txt";
     private static String[][] warehouse = DataLoader.loadDayFifteenGrid(filePath);
     private static final ArrayList<Character> moves = DataLoader.loadDayFifteenMoves(filePath);
     private static Coordinate robotLocation = findRobotCoordinate(warehouse);
@@ -15,8 +15,10 @@ public class DayFifteen2024 {
         for(Character move : moves){
             System.out.println("Moving: " + move);
             warehouse = moveRobot(warehouse, move);
-            SystemOut.printGrid(warehouse);
+            // SystemOut.printGrid(warehouse);
+            // System.out.println();
         }
+        SystemOut.printGrid(warehouse);
         System.out.println("GPS: " + getGPS(warehouse));
     }
     public static int getGPS(String[][] warehouse){
@@ -133,7 +135,7 @@ public class DayFifteen2024 {
     public static String[][] moveRight(String[][] warehouse){
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
-        if(robotX < warehouse[robotY].length - 3){
+        if(robotX < warehouse[robotY].length -2){
             if(warehouse[robotY][robotX + 1].equals(".")){
                 warehouse[robotY][robotX + 1] = "@";
                 warehouse[robotY][robotX] = ".";
@@ -173,7 +175,7 @@ public class DayFifteen2024 {
     public static String[][] moveDown(String[][] warehouse){
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
-        if(robotY < warehouse.length - 3){
+        if(robotY < warehouse.length - 2){
             if(warehouse[robotY + 1][robotX].equals(".")){
                 warehouse[robotY + 1][robotX] = "@";
                 warehouse[robotY][robotX] = ".";

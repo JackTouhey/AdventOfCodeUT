@@ -51,7 +51,7 @@ public class DayFifteen2024 {
     public static Boolean canBoxMoveLeft(String[][] warehouse, Coordinate boxLocation){
         int x = boxLocation.getX();
         int y = boxLocation.getY();
-        while(!warehouse[y][x].equals("#") && x > 0){
+        while(!warehouse[y][x].equals("#")){
             if(warehouse[y][x].equals(".")){
                 return true;
             }
@@ -71,6 +71,17 @@ public class DayFifteen2024 {
         }
         return warehouse;
     }
+    public static Boolean canBoxMoveUp(String[][] warehouse, Coordinate boxLocation){
+        int x = boxLocation.getX();
+        int y = boxLocation.getY();
+        while(!warehouse[y][x].equals("#")){
+            if(warehouse[y][x].equals(".")){
+                return true;
+            }
+            y--;
+        }
+        return false;
+    }
     public static String[][] moveRight(String[][] warehouse){
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
@@ -83,6 +94,17 @@ public class DayFifteen2024 {
         }
         return warehouse;
     }
+    public static Boolean canBoxMoveRight(String[][] warehouse, Coordinate boxLocation){
+        int x = boxLocation.getX();
+        int y = boxLocation.getY();
+        while(!warehouse[y][x].equals("#")){
+            if(warehouse[y][x].equals(".")){
+                return true;
+            }
+            x++;
+        }
+        return false;
+    }
     public static String[][] moveDown(String[][] warehouse){
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
@@ -94,5 +116,16 @@ public class DayFifteen2024 {
             }
         }
         return warehouse;
+    }
+    public static Boolean canBoxMoveDown(String[][] warehouse, Coordinate boxLocation){
+        int x = boxLocation.getX();
+        int y = boxLocation.getY();
+        while(!warehouse[y][x].equals("#")){
+            if(warehouse[y][x].equals(".")){
+                return true;
+            }
+            y++;
+        }
+        return false;
     }
 }

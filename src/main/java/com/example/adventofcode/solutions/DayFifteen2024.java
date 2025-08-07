@@ -42,8 +42,22 @@ public class DayFifteen2024 {
                 warehouse[robotY][robotX] = ".";
                 robotLocation = new Coordinate(robotX - 1, robotY);
             }
+            else if(warehouse[robotY][robotX - 1].equals("O")){
+
+            }
         }
         return warehouse;
+    }
+    public static Boolean canBoxMoveLeft(String[][] warehouse, Coordinate boxLocation){
+        int x = boxLocation.getX();
+        int y = boxLocation.getY();
+        while(!warehouse[y][x].equals("#") && x > 0){
+            if(warehouse[y][x].equals(".")){
+                return true;
+            }
+            x--;
+        }
+        return false;
     }
     public static String[][] moveUp(String[][] warehouse){
         int robotY = robotLocation.getY();

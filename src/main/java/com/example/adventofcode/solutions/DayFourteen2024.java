@@ -10,9 +10,8 @@ public class DayFourteen2024 {
     private static final int WIDTH = 101;
     private static final ArrayList<Robot> robots = DataLoader.loadDayFourteen("DataFiles\\DayFourteenData.txt", HEIGHT, WIDTH);
     public static void main(String[] args) {
-        moveRobotsXTimes(100000);
-        printTrunkPresentGrids(100000, 100000, 0.4);
-
+        moveRobotsXTimes(200000);
+        printTrunkPresentGrids(200000, 800000, 0.5);
     }
     private static void printXmoves(int x){
         int count = 0;

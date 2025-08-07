@@ -96,6 +96,13 @@ public class DayFifteen2024 {
         }
         return false;
     }
+    public static int getBoxesToMoveUp(String[][] warehouse, Coordinate boxLocation){
+        int boxesToMove = 1;
+        while(warehouse[boxLocation.getY() - boxesToMove][boxLocation.getX()].equals("O")){
+            boxesToMove++;
+        }
+        return boxesToMove;
+    }
     public static String[][] moveRight(String[][] warehouse){
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
@@ -119,6 +126,13 @@ public class DayFifteen2024 {
         }
         return false;
     }
+    public static int getBoxesToMoveRight(String[][] warehouse, Coordinate boxLocation){
+        int boxesToMove = 1;
+        while(warehouse[boxLocation.getY()][boxLocation.getX() + boxesToMove].equals("O")){
+            boxesToMove++;
+        }
+        return boxesToMove;
+    }
     public static String[][] moveDown(String[][] warehouse){
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
@@ -141,5 +155,12 @@ public class DayFifteen2024 {
             y++;
         }
         return false;
+    }
+    public static int getBoxesToMoveDown(String[][] warehouse, Coordinate boxLocation){
+        int boxesToMove = 1;
+        while(warehouse[boxLocation.getY() + boxesToMove][boxLocation.getX()].equals("O")){
+            boxesToMove++;
+        }
+        return boxesToMove;
     }
 }

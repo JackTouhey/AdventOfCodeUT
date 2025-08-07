@@ -9,7 +9,7 @@ import com.example.adventofcode.utils.Coordinate;
 public class DayFifteenTesting {
     @Test
     void testFindRobotCoord(){
-        assertEquals(new Coordinate(2, 3), DayFifteen2024.findRobotCoordinate(getTestGrid()));
+        assertEquals(new Coordinate(3, 2), DayFifteen2024.findRobotCoordinate(getTestGrid()));
     }
     String[][] getTestGrid(){
         return new String[][] {

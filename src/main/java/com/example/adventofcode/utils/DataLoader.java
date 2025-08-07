@@ -256,7 +256,13 @@ public class DataLoader {
             sc.nextLine();
             sc.useDelimiter("");
             while(sc.hasNext()){
-                moves.add(sc.next().charAt(0));
+                String nextLine = sc.nextLine();
+                Scanner sc2 = new Scanner(nextLine);
+                sc2.useDelimiter("");
+                while(sc2.hasNext()){
+                    moves.add(sc2.next().charAt(0));
+                }
+                sc2.close();
             }
         }catch (FileNotFoundException e){}
         return moves;

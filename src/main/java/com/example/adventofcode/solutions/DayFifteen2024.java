@@ -82,6 +82,16 @@ public class DayFifteen2024 {
                 warehouse[robotY][robotX] = ".";
                 robotLocation = new Coordinate(robotX, robotY - 1);
             }
+            else if(warehouse[robotY - 1][robotX].equals("O")){
+                Coordinate boxCoordinate = new Coordinate(robotX, robotY - 1);
+                if(canBoxMoveUp(warehouse, boxCoordinate)){
+                    int boxesToMove = getBoxesToMoveUp(warehouse, boxCoordinate);
+                    warehouse[boxCoordinate.getY() - boxesToMove][robotX] = "O";
+                    warehouse[boxCoordinate.getY()][robotX] = "@";
+                    warehouse[robotY][robotX] = ".";
+                    robotLocation = new Coordinate(robotX, robotY - 1);
+                }
+            }
         }
         return warehouse;
     }
@@ -112,6 +122,16 @@ public class DayFifteen2024 {
                 warehouse[robotY][robotX] = ".";
                 robotLocation = new Coordinate(robotX - 1, robotY);
             }
+            else if(warehouse[robotY][robotX + 1].equals("O")){
+                Coordinate boxCoordinate = new Coordinate(robotX+1, robotY);
+                if(canBoxMoveRight(warehouse, boxCoordinate)){
+                    int boxesToMove = getBoxesToMoveRight(warehouse, boxCoordinate);
+                    warehouse[robotY][boxCoordinate.getX()+boxesToMove] = "O";
+                    warehouse[robotY][boxCoordinate.getX()] = "@";
+                    warehouse[robotY][robotX] = ".";
+                    robotLocation = new Coordinate(robotX + 1, robotY);
+                }
+            }
         }
         return warehouse;
     }
@@ -141,6 +161,16 @@ public class DayFifteen2024 {
                 warehouse[robotY + 1][robotX] = "@";
                 warehouse[robotY][robotX] = ".";
                 robotLocation = new Coordinate(robotX, robotY - 1);
+            }
+            else if(warehouse[robotY + 1][robotX].equals("O")){
+                Coordinate boxCoordinate = new Coordinate(robotX, robotY + 1);
+                if(canBoxMoveDown(warehouse, boxCoordinate)){
+                    int boxesToMove = getBoxesToMoveDown(warehouse, boxCoordinate);
+                    warehouse[boxCoordinate.getY() + boxesToMove][robotX] = "O";
+                    warehouse[boxCoordinate.getY()][robotX] = "@";
+                    warehouse[robotY][robotX] = ".";
+                    robotLocation = new Coordinate(robotX, robotY + 1);
+                }
             }
         }
         return warehouse;

@@ -226,8 +226,6 @@ public class DataLoader {
                 sc.nextLine();
                 height++;
             }
-            System.out.println("Height: " + height + " Width: " + width);
-
         }catch (FileNotFoundException e){}
         String[][] returnGrid = new String[height][width];
         try(Scanner sc = new Scanner(new File(filePath))){
@@ -250,6 +248,17 @@ public class DataLoader {
         return grid;
     }
     public static ArrayList<Character> loadDayFifteenMoves(String filePath){
-        return new ArrayList<>();
+        ArrayList<Character> moves = new ArrayList<>();
+        try(Scanner sc = new Scanner(new File(filePath))){
+            while(!sc.hasNext("-")){
+                sc.nextLine();
+            }
+            sc.nextLine();
+            sc.useDelimiter("");
+            while(sc.hasNext()){
+                moves.add(sc.next().charAt(0));
+            }
+        }catch (FileNotFoundException e){}
+        return moves;
     }
 }

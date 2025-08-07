@@ -10,6 +10,7 @@ public class DayFifteen2024 {
     private static final ArrayList<Character> moves = DataLoader.loadDayFifteenMoves(filePath);
     public static void main(String[] args) {
         printGrid(warehouse);
+        System.out.println("Moves: " + moves);
     }
     private static void printGrid(String[][] grid){
         for(String[] y : grid){

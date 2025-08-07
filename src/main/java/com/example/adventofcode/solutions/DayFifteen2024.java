@@ -17,6 +17,18 @@ public class DayFifteen2024 {
             warehouse = moveRobot(warehouse, move);
             SystemOut.printGrid(warehouse);
         }
+        System.out.println("GPS: " + getGPS(warehouse));
+    }
+    public static int getGPS(String[][] warehouse){
+        int count = 0;
+        for(int y = 0; y < warehouse.length; y++){
+            for(int x = 0; x < warehouse[y].length; x++){
+                if(warehouse[y][x].equals("O")){
+                    count += (100 * y) + x;
+                }
+            }
+        }
+        return count;
     }
     public static Coordinate findRobotCoordinate(String[][] grid){
         Coordinate returnCoord = new Coordinate(0, 0);

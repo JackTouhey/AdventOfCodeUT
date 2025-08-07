@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
+import com.example.adventofcode.utils.SystemOut;
 
 public class DayFifteen2024 {
     private static final String filePath = "DataFiles\\DayFifteenTestData.txt";
@@ -11,7 +12,11 @@ public class DayFifteen2024 {
     private static final ArrayList<Character> moves = DataLoader.loadDayFifteenMoves(filePath);
     private static Coordinate robotLocation = findRobotCoordinate(warehouse);
     public static void main(String[] args) {
-        
+        for(Character move : moves){
+            System.out.println("Moving: " + move);
+            warehouse = moveRobot(warehouse, move);
+            SystemOut.printGrid(warehouse);
+        }
     }
     public static Coordinate findRobotCoordinate(String[][] grid){
         Coordinate returnCoord = new Coordinate(0, 0);
@@ -120,7 +125,7 @@ public class DayFifteen2024 {
             if(warehouse[robotY][robotX + 1].equals(".")){
                 warehouse[robotY][robotX + 1] = "@";
                 warehouse[robotY][robotX] = ".";
-                robotLocation = new Coordinate(robotX - 1, robotY);
+                robotLocation = new Coordinate(robotX + 1, robotY);
             }
             else if(warehouse[robotY][robotX + 1].equals("O")){
                 Coordinate boxCoordinate = new Coordinate(robotX+1, robotY);
@@ -160,7 +165,7 @@ public class DayFifteen2024 {
             if(warehouse[robotY + 1][robotX].equals(".")){
                 warehouse[robotY + 1][robotX] = "@";
                 warehouse[robotY][robotX] = ".";
-                robotLocation = new Coordinate(robotX, robotY - 1);
+                robotLocation = new Coordinate(robotX, robotY + 1);
             }
             else if(warehouse[robotY + 1][robotX].equals("O")){
                 Coordinate boxCoordinate = new Coordinate(robotX, robotY + 1);

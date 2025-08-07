@@ -21,13 +21,22 @@ public class DayFifteenTesting {
     void testCanBoxMoveLeftFalse(){
         assertFalse(DayFifteen2024.canBoxMoveLeft(getTestGrid(), new Coordinate(2, 2)));
     }
+    @Test
+    void testBoxesToMoveLeft(){
+        assertEquals(1, (Integer)DayFifteen2024.getBoxesToMoveLeft(getTestGrid(), 
+        new Coordinate(3, 1)));
+        assertEquals(2, (Integer)DayFifteen2024.getBoxesToMoveLeft(getTestGrid(), 
+        new Coordinate(2, 2)));
+        assertEquals(3, (Integer)DayFifteen2024.getBoxesToMoveLeft(getTestGrid(), 
+        new Coordinate(4, 4)));
+    }
     String[][] getTestGrid(){
         return new String[][] {
             {"#", "#", "#", "#", "#", "#"},
-            {"#", ".", ".", "O", ".", "."},
-            {"#", "O", "O", "@", ".", "."},
-            {"#", ".", ".", "O", ".", "."},
-            {"#", ".", ".", ".", ".", "."},
+            {"#", ".", ".", "O", ".", "#"},
+            {"#", "O", "O", "@", ".", "#"},
+            {"#", ".", ".", "O", ".", "#"},
+            {"#", ".", "O", "O", "O", "#"},
             {"#", "#", "#", "#", "#", "#"}
         };
     }

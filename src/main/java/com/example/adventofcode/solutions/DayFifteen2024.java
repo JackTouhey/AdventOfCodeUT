@@ -43,7 +43,10 @@ public class DayFifteen2024 {
                 robotLocation = new Coordinate(robotX - 1, robotY);
             }
             else if(warehouse[robotY][robotX - 1].equals("O")){
-
+                Coordinate boxCoordinate = new Coordinate(robotX-1, robotY);
+                if(canBoxMoveLeft(warehouse, boxCoordinate)){
+                    int boxesToMove = getBoxesToMoveLeft(warehouse, boxCoordinate);
+                }
             }
         }
         return warehouse;
@@ -58,6 +61,13 @@ public class DayFifteen2024 {
             x--;
         }
         return false;
+    }
+    public static int getBoxesToMoveLeft(String[][] warehouse, Coordinate boxLocation){
+        int boxesToMove = 1;
+        while(warehouse[boxLocation.getY()][boxLocation.getX() - boxesToMove].equals("O")){
+            boxesToMove++;
+        }
+        return boxesToMove;
     }
     public static String[][] moveUp(String[][] warehouse){
         int robotY = robotLocation.getY();

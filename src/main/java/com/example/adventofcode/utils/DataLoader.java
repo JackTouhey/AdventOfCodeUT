@@ -217,4 +217,39 @@ public class DataLoader {
         }catch (FileNotFoundException e){}
         return returnList;
     }
+    public static String[][] loadDayFifteenGrid(String filePath){
+        int height = 1;
+        int width = 0;
+        try(Scanner sc = new Scanner(new File(filePath))){
+            width = sc.nextLine().length();
+            while(!sc.hasNext("-")){
+                sc.nextLine();
+                height++;
+            }
+            System.out.println("Height: " + height + " Width: " + width);
+
+        }catch (FileNotFoundException e){}
+        String[][] returnGrid = new String[height][width];
+        try(Scanner sc = new Scanner(new File(filePath))){
+            returnGrid = populateDatFifteenGrid(sc, returnGrid);
+        }catch (FileNotFoundException e){}
+        return returnGrid;
+    }
+    public static String[][] populateDatFifteenGrid(Scanner sc, String[][] grid){
+        while(!sc.hasNext("-")){
+            for (String[] row : grid) {
+                try (Scanner sc2 = new Scanner(sc.nextLine())) {
+                    for (int ii = 0; ii < row.length; ii++) {
+                        sc2.useDelimiter("");
+                        String next = sc2.next();
+                        row[ii] = next;
+                    }
+                } catch (Exception e) {}
+            }
+        }
+        return grid;
+    }
+    public static ArrayList<Character> loadDayFifteenMoves(String filePath){
+        return new ArrayList<>();
+    }
 }

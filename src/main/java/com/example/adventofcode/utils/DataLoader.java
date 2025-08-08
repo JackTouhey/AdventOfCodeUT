@@ -267,4 +267,30 @@ public class DataLoader {
         }catch (FileNotFoundException e){}
         return moves;
     }
+    public static String[][] dayFifteenDoubleSizeWarehouse(String[][] warehouse){
+        String[][] returnGrid = new String[warehouse.length][warehouse[0].length * 2];
+        for(int y = 0; y < warehouse.length; y++){
+            for(int x = 0; x < warehouse[y].length; x++){
+                switch (warehouse[y][x]) {
+                    case "#" -> {
+                        returnGrid[y][2*x] = "#";
+                        returnGrid[y][(2*x) + 1] = "#";
+                    }
+                    case "O" -> {
+                        returnGrid[y][2*x] = "[";
+                        returnGrid[y][(2*x) + 1] = "]";
+                    }
+                    case "." -> {
+                        returnGrid[y][2*x] = ".";
+                        returnGrid[y][(2*x) + 1] = ".";
+                    }
+                    default -> {
+                        returnGrid[y][2*x] = "@";
+                        returnGrid[y][(2*x) + 1] = ".";
+                    }
+                }
+            }
+        }
+        return returnGrid;
+    }
 }

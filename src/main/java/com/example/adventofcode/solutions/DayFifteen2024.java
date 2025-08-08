@@ -7,20 +7,22 @@ import com.example.adventofcode.utils.DataLoader;
 import com.example.adventofcode.utils.SystemOut;
 
 public class DayFifteen2024 {
-    private static final String filePath = "DataFiles\\DayFifteenTestData3.txt";
+    private static final String filePath = "DataFiles\\DayFifteenTestData.txt";
     private static String[][] warehouse = DataLoader.loadDayFifteenGrid(filePath);
     private static String[][] doubleWarehouse = DataLoader.dayFifteenDoubleSizeWarehouse(warehouse);
+    private static final String[][] currentWarehouse = doubleWarehouse;
     private static final ArrayList<Character> moves = DataLoader.loadDayFifteenMoves(filePath);
-    private static Coordinate robotLocation = findRobotCoordinate(warehouse);
+    private static Coordinate robotLocation = findRobotCoordinate(currentWarehouse);
     public static void main(String[] args) {
-        SystemOut.printGrid(doubleWarehouse);
+        // SystemOut.printGrid(doubleWarehouse);
+        // moveRobotThroughWarehouse();
     }
     public static void moveRobotThroughWarehouse(){
         for(Character move : moves){
             System.out.println("Moving: " + move);
             warehouse = moveRobot(warehouse, move);
-            // SystemOut.printGrid(warehouse);
-            // System.out.println();
+            SystemOut.printGrid(warehouse);
+            System.out.println();
         }
     }
     public static int getGPS(String[][] warehouse){
@@ -64,6 +66,9 @@ public class DayFifteen2024 {
             else if(warehouse[robotY][robotX - 1].equals("O")){
                 warehouse = moveSingleSizeBoxLeft(warehouse, robotX, robotY);
             }
+            else if((warehouse[robotY][robotX - 1].equals("]"))){
+                warehouse = moveDoubleSizeBoxLeft(warehouse, robotX, robotY);
+            }
         }
         return warehouse;
     }
@@ -76,7 +81,7 @@ public class DayFifteen2024 {
     public static String[][] moveSingleSizeBoxLeft(String[][] warehouse, int robotX, int robotY){
         Coordinate boxCoordinate = new Coordinate(robotX-1, robotY);
         if(canBoxMoveLeft(warehouse, boxCoordinate)){
-            int boxesToMove = getBoxesToMoveLeft(warehouse, boxCoordinate);
+            int boxesToMove = getSingleBoxesToMoveLeft(warehouse, boxCoordinate);
             warehouse[robotY][boxCoordinate.getX()-boxesToMove] = "O";
             warehouse[robotY][boxCoordinate.getX()] = "@";
             warehouse[robotY][robotX] = ".";
@@ -95,9 +100,30 @@ public class DayFifteen2024 {
         }
         return false;
     }
-    public static int getBoxesToMoveLeft(String[][] warehouse, Coordinate boxLocation){
+    public static int getSingleBoxesToMoveLeft(String[][] warehouse, Coordinate boxLocation){
         int boxesToMove = 1;
         while(warehouse[boxLocation.getY()][boxLocation.getX() - boxesToMove].equals("O")){
+            boxesToMove++;
+        }
+        return boxesToMove;
+    }
+    public static String[][] moveDoubleSizedBoxLeft(String[][] warehouse, int robotX, int robotY){
+        Coordinate boxCoordinate = new Coordinate(robotX-1, robotY);
+        if(canBoxMoveLeft(warehouse, boxCoordinate)){
+            int boxesToMove = getDoubleBoxesToMoveLeft(warehouse, boxCoordinate);
+            for(int i = 1; i <= boxesToMove; i++){
+                warehouse[robotY][boxCoordinate.getX()-i] = "]";
+                warehouse[robotY][boxCoordinate.getX()-(i*2)] = "[";
+            }
+            warehouse[robotY][boxCoordinate.getX()] = "@";
+            warehouse[robotY][robotX] = ".";
+            robotLocation = new Coordinate(robotX - 1, robotY);
+        }
+        return warehouse;
+    }
+    public static int getDoubleBoxesToMoveLeft(String[][] warehouse, Coordinate boxLocation){
+        int boxesToMove = 1;
+        while(warehouse[boxLocation.getY()][boxLocation.getX() - (boxesToMove*2)].equals("]")){
             boxesToMove++;
         }
         return boxesToMove;

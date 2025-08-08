@@ -13,15 +13,15 @@ public class DayFifteen2024 {
     private static final ArrayList<Character> moves = DataLoader.loadDayFifteenMoves(filePath);
     private static Coordinate robotLocation = findRobotCoordinate(warehouse);
     public static void main(String[] args) {
-        // for(Character move : moves){
-        //     System.out.println("Moving: " + move);
-        //     warehouse = moveRobot(warehouse, move);
-        //     // SystemOut.printGrid(warehouse);
-        //     // System.out.println();
-        // }
-        // SystemOut.printGrid(warehouse);
-        // System.out.println("GPS: " + getGPS(warehouse));
         SystemOut.printGrid(doubleWarehouse);
+    }
+    public static void moveRobotThroughWarehouse(){
+        for(Character move : moves){
+            System.out.println("Moving: " + move);
+            warehouse = moveRobot(warehouse, move);
+            // SystemOut.printGrid(warehouse);
+            // System.out.println();
+        }
     }
     public static int getGPS(String[][] warehouse){
         int count = 0;

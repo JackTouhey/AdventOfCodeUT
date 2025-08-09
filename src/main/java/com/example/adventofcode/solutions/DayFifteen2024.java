@@ -107,7 +107,7 @@ public class DayFifteen2024 {
         }
         return boxesToMove;
     }
-    public static String[][] moveDoubleSizedBoxLeft(String[][] warehouse, int robotX, int robotY){
+    public static String[][] moveDoubleSizeBoxLeft(String[][] warehouse, int robotX, int robotY){
         Coordinate boxCoordinate = new Coordinate(robotX-1, robotY);
         if(canBoxMoveLeft(warehouse, boxCoordinate)){
             int boxesToMove = getDoubleBoxesToMoveLeft(warehouse, boxCoordinate);

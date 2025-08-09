@@ -1,5 +1,7 @@
 package com.example.adventofcode;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,13 +34,21 @@ public class DayFifteenTesting {
         new Coordinate(4, 4)));
     }
     @Test
-    void testDoubleSizeBoxesToMoveLeft(){
+    void testGetDoubleSizeBoxesToMoveLeft(){
         assertEquals(2, (Integer)DayFifteen2024.getDoubleBoxesToMoveLeft(getDoubleSizeTestGrid(), 
         new Coordinate(5, 2)));
         assertEquals(1, (Integer)DayFifteen2024.getDoubleBoxesToMoveLeft(getDoubleSizeTestGrid(), 
         new Coordinate(7, 3)));
         assertEquals(3, (Integer)DayFifteen2024.getDoubleBoxesToMoveLeft(getDoubleSizeTestGrid(), 
         new Coordinate(9, 4)));
+        assertEquals(2, (Integer)DayFifteen2024.getDoubleBoxesToMoveLeft(getMoveDoubleBoxLeftInitialGrid(), 
+        new Coordinate(5, 1)));
+    }
+    @Test
+    void testMoveDoubleSizeBoxesLeft(){
+        assertTrue(Arrays.deepEquals(getMoveDoubleBoxLeftResultantGrid(), 
+        DayFifteen2024.moveDoubleSizeBoxLeft(getMoveDoubleBoxLeftInitialGrid(), 6, 1)));
+
     }
     String[][] getTestGrid(){
         return new String[][] {
@@ -52,5 +62,19 @@ public class DayFifteenTesting {
     }
     String[][] getDoubleSizeTestGrid(){
         return DataLoader.dayFifteenDoubleSizeWarehouse(getTestGrid());
+    }
+    String[][] getMoveDoubleBoxLeftInitialGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", "[", "]", "[", "]", "@", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"}
+        };
+    }
+    String[][] getMoveDoubleBoxLeftResultantGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", "[", "]", "[", "]", "@", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"}
+        };
     }
 }

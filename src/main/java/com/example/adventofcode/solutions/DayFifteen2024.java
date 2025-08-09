@@ -111,9 +111,9 @@ public class DayFifteen2024 {
         Coordinate boxCoordinate = new Coordinate(robotX-1, robotY);
         if(canBoxMoveLeft(warehouse, boxCoordinate)){
             int boxesToMove = getDoubleBoxesToMoveLeft(warehouse, boxCoordinate);
-            for(int i = 1; i <= boxesToMove; i++){
-                warehouse[robotY][boxCoordinate.getX()-i] = "]";
-                warehouse[robotY][boxCoordinate.getX()-(i*2)] = "[";
+            for(int i = 0; i < boxesToMove; i++){
+                warehouse[robotY][boxCoordinate.getX()-((i*2)+1)] = "]";
+                warehouse[robotY][boxCoordinate.getX()-((i*2)+2)] = "[";
             }
             warehouse[robotY][boxCoordinate.getX()] = "@";
             warehouse[robotY][robotX] = ".";

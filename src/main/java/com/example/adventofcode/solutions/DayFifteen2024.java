@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 import com.example.adventofcode.utils.SystemOut;
+import com.example.adventofcode.utils.WarehouseBox;
 
 public class DayFifteen2024 {
     private static final String filePath = "DataFiles\\DayFifteenTestData.txt";
@@ -130,11 +131,13 @@ public class DayFifteen2024 {
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
         if(robotY > 1){
-            if(warehouse[robotY - 1][robotX].equals(".")){
-                warehouse = moveRobotUp(warehouse, robotX, robotY);
-            }
-            else if(warehouse[robotY - 1][robotX].equals("O")){
-                warehouse = moveSingleSizeBoxUp(warehouse, robotX, robotY);
+            switch (warehouse[robotY - 1][robotX]) {
+                case "." -> warehouse = moveRobotUp(warehouse, robotX, robotY);
+                case "O" -> warehouse = moveSingleSizeBoxUp(warehouse, robotX, robotY);
+                case "[" -> warehouse = moveDoubleSizeBoxUp(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX, robotY-1), new Coordinate(robotX + 1, robotY-1)));
+                case "]" -> warehouse = moveDoubleSizeBoxUp(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX-1, robotY-1), new Coordinate(robotX, robotY-1)));
+                default -> {
+                }
             }
         }
         return warehouse;
@@ -174,6 +177,59 @@ public class DayFifteen2024 {
         }
         return boxesToMove;
     }
+    public static String[][] moveDoubleSizeBoxUp(String[][] warehouse, int robotX, int robotY, WarehouseBox box){
+        if(canDoubleSizeBoxMoveUp(warehouse, box)){
+
+        }
+        return warehouse;
+    }
+    public static Boolean canDoubleSizeBoxMoveUp(String[][] warehouse, WarehouseBox box){
+        if(box.isAboveClear(warehouse)){
+            return true;
+        }
+        //TODO: within bounds checking
+        else if(box.canMoveUp(warehouse)){
+            //Check if box directly above and it can move:
+            //..[]..
+            //..[]..
+            Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");
+            Boolean isBoxAboveAndRight = warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("[");
+            if(warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("[") && 
+            warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("]")){
+                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
+                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()), 
+                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX())));
+            }
+            //Check if 2 boxes above and they can move:
+            //.[][].
+            //..[]..
+            else if(isBoxAboveAndLeft && isBoxAboveAndRight){
+                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
+                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()-1), 
+                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()-1))) 
+                    && canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
+                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()+1), 
+                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()+1)));
+            }
+            //Check if box above left and it can move:
+            //.[]...
+            //..[]..
+            else if(isBoxAboveAndLeft){
+                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
+                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()-1), 
+                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()-1)));
+            }
+            //Check if box above right and it can move:
+            //...[].
+            //..[]..
+            else if(isBoxAboveAndRight){
+                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
+                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()+1), 
+                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()+1)));
+            }
+        }
+        return false;
+    }
     public static String[][] moveRight(String[][] warehouse){
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
@@ -182,8 +238,7 @@ public class DayFifteen2024 {
                 case "." -> warehouse = moveRobotRight(warehouse, robotX, robotY);
                 case "O" -> warehouse = moveSingleSizeBoxRight(warehouse, robotX, robotY);
                 case "[" -> warehouse = moveDoubleSizeBoxRight(warehouse, robotX, robotY);
-                default -> {
-                }
+                default -> {}
             }
         }
         return warehouse;

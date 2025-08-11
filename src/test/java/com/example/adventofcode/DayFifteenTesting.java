@@ -48,7 +48,8 @@ public class DayFifteenTesting {
     void testMoveDoubleSizeBoxesLeft(){
         assertTrue(Arrays.deepEquals(getMoveDoubleBoxLeftResultantGrid(), 
         DayFifteen2024.moveDoubleSizeBoxLeft(getMoveDoubleBoxLeftInitialGrid(), 6, 1)));
-
+        assertTrue(Arrays.deepEquals(getMoveDoubleBoxLeftResultantGrid(), 
+        DayFifteen2024.moveDoubleSizeBoxLeft(getMoveDoubleBoxLeftResultantGrid(), 5, 1)));
     }
     String[][] getTestGrid(){
         return new String[][] {

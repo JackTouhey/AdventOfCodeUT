@@ -60,14 +60,12 @@ public class DayFifteen2024 {
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
         if(robotX > 1){
-            if(warehouse[robotY][robotX - 1].equals(".")){
-                warehouse = moveRobotLeft(warehouse, robotX, robotY);
-            }
-            else if(warehouse[robotY][robotX - 1].equals("O")){
-                warehouse = moveSingleSizeBoxLeft(warehouse, robotX, robotY);
-            }
-            else if((warehouse[robotY][robotX - 1].equals("]"))){
-                warehouse = moveDoubleSizeBoxLeft(warehouse, robotX, robotY);
+            switch (warehouse[robotY][robotX - 1]) {
+                case "." -> warehouse = moveRobotLeft(warehouse, robotX, robotY);
+                case "O" -> warehouse = moveSingleSizeBoxLeft(warehouse, robotX, robotY);
+                case "]" -> warehouse = moveDoubleSizeBoxLeft(warehouse, robotX, robotY);
+                default -> {
+                }
             }
         }
         return warehouse;
@@ -180,11 +178,12 @@ public class DayFifteen2024 {
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
         if(robotX < warehouse[robotY].length -2){
-            if(warehouse[robotY][robotX + 1].equals(".")){
-                warehouse = moveRobotRight(warehouse, robotX, robotY);
-            }
-            else if(warehouse[robotY][robotX + 1].equals("O")){
-                warehouse = moveSingleSizeBoxRight(warehouse, robotX, robotY);
+            switch (warehouse[robotY][robotX + 1]) {
+                case "." -> warehouse = moveRobotRight(warehouse, robotX, robotY);
+                case "O" -> warehouse = moveSingleSizeBoxRight(warehouse, robotX, robotY);
+                case "[" -> warehouse = moveDoubleSizeBoxRight(warehouse, robotX, robotY);
+                default -> {
+                }
             }
         }
         return warehouse;
@@ -220,6 +219,27 @@ public class DayFifteen2024 {
     public static int getBoxesToMoveRight(String[][] warehouse, Coordinate boxLocation){
         int boxesToMove = 1;
         while(warehouse[boxLocation.getY()][boxLocation.getX() + boxesToMove].equals("O")){
+            boxesToMove++;
+        }
+        return boxesToMove;
+    }
+    public static String[][] moveDoubleSizeBoxRight(String[][] warehouse, int robotX, int robotY){
+        Coordinate boxCoordinate = new Coordinate(robotX+1, robotY);
+        if(canBoxMoveRight(warehouse, boxCoordinate)){
+            int boxesToMove = getDoubleBoxesToMoveRight(warehouse, boxCoordinate);
+            for(int i = 0; i < boxesToMove; i++){
+                warehouse[robotY][boxCoordinate.getX()+((i*2)+1)] = "]";
+                warehouse[robotY][boxCoordinate.getX()+((i*2)+2)] = "[";
+            }
+            warehouse[robotY][boxCoordinate.getX()] = "@";
+            warehouse[robotY][robotX] = ".";
+            robotLocation = new Coordinate(robotX + 1, robotY);
+        }
+        return warehouse;
+    }
+    public static int getDoubleBoxesToMoveRight(String[][] warehouse, Coordinate boxLocation){
+        int boxesToMove = 1;
+        while(warehouse[boxLocation.getY()][boxLocation.getX() + (boxesToMove*2)].equals("]")){
             boxesToMove++;
         }
         return boxesToMove;

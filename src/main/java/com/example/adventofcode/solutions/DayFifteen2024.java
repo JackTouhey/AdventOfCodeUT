@@ -184,48 +184,46 @@ public class DayFifteen2024 {
         return warehouse;
     }
     public static Boolean canDoubleSizeBoxMoveUp(String[][] warehouse, WarehouseBox box){
-        if(box.isAboveClear(warehouse)){
+        if(box.isAboveClear(warehouse) && box.getLeftSide().getY() > 1){
             return true;
         }
-        //TODO: within bounds checking
-        else if(box.canMoveUp(warehouse)){
+        else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1){
+            Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");
+            Boolean isBoxAboveAndRight = warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("[");
+            WarehouseBox boxAbove = new WarehouseBox(
+                new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()), 
+                new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()));
+            WarehouseBox boxAboveLeft = new WarehouseBox(
+                new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()-1), 
+                new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()-1));
+            WarehouseBox boxAboveRight = new WarehouseBox(
+                new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()+1), 
+                new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()+1));
             //Check if box directly above and it can move:
             //..[]..
             //..[]..
-            Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");
-            Boolean isBoxAboveAndRight = warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("[");
             if(warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("[") && 
             warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("]")){
-                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
-                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()), 
-                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX())));
+                return canDoubleSizeBoxMoveUp(warehouse, boxAbove);
             }
             //Check if 2 boxes above and they can move:
             //.[][].
             //..[]..
             else if(isBoxAboveAndLeft && isBoxAboveAndRight){
-                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
-                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()-1), 
-                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()-1))) 
-                    && canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
-                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()+1), 
-                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()+1)));
+                return canDoubleSizeBoxMoveUp(warehouse, boxAboveLeft)
+                    && canDoubleSizeBoxMoveUp(warehouse, boxAboveRight);
             }
             //Check if box above left and it can move:
             //.[]...
             //..[]..
             else if(isBoxAboveAndLeft){
-                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
-                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()-1), 
-                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()-1)));
+                return canDoubleSizeBoxMoveUp(warehouse, boxAboveLeft);
             }
             //Check if box above right and it can move:
             //...[].
             //..[]..
             else if(isBoxAboveAndRight){
-                return canDoubleSizeBoxMoveUp(warehouse, new WarehouseBox(
-                    new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()+1), 
-                    new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()+1)));
+                return canDoubleSizeBoxMoveUp(warehouse, boxAboveRight);
             }
         }
         return false;

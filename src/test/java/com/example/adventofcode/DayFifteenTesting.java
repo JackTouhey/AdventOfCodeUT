@@ -51,6 +51,21 @@ public class DayFifteenTesting {
         assertTrue(Arrays.deepEquals(getMoveDoubleBoxLeftResultantGrid(), 
         DayFifteen2024.moveDoubleSizeBoxLeft(getMoveDoubleBoxLeftResultantGrid(), 5, 1)));
     }
+    @Test
+    void testGetDoubleBoxesToMoveRight(){
+        assertEquals(2, DayFifteen2024.getDoubleBoxesToMoveRight(getMoveDoubleBoxRightInitialGrid(),
+        new Coordinate(2, 0)));
+    }
+    @Test
+    void testMoveDoubleSizeBoxesRight(){
+        System.out.println("Initial: " + Arrays.deepToString(getMoveDoubleBoxRightInitialGrid()));
+        System.out.println("Expected resultant: " + Arrays.deepToString(getMoveDoubleBoxRightResultantGrid()));
+        System.out.println("Computed resultant: " + Arrays.deepToString(DayFifteen2024.moveDoubleSizeBoxRight(getMoveDoubleBoxRightInitialGrid(), 1, 0)));
+        assertTrue(Arrays.deepEquals(getMoveDoubleBoxRightResultantGrid(), 
+        DayFifteen2024.moveDoubleSizeBoxRight(getMoveDoubleBoxRightInitialGrid(), 1, 0)));
+        assertTrue(Arrays.deepEquals(getMoveDoubleBoxRightResultantGrid(), 
+        DayFifteen2024.moveDoubleSizeBoxRight(getMoveDoubleBoxRightResultantGrid(), 2, 0)));
+    }
     String[][] getTestGrid(){
         return new String[][] {
             {"#", "#", "#", "#", "#", "#"},
@@ -76,6 +91,16 @@ public class DayFifteenTesting {
             {"#", "#", "#", "#", "#", "#", "#", "#"},
             {"#", "[", "]", "[", "]", "@", ".", "#"},
             {"#", "#", "#", "#", "#", "#", "#", "#"}
+        };
+    }
+    String[][] getMoveDoubleBoxRightInitialGrid(){
+        return new String[][] {
+            {"#", "@", "[", "]", "[", "]", ".", "#"}
+        };
+    }
+    String[][] getMoveDoubleBoxRightResultantGrid(){
+        return new String[][] {
+            {"#", ".", "@", "[", "]", "[", "]", "#"}
         };
     }
 }

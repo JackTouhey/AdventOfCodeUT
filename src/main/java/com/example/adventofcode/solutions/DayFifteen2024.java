@@ -228,8 +228,8 @@ public class DayFifteen2024 {
         if(canBoxMoveRight(warehouse, boxCoordinate)){
             int boxesToMove = getDoubleBoxesToMoveRight(warehouse, boxCoordinate);
             for(int i = 0; i < boxesToMove; i++){
-                warehouse[robotY][boxCoordinate.getX()+((i*2)+1)] = "]";
-                warehouse[robotY][boxCoordinate.getX()+((i*2)+2)] = "[";
+                warehouse[robotY][boxCoordinate.getX()+((i*2)+1)] = "[";
+                warehouse[robotY][boxCoordinate.getX()+((i*2)+2)] = "]";
             }
             warehouse[robotY][boxCoordinate.getX()] = "@";
             warehouse[robotY][robotX] = ".";
@@ -239,7 +239,7 @@ public class DayFifteen2024 {
     }
     public static int getDoubleBoxesToMoveRight(String[][] warehouse, Coordinate boxLocation){
         int boxesToMove = 1;
-        while(warehouse[boxLocation.getY()][boxLocation.getX() + (boxesToMove*2)].equals("]")){
+        while(warehouse[boxLocation.getY()][boxLocation.getX() + (boxesToMove*2)].equals("[")){
             boxesToMove++;
         }
         return boxesToMove;

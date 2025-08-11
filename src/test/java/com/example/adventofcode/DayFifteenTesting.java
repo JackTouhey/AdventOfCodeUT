@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.example.adventofcode.solutions.DayFifteen2024;
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
+import com.example.adventofcode.utils.WarehouseBox;
 
 public class DayFifteenTesting {
     @Test
@@ -66,6 +67,31 @@ public class DayFifteenTesting {
         assertTrue(Arrays.deepEquals(getMoveDoubleBoxRightResultantGrid(), 
         DayFifteen2024.moveDoubleSizeBoxRight(getMoveDoubleBoxRightResultantGrid(), 2, 0)));
     }
+    @Test
+    void canBoxMoveUpTesting(){
+        WarehouseBox box = new WarehouseBox(new Coordinate(3,3), new Coordinate(4, 3));
+        assertTrue(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveGrid(), box));
+        assertTrue(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveLeftGrid(), box));
+        assertTrue(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveRightGrid(), box));
+        assertTrue(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveLeftAndRightGrid(), box));
+    }
+    @Test
+    void canBoxMoveUpTestingFailStates(){
+        WarehouseBox box = new WarehouseBox(new Coordinate(3,3), new Coordinate(4, 3));
+        assertFalse(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveGridImmovable(), box));
+        assertFalse(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveLeftGridImmovable(), box));
+        assertFalse(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveRightGridImmovable(), box));
+        assertFalse(DayFifteen2024.canDoubleSizeBoxMoveUp(getDoubleSidedBoxAboveLeftAndRightGridImmovable(), box));
+    }
+    @Test
+    void warehouseBoxTesting(){
+        WarehouseBox boxAbove = new WarehouseBox(new Coordinate(3,2), new Coordinate(4, 2));
+        WarehouseBox boxBelow = new WarehouseBox(new Coordinate(3,3), new Coordinate(4, 3));
+        assertTrue(boxAbove.canMoveUp(getDoubleSidedBoxAboveGrid()));
+        assertTrue(boxAbove.isAboveClear(getDoubleSidedBoxAboveGrid()));
+        assertTrue(boxBelow.canMoveUp(getDoubleSidedBoxAboveGrid()));
+        assertFalse(boxBelow.isAboveClear(getDoubleSidedBoxAboveGrid()));
+    }
     String[][] getTestGrid(){
         return new String[][] {
             {"#", "#", "#", "#", "#", "#"},
@@ -101,6 +127,78 @@ public class DayFifteenTesting {
     String[][] getMoveDoubleBoxRightResultantGrid(){
         return new String[][] {
             {"#", ".", "@", "[", "]", "[", "]", "#"}
+        };
+    }
+    String[][] getDoubleSidedBoxAboveGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    String[][] getDoubleSidedBoxAboveLeftGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", "[", "]", ".",  ".", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    String[][] getDoubleSidedBoxAboveRightGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", ".", ".", "[",  "]", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    String[][] getDoubleSidedBoxAboveLeftAndRightGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", ".", "[", "]", "[",  "]", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    String[][] getDoubleSidedBoxAboveGridImmovable(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", "#", ".", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    String[][] getDoubleSidedBoxAboveLeftGridImmovable(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", "#", ".", ".", ".", ".", "#"},
+            {"#", ".", "[", "]", ".",  ".", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    String[][] getDoubleSidedBoxAboveRightGridImmovable(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", "#", ".", "#"},
+            {"#", ".", ".", ".", "[",  "]", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    String[][] getDoubleSidedBoxAboveLeftAndRightGridImmovable(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", "#", ".", "#"},
+            {"#", ".", "[", "]", "[",  "]", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
         };
     }
 }

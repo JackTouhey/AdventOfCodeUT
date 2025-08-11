@@ -184,21 +184,26 @@ public class DayFifteen2024 {
         return warehouse;
     }
     public static Boolean canDoubleSizeBoxMoveUp(String[][] warehouse, WarehouseBox box){
+        System.out.println("Checking box: " + box.toString());
         if(box.isAboveClear(warehouse) && box.getLeftSide().getY() > 1){
+            System.out.println("Above clear of box: " + box.toString());
             return true;
         }
         else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1){
+            System.out.println("Box can move up: " + box.toString());
             Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");
             Boolean isBoxAboveAndRight = warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("[");
+            System.out.println("Box above and left: " + isBoxAboveAndLeft);
+            System.out.println("Box above and right: " + isBoxAboveAndRight);
             WarehouseBox boxAbove = new WarehouseBox(
-                new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()), 
-                new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()));
+                new Coordinate(box.getLeftSide().getX(), box.getLeftSide().getY()-1), 
+                new Coordinate(box.getRightSide().getX(), box.getRightSide().getY()-1));
             WarehouseBox boxAboveLeft = new WarehouseBox(
-                new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()-1), 
-                new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()-1));
+                new Coordinate(box.getLeftSide().getX()-1, box.getLeftSide().getY()-1), 
+                new Coordinate(box.getRightSide().getX()-1, box.getRightSide().getY()-1));
             WarehouseBox boxAboveRight = new WarehouseBox(
-                new Coordinate(box.getLeftSide().getY()-1, box.getLeftSide().getX()+1), 
-                new Coordinate(box.getRightSide().getY()-1, box.getRightSide().getX()+1));
+                new Coordinate(box.getLeftSide().getX()+1, box.getLeftSide().getY()-1), 
+                new Coordinate(box.getRightSide().getX()+1, box.getRightSide().getY()-1));
             //Check if box directly above and it can move:
             //..[]..
             //..[]..
@@ -217,6 +222,7 @@ public class DayFifteen2024 {
             //.[]...
             //..[]..
             else if(isBoxAboveAndLeft){
+                System.out.println("Box above and left");
                 return canDoubleSizeBoxMoveUp(warehouse, boxAboveLeft);
             }
             //Check if box above right and it can move:

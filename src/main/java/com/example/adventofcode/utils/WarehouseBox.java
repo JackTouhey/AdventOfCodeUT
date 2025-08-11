@@ -21,6 +21,10 @@ public class WarehouseBox {
         return warehouse[leftSide.getY()-1][leftSide.getX()].equals(".") && warehouse[rightSide.getY()-1][rightSide.getX()].equals(".");
     }
     public Boolean canMoveUp(String[][] warehouse){
-        return !warehouse[leftSide.getY()-1][leftSide.getX()].equals("#") && warehouse[rightSide.getY()-1][rightSide.getX()].equals("#");
+        return !warehouse[leftSide.getY()-1][leftSide.getX()].equals("#") && !warehouse[rightSide.getY()-1][rightSide.getX()].equals("#");
+    }
+    @Override
+    public String toString(){
+        return "Left side: " + leftSide.toString() + " Right side: " + rightSide.toString();
     }
 }

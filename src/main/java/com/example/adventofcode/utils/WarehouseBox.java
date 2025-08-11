@@ -17,4 +17,10 @@ public class WarehouseBox {
         this.leftSide = new Coordinate(leftSide.getX(), leftSide.getY() + 1);   
         this.rightSide = new Coordinate(rightSide.getX(), rightSide.getY() + 1);
     }
+    public Boolean isAboveClear(String[][] warehouse){
+        return warehouse[leftSide.getY()-1][leftSide.getX()].equals(".") && warehouse[rightSide.getY()-1][rightSide.getX()].equals(".");
+    }
+    public Boolean canMoveUp(String[][] warehouse){
+        return !warehouse[leftSide.getY()-1][leftSide.getX()].equals("#") && warehouse[rightSide.getY()-1][rightSide.getX()].equals("#");
+    }
 }

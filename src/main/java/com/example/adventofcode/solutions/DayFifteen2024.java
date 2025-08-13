@@ -179,7 +179,8 @@ public class DayFifteen2024 {
     }
     public static String[][] moveDoubleSizeBoxUp(String[][] warehouse, int robotX, int robotY, WarehouseBox box){
         if(canDoubleSizeBoxMoveUp(warehouse, box)){
-
+            ArrayList<WarehouseBox> boxesToMove = new ArrayList<>();
+            populateDoubleSizeBoxesToMoveUp(warehouse, box, boxesToMove);
         }
         return warehouse;
     }
@@ -189,6 +190,7 @@ public class DayFifteen2024 {
             System.out.println("Above clear of box: " + box.toString());
             return true;
         }
+        //TODO add left/right bounding
         else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1){
             System.out.println("Box can move up: " + box.toString());
             Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");
@@ -233,6 +235,16 @@ public class DayFifteen2024 {
             }
         }
         return false;
+    }
+    public static void populateDoubleSizeBoxesToMoveUp(String[][] warehouse, WarehouseBox box, ArrayList<WarehouseBox> boxList){
+        if(!box.isBoxAbove(warehouse)){}
+        else{
+            ArrayList<WarehouseBox> boxesAbove = box.getBoxesAbove(warehouse);
+            boxList.addAll(boxList);
+            for(WarehouseBox wb : boxesAbove){
+                populateDoubleSizeBoxesToMoveUp(warehouse, wb, boxList);
+            }
+        }
     }
     public static String[][] moveRight(String[][] warehouse){
         int robotY = robotLocation.getY();

@@ -241,7 +241,7 @@ public class DayFifteen2024 {
         if(!box.isBoxAbove(warehouse)){}
         else{
             HashSet<WarehouseBox> boxesAbove = box.getBoxesAbove(warehouse);
-            boxList.addAll(boxList);
+            boxList.addAll(boxesAbove);
             for(WarehouseBox wb : boxesAbove){
                 populateDoubleSizeBoxesToMoveUp(warehouse, wb, boxList);
             }

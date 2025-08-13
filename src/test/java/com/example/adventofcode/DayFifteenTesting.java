@@ -1,6 +1,8 @@
 package com.example.adventofcode;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -92,6 +94,19 @@ public class DayFifteenTesting {
         assertTrue(boxBelow.canMoveUp(getDoubleSidedBoxAboveGrid()));
         assertFalse(boxBelow.isAboveClear(getDoubleSidedBoxAboveGrid()));
     }
+    @Test 
+    void getBoxesAboveTesting(){
+        WarehouseBox bottomBox = new WarehouseBox(new Coordinate(3,3), new Coordinate(4,3));
+        String[][] warehouse = getDoubleSidedBoxAboveLeftAndRightGrid();
+        HashSet<WarehouseBox> boxList = new HashSet<>();
+        DayFifteen2024.populateDoubleSizeBoxesToMoveUp(warehouse, bottomBox, boxList);
+        System.out.println("bottomBox boxes above size: " + bottomBox.getBoxesAbove(warehouse).size());
+        System.out.println("BoxList Size: " + boxList.size());
+        for(WarehouseBox wb : boxList){
+            System.out.println(wb.toString());
+        }
+        assertTrue(getBoxAboveLeftAndRightSet().equals(boxList));
+    }
     String[][] getTestGrid(){
         return new String[][] {
             {"#", "#", "#", "#", "#", "#"},
@@ -164,6 +179,13 @@ public class DayFifteenTesting {
             {"#", ".", ".", "[", "]",  ".", ".", "#"},
             {"#", "#", "#", "#", "#", "#", "#", "#"},
         };
+    }
+    HashSet<WarehouseBox> getBoxAboveLeftAndRightSet(){
+        HashSet<WarehouseBox> returnList = new HashSet<>();
+        Collections.addAll(returnList, 
+        new WarehouseBox(new Coordinate(2, 2), new Coordinate(3, 2)),
+        new WarehouseBox(new Coordinate(4, 2),new Coordinate(5,2)));
+        return returnList;
     }
     String[][] getDoubleSidedBoxAboveGridImmovable(){
         return new String[][] {

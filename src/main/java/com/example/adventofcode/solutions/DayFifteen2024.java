@@ -184,6 +184,7 @@ public class DayFifteen2024 {
             HashSet<WarehouseBox> boxesToMove = new HashSet<>();
             boxesToMove.add(box);
             populateDoubleSizeBoxesToMoveUp(warehouse, box, boxesToMove);
+            //Sort boxes to move top boxes first, preventing a moved box being overwritten by the movement of a box above
             ArrayList<WarehouseBox> sortedBoxes = sortBoxesByYValue(boxesToMove);
             for(WarehouseBox wb : sortedBoxes){
                 warehouse[wb.getLeftSide().getY()-1][wb.getLeftSide().getX()] = "[";
@@ -191,6 +192,9 @@ public class DayFifteen2024 {
                 warehouse[wb.getLeftSide().getY()][wb.getLeftSide().getX()] = ".";
                 warehouse[wb.getRightSide().getY()][wb.getRightSide().getX()] = ".";
             }
+            warehouse[robotY-1][robotX] = "@";
+            warehouse[robotY][robotX] = ".";
+            robotLocation = new Coordinate(robotX, robotY-1);
         }
         return warehouse;
     }
@@ -201,8 +205,7 @@ public class DayFifteen2024 {
             return true;
         }
         //TODO add left/right bounding
-        else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1){
-            System.out.println("Box can move up: " + box.toString());
+        else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1 && box.getLeftSide().getX() > 0 && box.getRightSide().getX() < warehouse[box.getRightSide().getY()].length-1){
             Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");
             Boolean isBoxAboveAndRight = warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("[");
             System.out.println("Box above and left: " + isBoxAboveAndLeft);

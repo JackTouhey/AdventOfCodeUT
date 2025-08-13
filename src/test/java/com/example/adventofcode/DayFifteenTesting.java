@@ -107,6 +107,19 @@ public class DayFifteenTesting {
         }
         assertTrue(getBoxAboveLeftAndRightSet().equals(boxList));
     }
+    @Test 
+    void getLargeAmountOfConnectedBoxesTesting(){
+        WarehouseBox bottomBox = new WarehouseBox(new Coordinate(3,6), new Coordinate(4,6));
+        String[][] warehouse = getLargeAmountOfConnectedBoxesGrid();
+        HashSet<WarehouseBox> boxList = new HashSet<>();
+        DayFifteen2024.populateDoubleSizeBoxesToMoveUp(warehouse, bottomBox, boxList);
+        System.out.println("bottomBox boxes above size: " + bottomBox.getBoxesAbove(warehouse).size());
+        System.out.println("BoxList Size: " + boxList.size());
+        for(WarehouseBox wb : boxList){
+            System.out.println(wb.toString());
+        }
+        assertTrue(getLargeAmountOfConnectedBoxesSet().equals(boxList));
+    }
     String[][] getTestGrid(){
         return new String[][] {
             {"#", "#", "#", "#", "#", "#"},
@@ -185,6 +198,30 @@ public class DayFifteenTesting {
         Collections.addAll(returnList, 
         new WarehouseBox(new Coordinate(2, 2), new Coordinate(3, 2)),
         new WarehouseBox(new Coordinate(4, 2),new Coordinate(5,2)));
+        return returnList;
+    }
+    String[][] getLargeAmountOfConnectedBoxesGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", "[", "]", "[", "]", ".", ".", "#"},
+            {"#", ".", "[", "]", ".", ".", ".", "#"},
+            {"#", "[", "]", "[", "]", ".", ".", "#"},
+            {"#", ".", "[", "]", "[",  "]", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
+    }
+    HashSet<WarehouseBox> getLargeAmountOfConnectedBoxesSet(){
+        HashSet<WarehouseBox> returnList = new HashSet<>();
+        Collections.addAll(returnList, 
+        new WarehouseBox(new Coordinate(2, 5), new Coordinate(3, 5)),
+        new WarehouseBox(new Coordinate(4, 5),new Coordinate(5,5)),
+        new WarehouseBox(new Coordinate(1, 4), new Coordinate(2, 4)),
+        new WarehouseBox(new Coordinate(3, 4), new Coordinate(4, 4)),
+        new WarehouseBox(new Coordinate(2, 3), new Coordinate(3, 3)),
+        new WarehouseBox(new Coordinate(1, 2), new Coordinate(2, 2)),
+        new WarehouseBox(new Coordinate(3, 2), new Coordinate(4, 2)));
         return returnList;
     }
     String[][] getDoubleSidedBoxAboveGridImmovable(){

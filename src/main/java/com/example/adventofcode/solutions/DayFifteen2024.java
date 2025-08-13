@@ -1,6 +1,7 @@
 package com.example.adventofcode.solutions;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 
 import com.example.adventofcode.utils.Coordinate;
@@ -182,6 +183,13 @@ public class DayFifteen2024 {
         if(canDoubleSizeBoxMoveUp(warehouse, box)){
             HashSet<WarehouseBox> boxesToMove = new HashSet<>();
             populateDoubleSizeBoxesToMoveUp(warehouse, box, boxesToMove);
+            ArrayList<WarehouseBox> sortedBoxes = sortBoxesByYValue(boxesToMove);
+            for(WarehouseBox wb : sortedBoxes){
+                warehouse[wb.getLeftSide().getY()-1][wb.getLeftSide().getX()] = "[";
+                warehouse[wb.getRightSide().getY()-1][wb.getRightSide().getX()] = "]";
+                warehouse[wb.getLeftSide().getY()][wb.getLeftSide().getX()] = ".";
+                warehouse[wb.getRightSide().getY()][wb.getRightSide().getX()] = ".";
+            }
         }
         return warehouse;
     }
@@ -363,5 +371,11 @@ public class DayFifteen2024 {
             boxesToMove++;
         }
         return boxesToMove;
+    }
+    public static ArrayList<WarehouseBox> sortBoxesByYValue(HashSet<WarehouseBox> boxSet) {
+        ArrayList<WarehouseBox> boxList = new ArrayList<>(boxSet); 
+        // Sort by Y value (lowest Y values first)
+        boxList.sort(Comparator.comparingInt(box -> box.getLeftSide().getY()));
+        return boxList;
     }
 }

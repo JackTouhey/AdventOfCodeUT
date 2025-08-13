@@ -113,8 +113,6 @@ public class DayFifteenTesting {
         String[][] warehouse = getLargeAmountOfConnectedBoxesGrid();
         HashSet<WarehouseBox> boxList = new HashSet<>();
         DayFifteen2024.populateDoubleSizeBoxesToMoveUp(warehouse, bottomBox, boxList);
-        System.out.println("bottomBox boxes above size: " + bottomBox.getBoxesAbove(warehouse).size());
-        System.out.println("BoxList Size: " + boxList.size());
         for(WarehouseBox wb : boxList){
             System.out.println(wb.toString());
         }

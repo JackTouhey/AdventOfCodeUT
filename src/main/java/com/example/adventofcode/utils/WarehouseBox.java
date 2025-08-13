@@ -1,6 +1,6 @@
 package com.example.adventofcode.utils;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class WarehouseBox {
@@ -30,8 +30,8 @@ public class WarehouseBox {
         return warehouse[leftSide.getY()-1][leftSide.getX()].equals("]") || warehouse[leftSide.getY()-1][leftSide.getX()].equals("[") 
             || warehouse[rightSide.getY()-1][rightSide.getX()].equals("[");
     }
-    public ArrayList<WarehouseBox> getBoxesAbove(String[][] warehouse){
-        ArrayList<WarehouseBox> returnList = new ArrayList<>();
+    public HashSet<WarehouseBox> getBoxesAbove(String[][] warehouse){
+        HashSet<WarehouseBox> returnList = new HashSet<>();
         //Box directly above
         if(warehouse[leftSide.getY()-1][leftSide.getX()].equals("[")){
             returnList.add(new WarehouseBox(new Coordinate(leftSide.getX(), leftSide.getY()-1), new Coordinate(rightSide.getX(), rightSide.getY()-1)));

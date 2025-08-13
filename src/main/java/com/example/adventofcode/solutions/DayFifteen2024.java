@@ -1,6 +1,7 @@
 package com.example.adventofcode.solutions;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
@@ -179,7 +180,7 @@ public class DayFifteen2024 {
     }
     public static String[][] moveDoubleSizeBoxUp(String[][] warehouse, int robotX, int robotY, WarehouseBox box){
         if(canDoubleSizeBoxMoveUp(warehouse, box)){
-            ArrayList<WarehouseBox> boxesToMove = new ArrayList<>();
+            HashSet<WarehouseBox> boxesToMove = new HashSet<>();
             populateDoubleSizeBoxesToMoveUp(warehouse, box, boxesToMove);
         }
         return warehouse;
@@ -236,10 +237,10 @@ public class DayFifteen2024 {
         }
         return false;
     }
-    public static void populateDoubleSizeBoxesToMoveUp(String[][] warehouse, WarehouseBox box, ArrayList<WarehouseBox> boxList){
+    public static void populateDoubleSizeBoxesToMoveUp(String[][] warehouse, WarehouseBox box, HashSet<WarehouseBox> boxList){
         if(!box.isBoxAbove(warehouse)){}
         else{
-            ArrayList<WarehouseBox> boxesAbove = box.getBoxesAbove(warehouse);
+            HashSet<WarehouseBox> boxesAbove = box.getBoxesAbove(warehouse);
             boxList.addAll(boxList);
             for(WarehouseBox wb : boxesAbove){
                 populateDoubleSizeBoxesToMoveUp(warehouse, wb, boxList);

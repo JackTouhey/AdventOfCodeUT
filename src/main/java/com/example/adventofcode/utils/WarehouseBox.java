@@ -1,6 +1,7 @@
 package com.example.adventofcode.utils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WarehouseBox {
     private Coordinate leftSide;
@@ -50,5 +51,19 @@ public class WarehouseBox {
     @Override
     public String toString(){
         return "Left side: " + leftSide.toString() + " Right side: " + rightSide.toString();
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        WarehouseBox that = (WarehouseBox) obj;
+        return Objects.equals(leftSide, that.leftSide) && 
+               Objects.equals(rightSide, that.rightSide);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(leftSide, rightSide);
     }
 }

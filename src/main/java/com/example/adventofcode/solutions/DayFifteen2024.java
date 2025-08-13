@@ -182,6 +182,7 @@ public class DayFifteen2024 {
     public static String[][] moveDoubleSizeBoxUp(String[][] warehouse, int robotX, int robotY, WarehouseBox box){
         if(canDoubleSizeBoxMoveUp(warehouse, box)){
             HashSet<WarehouseBox> boxesToMove = new HashSet<>();
+            boxesToMove.add(box);
             populateDoubleSizeBoxesToMoveUp(warehouse, box, boxesToMove);
             ArrayList<WarehouseBox> sortedBoxes = sortBoxesByYValue(boxesToMove);
             for(WarehouseBox wb : sortedBoxes){

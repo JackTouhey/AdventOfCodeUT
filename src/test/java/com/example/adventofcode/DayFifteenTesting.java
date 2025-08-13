@@ -118,6 +118,13 @@ public class DayFifteenTesting {
         }
         assertTrue(getLargeAmountOfConnectedBoxesSet().equals(boxList));
     }
+    @Test
+    void movingLargeAmountOfConnectedBoxesTesting(){
+        String[][] initialGrid = getLargeAmountOfConnectedBoxesGrid();
+        initialGrid = DayFifteen2024.moveDoubleSizeBoxUp(initialGrid, 3, 7, 
+        new WarehouseBox(new Coordinate(3, 6), new Coordinate(4,6)));
+        assertTrue(Arrays.deepEquals(initialGrid, getLargeAmountOfConnectedBoxesResultantGrid()));
+    }
     String[][] getTestGrid(){
         return new String[][] {
             {"#", "#", "#", "#", "#", "#"},
@@ -221,6 +228,18 @@ public class DayFifteenTesting {
         new WarehouseBox(new Coordinate(1, 2), new Coordinate(2, 2)),
         new WarehouseBox(new Coordinate(3, 2), new Coordinate(4, 2)));
         return returnList;
+    }
+    String[][] getLargeAmountOfConnectedBoxesResultantGrid(){
+        return new String[][] {
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+            {"#", "[", "]", "[", "]", ".", ".", "#"},
+            {"#", ".", "[", "]", ".", ".", ".", "#"},
+            {"#", "[", "]", "[", "]", ".", ".", "#"},
+            {"#", ".", "[", "]", "[",  "]", ".", "#"},
+            {"#", ".", ".", "[", "]",  ".", ".", "#"},
+            {"#", ".", ".", ".", ".", ".", ".", "#"},
+            {"#", "#", "#", "#", "#", "#", "#", "#"},
+        };
     }
     String[][] getDoubleSidedBoxAboveGridImmovable(){
         return new String[][] {

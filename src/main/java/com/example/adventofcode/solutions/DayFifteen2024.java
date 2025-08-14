@@ -19,6 +19,8 @@ public class DayFifteen2024 {
     public static void main(String[] args) {
         // SystemOut.printGrid(doubleWarehouse);
         // moveRobotThroughWarehouse();
+        SystemOut.printGrid(warehouse);
+        moveRobotThroughWarehouse();
     }
     public static void moveRobotThroughWarehouse(){
         for(Character move : moves){
@@ -67,8 +69,7 @@ public class DayFifteen2024 {
                 case "." -> warehouse = moveRobotLeft(warehouse, robotX, robotY);
                 case "O" -> warehouse = moveSingleSizeBoxLeft(warehouse, robotX, robotY);
                 case "]" -> warehouse = moveDoubleSizeBoxLeft(warehouse, robotX, robotY);
-                default -> {
-                }
+                default -> {}
             }
         }
         return warehouse;
@@ -185,7 +186,7 @@ public class DayFifteen2024 {
             boxesToMove.add(box);
             populateDoubleSizeBoxesToMoveUp(warehouse, box, boxesToMove);
             //Sort boxes to move top boxes first, preventing a moved box being overwritten by the movement of a box above
-            ArrayList<WarehouseBox> sortedBoxes = sortBoxesByYValue(boxesToMove);
+            ArrayList<WarehouseBox> sortedBoxes = sortBoxesByLowestYValue(boxesToMove);
             for(WarehouseBox wb : sortedBoxes){
                 warehouse[wb.getLeftSide().getY()-1][wb.getLeftSide().getX()] = "[";
                 warehouse[wb.getRightSide().getY()-1][wb.getRightSide().getX()] = "]";
@@ -205,7 +206,8 @@ public class DayFifteen2024 {
             return true;
         }
         //TODO add left/right bounding
-        else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1 && box.getLeftSide().getX() > 0 && box.getRightSide().getX() < warehouse[box.getRightSide().getY()].length-1){
+        else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1 && box.getLeftSide().getX() > 0 
+        && box.getRightSide().getX() < warehouse[box.getRightSide().getY()].length-1){
             Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");
             Boolean isBoxAboveAndRight = warehouse[box.getRightSide().getY()-1][box.getRightSide().getX()].equals("[");
             System.out.println("Box above and left: " + isBoxAboveAndLeft);
@@ -332,11 +334,13 @@ public class DayFifteen2024 {
         int robotY = robotLocation.getY();
         int robotX = robotLocation.getX();
         if(robotY < warehouse.length - 2){
-            if(warehouse[robotY + 1][robotX].equals(".")){
-                warehouse = moveRobotDown(warehouse, robotX, robotY);
-            }
-            else if(warehouse[robotY + 1][robotX].equals("O")){
-                warehouse = moveSingleSizeBoxDown(warehouse, robotX, robotY);
+            switch (warehouse[robotY + 1][robotX]) {
+                case "." -> warehouse = moveRobotDown(warehouse, robotX, robotY);
+                case "O" -> warehouse = moveSingleSizeBoxDown(warehouse, robotX, robotY);
+                case "[" -> warehouse = moveDoubleSizeBoxDonw(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX, robotY+1), new Coordinate(robotX+1, robotY+1)));
+                case "]" -> warehouse = moveDoubleSizeBoxDonw(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX-1, robotY+1), new Coordinate(robotX, robotY+1)));
+                default -> {
+                }
             }
         }
         return warehouse;
@@ -376,10 +380,35 @@ public class DayFifteen2024 {
         }
         return boxesToMove;
     }
-    public static ArrayList<WarehouseBox> sortBoxesByYValue(HashSet<WarehouseBox> boxSet) {
+    public static String[][] moveDoubleSizeBoxDown(String[][] warehouse, int robotX, int robotY, WarehouseBox box){
+        if(canDoubleSizeBoxMoveDown(warehouse, box)){
+            HashSet<WarehouseBox> boxesToMove = new HashSet<>();
+            boxesToMove.add(box);
+            populateDoubleSizeBoxesToMoveDown(warehouse, box, boxesToMove);
+            //Sort boxes to move top boxes first, preventing a moved box being overwritten by the movement of a box above
+            ArrayList<WarehouseBox> sortedBoxes = sortBoxesByGreatestYValue(boxesToMove);
+            for(WarehouseBox wb : sortedBoxes){
+                warehouse[wb.getLeftSide().getY()+1][wb.getLeftSide().getX()] = "[";
+                warehouse[wb.getRightSide().getY()+1][wb.getRightSide().getX()] = "]";
+                warehouse[wb.getLeftSide().getY()][wb.getLeftSide().getX()] = ".";
+                warehouse[wb.getRightSide().getY()][wb.getRightSide().getX()] = ".";
+            }
+            warehouse[robotY+1][robotX] = "@";
+            warehouse[robotY][robotX] = ".";
+            robotLocation = new Coordinate(robotX, robotY+1);
+        }
+        return warehouse;
+    }
+    public static ArrayList<WarehouseBox> sortBoxesByLowestYValue(HashSet<WarehouseBox> boxSet) {
         ArrayList<WarehouseBox> boxList = new ArrayList<>(boxSet); 
         // Sort by Y value (lowest Y values first)
         boxList.sort(Comparator.comparingInt(box -> box.getLeftSide().getY()));
+        return boxList;
+    }
+    public static ArrayList<WarehouseBox> sortBoxesByGreatestYValue(HashSet<WarehouseBox> boxSet) {
+        ArrayList<WarehouseBox> boxList = new ArrayList<>(boxSet);
+        boxList.sort(Comparator.comparingInt((WarehouseBox box) -> box.getLeftSide().getY()).reversed());
+        
         return boxList;
     }
 }

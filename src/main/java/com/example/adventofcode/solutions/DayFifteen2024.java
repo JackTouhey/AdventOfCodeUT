@@ -445,6 +445,16 @@ public class DayFifteen2024 {
         }
         return false;
     }
+    public static void populateDoubleSizeBoxesToMoveDown(String[][] warehouse, WarehouseBox box, HashSet<WarehouseBox> boxList){
+        if(!box.isBoxBelow(warehouse)){}
+        else{
+            HashSet<WarehouseBox> boxesBelow = box.getBoxesBelow(warehouse);
+            boxList.addAll(boxesBelow);
+            for(WarehouseBox wb : boxesBelow){
+                populateDoubleSizeBoxesToMoveDown(warehouse, wb, boxList);
+            }
+        }
+    }
     public static ArrayList<WarehouseBox> sortBoxesByLowestYValue(HashSet<WarehouseBox> boxSet) {
         ArrayList<WarehouseBox> boxList = new ArrayList<>(boxSet); 
         // Sort by Y value (lowest Y values first)

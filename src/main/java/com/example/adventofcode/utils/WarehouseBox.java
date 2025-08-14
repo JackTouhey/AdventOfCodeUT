@@ -36,6 +36,10 @@ public class WarehouseBox {
         return warehouse[leftSide.getY()-1][leftSide.getX()].equals("]") || warehouse[leftSide.getY()-1][leftSide.getX()].equals("[") 
             || warehouse[rightSide.getY()-1][rightSide.getX()].equals("[");
     }
+    public Boolean isBoxBelow(String[][] warehouse){
+        return warehouse[leftSide.getY()+1][leftSide.getX()].equals("]") || warehouse[leftSide.getY()+1][leftSide.getX()].equals("[") 
+            || warehouse[rightSide.getY()+1][rightSide.getX()].equals("[");
+    }
     public HashSet<WarehouseBox> getBoxesAbove(String[][] warehouse){
         HashSet<WarehouseBox> returnList = new HashSet<>();
         //Box directly above
@@ -51,6 +55,24 @@ public class WarehouseBox {
         //Box above right
         if(warehouse[rightSide.getY()-1][rightSide.getX()].equals("[")){
             returnList.add(new WarehouseBox(new Coordinate(leftSide.getX()+1, leftSide.getY()-1), new Coordinate(rightSide.getX()+1, rightSide.getY()-1)));
+        }
+        return returnList;
+    }
+    public HashSet<WarehouseBox> getBoxesBelow(String[][] warehouse){
+        HashSet<WarehouseBox> returnList = new HashSet<>();
+        //Box directly above
+        if(warehouse[leftSide.getY()+1][leftSide.getX()].equals("[")){
+            returnList.add(new WarehouseBox(new Coordinate(leftSide.getX(), leftSide.getY()+1), new Coordinate(rightSide.getX(), rightSide.getY()+1)));
+            //No more boxes can be above in this case - don't need to check sides
+            return returnList;
+        }
+        //Box above left
+        if(warehouse[leftSide.getY()+1][leftSide.getX()].equals("]")){
+            returnList.add(new WarehouseBox(new Coordinate(leftSide.getX()-1, leftSide.getY()+1), new Coordinate(rightSide.getX()-1, rightSide.getY()+1)));
+        }
+        //Box above right
+        if(warehouse[rightSide.getY()+1][rightSide.getX()].equals("[")){
+            returnList.add(new WarehouseBox(new Coordinate(leftSide.getX()+1, leftSide.getY()+1), new Coordinate(rightSide.getX()+1, rightSide.getY()+1)));
         }
         return returnList;
     }

@@ -22,6 +22,7 @@ public class DayFifteen2024 {
         // SystemOut.printGrid(warehouse);
         // moveRobotThroughWarehouse();
         moveRobotThroughDoubleSizeWarehouse();
+        System.out.println("GPS: " + getGPS(doubleWarehouse));
     }
     public static void moveRobotThroughWarehouse(){
         for(Character move : moves){
@@ -40,6 +41,17 @@ public class DayFifteen2024 {
         }
     }
     public static int getGPS(String[][] warehouse){
+        int count = 0;
+        for(int y = 0; y < warehouse.length; y++){
+            for(int x = 0; x < warehouse[y].length; x++){
+                if(warehouse[y][x].equals("O") || warehouse[y][x].equals("[")){
+                    count += (100 * y) + x;
+                }
+            }
+        }
+        return count;
+    }
+    public static int getDoubleSizeGPS(String[][] warehouse){
         int count = 0;
         for(int y = 0; y < warehouse.length; y++){
             for(int x = 0; x < warehouse[y].length; x++){

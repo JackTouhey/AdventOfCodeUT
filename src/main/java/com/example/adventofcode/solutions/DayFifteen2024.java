@@ -10,7 +10,7 @@ import com.example.adventofcode.utils.SystemOut;
 import com.example.adventofcode.utils.WarehouseBox;
 
 public class DayFifteen2024 {
-    private static final String filePath = "DataFiles\\DayFifteenTestData2.txt";
+    private static final String filePath = "DataFiles\\DayFifteenData.txt";
     private static String[][] warehouse = DataLoader.loadDayFifteenGrid(filePath);
     private static String[][] doubleWarehouse = DataLoader.dayFifteenDoubleSizeWarehouse(warehouse);
     private static final String[][] currentWarehouse = doubleWarehouse;
@@ -36,8 +36,8 @@ public class DayFifteen2024 {
         for(Character move : moves){
             System.out.println("Moving: " + move);
             doubleWarehouse = moveRobot(doubleWarehouse, move);
-            SystemOut.printGrid(doubleWarehouse);
-            System.out.println();
+            // SystemOut.printGrid(doubleWarehouse);
+            // System.out.println();
         }
     }
     public static int getGPS(String[][] warehouse){

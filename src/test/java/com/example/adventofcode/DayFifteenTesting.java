@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import com.example.adventofcode.solutions.DayFifteen2024;
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
+import com.example.adventofcode.utils.SystemOut;
 import com.example.adventofcode.utils.WarehouseBox;
 
 public class DayFifteenTesting {
@@ -118,12 +119,21 @@ public class DayFifteenTesting {
         }
         assertTrue(getLargeAmountOfConnectedBoxesSet().equals(boxList));
     }
+    //Next 2 require removal of placing the robot from the movement methods to work
     @Test
-    void movingLargeAmountOfConnectedBoxesTesting(){
+    void movingLargeAmountOfConnectedBoxesUpTesting(){
         String[][] initialGrid = getLargeAmountOfConnectedBoxesGrid();
         initialGrid = DayFifteen2024.moveDoubleSizeBoxUp(initialGrid, 3, 7, 
         new WarehouseBox(new Coordinate(3, 6), new Coordinate(4,6)));
         assertTrue(Arrays.deepEquals(initialGrid, getLargeAmountOfConnectedBoxesResultantGrid()));
+    }
+    @Test
+    void movingLargeAmountOfConnectedBoxesDownTesting(){
+        String[][] initialGrid = getLargeAmountOfConnectedBoxesResultantGrid();
+        initialGrid = DayFifteen2024.moveDoubleSizeBoxDown(initialGrid, 3, 0, 
+        new WarehouseBox(new Coordinate(3, 1), new Coordinate(4,1)));
+        SystemOut.printGrid(initialGrid);
+        assertTrue(Arrays.deepEquals(initialGrid, getLargeAmountOfConnectedBoxesGrid()));
     }
     String[][] getTestGrid(){
         return new String[][] {
@@ -209,7 +219,7 @@ public class DayFifteenTesting {
         return new String[][] {
             {"#", "#", "#", "#", "#", "#", "#", "#"},
             {"#", ".", ".", ".", ".", ".", ".", "#"},
-            {"#", "[", "]", "[", "]", ".", ".", "#"},
+            {"#", ".", ".", "[", "]", ".", ".", "#"},
             {"#", ".", "[", "]", ".", ".", ".", "#"},
             {"#", "[", "]", "[", "]", ".", ".", "#"},
             {"#", ".", "[", "]", "[",  "]", ".", "#"},
@@ -232,7 +242,7 @@ public class DayFifteenTesting {
     String[][] getLargeAmountOfConnectedBoxesResultantGrid(){
         return new String[][] {
             {"#", "#", "#", "#", "#", "#", "#", "#"},
-            {"#", "[", "]", "[", "]", ".", ".", "#"},
+            {"#", ".", ".", "[", "]", ".", ".", "#"},
             {"#", ".", "[", "]", ".", ".", ".", "#"},
             {"#", "[", "]", "[", "]", ".", ".", "#"},
             {"#", ".", "[", "]", "[",  "]", ".", "#"},

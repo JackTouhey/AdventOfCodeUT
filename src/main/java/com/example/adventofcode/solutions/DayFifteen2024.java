@@ -337,8 +337,8 @@ public class DayFifteen2024 {
             switch (warehouse[robotY + 1][robotX]) {
                 case "." -> warehouse = moveRobotDown(warehouse, robotX, robotY);
                 case "O" -> warehouse = moveSingleSizeBoxDown(warehouse, robotX, robotY);
-                case "[" -> warehouse = moveDoubleSizeBoxDonw(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX, robotY+1), new Coordinate(robotX+1, robotY+1)));
-                case "]" -> warehouse = moveDoubleSizeBoxDonw(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX-1, robotY+1), new Coordinate(robotX, robotY+1)));
+                case "[" -> warehouse = moveDoubleSizeBoxDown(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX, robotY+1), new Coordinate(robotX+1, robotY+1)));
+                case "]" -> warehouse = moveDoubleSizeBoxDown(warehouse, robotX, robotY, new WarehouseBox(new Coordinate(robotX-1, robotY+1), new Coordinate(robotX, robotY+1)));
                 default -> {
                 }
             }
@@ -393,8 +393,8 @@ public class DayFifteen2024 {
                 warehouse[wb.getLeftSide().getY()][wb.getLeftSide().getX()] = ".";
                 warehouse[wb.getRightSide().getY()][wb.getRightSide().getX()] = ".";
             }
-            warehouse[robotY+1][robotX] = "@";
-            warehouse[robotY][robotX] = ".";
+            // warehouse[robotY+1][robotX] = "@";
+            // warehouse[robotY][robotX] = ".";
             robotLocation = new Coordinate(robotX, robotY+1);
         }
         return warehouse;

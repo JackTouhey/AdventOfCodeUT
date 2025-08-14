@@ -10,7 +10,7 @@ import com.example.adventofcode.utils.SystemOut;
 import com.example.adventofcode.utils.WarehouseBox;
 
 public class DayFifteen2024 {
-    private static final String filePath = "DataFiles\\DayFifteenTestData.txt";
+    private static final String filePath = "DataFiles\\DayFifteenTestData2.txt";
     private static String[][] warehouse = DataLoader.loadDayFifteenGrid(filePath);
     private static String[][] doubleWarehouse = DataLoader.dayFifteenDoubleSizeWarehouse(warehouse);
     private static final String[][] currentWarehouse = doubleWarehouse;
@@ -19,14 +19,23 @@ public class DayFifteen2024 {
     public static void main(String[] args) {
         // SystemOut.printGrid(doubleWarehouse);
         // moveRobotThroughWarehouse();
-        SystemOut.printGrid(warehouse);
-        moveRobotThroughWarehouse();
+        // SystemOut.printGrid(warehouse);
+        // moveRobotThroughWarehouse();
+        moveRobotThroughDoubleSizeWarehouse();
     }
     public static void moveRobotThroughWarehouse(){
         for(Character move : moves){
             System.out.println("Moving: " + move);
             warehouse = moveRobot(warehouse, move);
             SystemOut.printGrid(warehouse);
+            System.out.println();
+        }
+    }
+    public static void moveRobotThroughDoubleSizeWarehouse(){
+        for(Character move : moves){
+            System.out.println("Moving: " + move);
+            doubleWarehouse = moveRobot(doubleWarehouse, move);
+            SystemOut.printGrid(doubleWarehouse);
             System.out.println();
         }
     }
@@ -393,8 +402,8 @@ public class DayFifteen2024 {
                 warehouse[wb.getLeftSide().getY()][wb.getLeftSide().getX()] = ".";
                 warehouse[wb.getRightSide().getY()][wb.getRightSide().getX()] = ".";
             }
-            // warehouse[robotY+1][robotX] = "@";
-            // warehouse[robotY][robotX] = ".";
+            warehouse[robotY+1][robotX] = "@";
+            warehouse[robotY][robotX] = ".";
             robotLocation = new Coordinate(robotX, robotY+1);
         }
         return warehouse;

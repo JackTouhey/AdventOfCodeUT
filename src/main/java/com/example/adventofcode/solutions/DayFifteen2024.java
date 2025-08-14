@@ -399,6 +399,52 @@ public class DayFifteen2024 {
         }
         return warehouse;
     }
+    public static Boolean canDoubleSizeBoxMoveDown(String[][] warehouse, WarehouseBox box){
+        if(box.isBelowClear(warehouse) && box.getLeftSide().getY() < warehouse.length-1){
+            return true;
+        }
+        else if(box.canMoveDown(warehouse) && box.getLeftSide().getY() < warehouse.length-1 && box.getLeftSide().getX() > 0 
+        && box.getRightSide().getX() < warehouse[box.getRightSide().getY()].length-1){
+            Boolean isBoxBelowAndLeft = warehouse[box.getLeftSide().getY()+1][box.getLeftSide().getX()].equals("]");
+            Boolean isBoxBelowAndRight = warehouse[box.getRightSide().getY()+1][box.getRightSide().getX()].equals("[");
+            WarehouseBox boxBelow = new WarehouseBox(
+                new Coordinate(box.getLeftSide().getX(), box.getLeftSide().getY()+1), 
+                new Coordinate(box.getRightSide().getX(), box.getRightSide().getY()+1));
+            WarehouseBox boxBelowLeft = new WarehouseBox(
+                new Coordinate(box.getLeftSide().getX()-1, box.getLeftSide().getY()+1), 
+                new Coordinate(box.getRightSide().getX()-1, box.getRightSide().getY()+1));
+            WarehouseBox boxBelowRight = new WarehouseBox(
+                new Coordinate(box.getLeftSide().getX()+1, box.getLeftSide().getY()+1), 
+                new Coordinate(box.getRightSide().getX()+1, box.getRightSide().getY()+1));
+            //Check if box directly below and it can move:
+            //..[]..
+            //..[]..
+            if(warehouse[box.getLeftSide().getY()+1][box.getLeftSide().getX()].equals("[") && 
+            warehouse[box.getRightSide().getY()+1][box.getRightSide().getX()].equals("]")){
+                return canDoubleSizeBoxMoveDown(warehouse, boxBelow);
+            }
+            //Check if 2 boxes below and they can move:
+            //..[]..
+            //.[][].
+            else if(isBoxBelowAndLeft && isBoxBelowAndRight){
+                return canDoubleSizeBoxMoveDown(warehouse, boxBelowLeft)
+                    && canDoubleSizeBoxMoveDown(warehouse, boxBelowRight);
+            }
+            //Check if box below left and it can move:
+            //..[]..
+            //.[]...
+            else if(isBoxBelowAndLeft){
+                return canDoubleSizeBoxMoveDown(warehouse, boxBelowLeft);
+            }
+            //Check if box below right and it can move:
+            //..[]..
+            //...[].
+            else if(isBoxBelowAndRight){
+                return canDoubleSizeBoxMoveDown(warehouse, boxBelowRight);
+            }
+        }
+        return false;
+    }
     public static ArrayList<WarehouseBox> sortBoxesByLowestYValue(HashSet<WarehouseBox> boxSet) {
         ArrayList<WarehouseBox> boxList = new ArrayList<>(boxSet); 
         // Sort by Y value (lowest Y values first)

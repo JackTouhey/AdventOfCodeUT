@@ -23,8 +23,14 @@ public class WarehouseBox {
     public Boolean isAboveClear(String[][] warehouse){
         return warehouse[leftSide.getY()-1][leftSide.getX()].equals(".") && warehouse[rightSide.getY()-1][rightSide.getX()].equals(".");
     }
+    public Boolean isBelowClear(String[][] warehouse){
+        return warehouse[leftSide.getY()+1][leftSide.getX()].equals(".") && warehouse[rightSide.getY()+1][rightSide.getX()].equals(".");
+    }
     public Boolean canMoveUp(String[][] warehouse){
         return !warehouse[leftSide.getY()-1][leftSide.getX()].equals("#") && !warehouse[rightSide.getY()-1][rightSide.getX()].equals("#");
+    }
+    public Boolean canMoveDown(String[][] warehouse){
+        return !warehouse[leftSide.getY()+1][leftSide.getX()].equals("#") && !warehouse[rightSide.getY()+1][rightSide.getX()].equals("#");
     }
     public Boolean isBoxAbove(String[][] warehouse){
         return warehouse[leftSide.getY()-1][leftSide.getX()].equals("]") || warehouse[leftSide.getY()-1][leftSide.getX()].equals("[") 

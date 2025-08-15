@@ -44,8 +44,16 @@ public final class DaySixteen2024 {
         int nextX = nextLocation.getX();
         int nextY = nextLocation.getY();
         if(nextLocation.equals(mazeEnd)){
-            currentPath.addStepToPath();
+            currentPath.takeStep();
             successfulPaths.add(currentPath);
+        }
+        else{
+            if(maze[nextY][nextX] == '.'){
+                MazePath forwardPath = new MazePath(currentPath);
+                forwardPath.takeStep();
+                findPossiblePaths(new MazePath(forwardPath), successfulPaths);
+            }
+
         }
     }
     private Coordinate getNextLocation(MazePath path){
@@ -54,6 +62,22 @@ public final class DaySixteen2024 {
             case '>' -> new Coordinate(path.getCurrentLocation().getX() + 1, path.getCurrentLocation().getY());
             case 'v' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() + 1);
             default -> new Coordinate(path.getCurrentLocation().getX() - 1, path.getCurrentLocation().getY());
+        };
+    }
+    private Coordinate getLeftLocation(MazePath path){
+        return switch (path.getCurrentDirection()) {
+            case '^' -> new Coordinate(path.getCurrentLocation().getX() - 1, path.getCurrentLocation().getY());
+            case '>' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() - 1);
+            case 'v' -> new Coordinate(path.getCurrentLocation().getX() + 1, path.getCurrentLocation().getY());
+            default -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() + 1);
+        };
+    }
+    private Coordinate getRightLocation(MazePath path){
+        return switch (path.getCurrentDirection()) {
+            case '^' -> new Coordinate(path.getCurrentLocation().getX() + 1, path.getCurrentLocation().getY());
+            case '>' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() + 1);
+            case 'v' -> new Coordinate(path.getCurrentLocation().getX() - 1, path.getCurrentLocation().getY());
+            default -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() - 1);
         };
     }
 }

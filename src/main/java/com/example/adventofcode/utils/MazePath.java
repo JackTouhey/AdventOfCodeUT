@@ -12,12 +12,12 @@ public class MazePath {
         this.currentDirection = '>';
         this.currentLocation = startLocation;
     }
-    public MazePath(MazePath priorPath, Coordinate currentLocation){
+    public MazePath(MazePath priorPath){
         for(Character c : priorPath.getSteps()){
             steps.add(c);
         }
         this.currentDirection = priorPath.getCurrentDirection();
-        this.currentLocation = currentLocation;
+        this.currentLocation = priorPath.getCurrentLocation();
     }
     public MazePath(MazePath priorPath, char currentDirection, Coordinate currentLocation){
         for(Character c : priorPath.getSteps()){
@@ -28,13 +28,9 @@ public class MazePath {
     }
     public ArrayList<Character> getSteps(){return this.steps;}
     public char getCurrentDirection(){return this.currentDirection;}
-    public void changeDirection(char newDirection){
-        this.currentDirection = newDirection;
-        steps.add(newDirection);
-    }
     public Coordinate getCurrentLocation(){return this.currentLocation;}
     public void setCurrentLocation(Coordinate newLocation){this.currentLocation = newLocation;}
-    public void addStepToPath(){
+    public void takeStep(){
         steps.add(currentDirection);
     }
 

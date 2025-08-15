@@ -39,6 +39,17 @@ public final class DaySixteen2024 {
         }
         return null;
     }
+    public int getLowestPathScore(){
+        int lowestScore = Integer.MAX_VALUE;
+        HashSet<MazePath> possiblePaths = getPossiblePaths();
+        for(MazePath mp : possiblePaths){
+            int pathScore = mp.getScore();
+            if(pathScore < lowestScore){
+                lowestScore = pathScore; 
+            }
+        }
+        return lowestScore;
+    }
     public HashSet<MazePath> getPossiblePaths(){
         MazePath startingPath = new MazePath(mazeStart);
         HashSet<MazePath> possiblePaths = new HashSet<>();

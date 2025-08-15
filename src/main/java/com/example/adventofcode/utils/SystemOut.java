@@ -10,4 +10,12 @@ public class SystemOut {
             System.out.println();
         }
     }
+    public static void printGrid(char[][] grid){
+        for(char[] y : grid){
+            for (char x : y) {
+                System.out.print(x);
+            }
+            System.out.println();
+        }
+    }
 }

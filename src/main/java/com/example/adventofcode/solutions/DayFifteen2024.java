@@ -226,7 +226,6 @@ public class DayFifteen2024 {
             System.out.println("Above clear of box: " + box.toString());
             return true;
         }
-        //TODO add left/right bounding
         else if(box.canMoveUp(warehouse) && box.getLeftSide().getY() > 1 && box.getLeftSide().getX() > 0 
         && box.getRightSide().getX() < warehouse[box.getRightSide().getY()].length-1){
             Boolean isBoxAboveAndLeft = warehouse[box.getLeftSide().getY()-1][box.getLeftSide().getX()].equals("]");

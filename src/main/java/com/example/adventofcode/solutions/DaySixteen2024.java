@@ -2,6 +2,7 @@ package com.example.adventofcode.solutions;
 
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
+import com.example.adventofcode.utils.MazePath;
 import com.example.adventofcode.utils.SystemOut;
 
 public class DaySixteen2024 {
@@ -32,5 +33,16 @@ public class DaySixteen2024 {
             }
         }
         return null;
+    }
+    public HashSet<MazePath> findPossiblePaths(MazePath currentPath){
+        
+    }
+    private Coordinate getNextLocation(MazePath path){
+        return switch (path.getCurrentDirection()) {
+            case '^' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() - 1);
+            case '>' -> new Coordinate(path.getCurrentLocation().getX() + 1, path.getCurrentLocation().getY());
+            case 'v' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() + 1);
+            default -> new Coordinate(path.getCurrentLocation().getX() - 1, path.getCurrentLocation().getY());
+        };
     }
 }

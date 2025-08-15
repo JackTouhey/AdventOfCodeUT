@@ -27,12 +27,16 @@ public class MazePath {
         this.currentLocation = currentLocation;
     }
     public ArrayList<Character> getSteps(){return this.steps;}
-    public void addStep(Character c){steps.add(c);}
     public char getCurrentDirection(){return this.currentDirection;}
-    public void changeDirection(char newDirection){this.currentDirection = newDirection;}
+    public void changeDirection(char newDirection){
+        this.currentDirection = newDirection;
+        steps.add(newDirection);
+    }
     public Coordinate getCurrentLocation(){return this.currentLocation;}
     public void setCurrentLocation(Coordinate newLocation){this.currentLocation = newLocation;}
-
+    public void addStepToPath(){
+        steps.add(currentDirection);
+    }
 
     @Override
     public boolean equals(Object obj) {

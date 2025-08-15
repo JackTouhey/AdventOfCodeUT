@@ -41,19 +41,30 @@ public final class DaySixteen2024 {
     }
     public void findPossiblePaths(MazePath currentPath, HashSet<MazePath> successfulPaths){
         Coordinate nextLocation = getNextLocation(currentPath);
-        int nextX = nextLocation.getX();
-        int nextY = nextLocation.getY();
+        Coordinate leftLocation = getLeftLocation(currentPath);
+        Coordinate rightLocation = getRightLocation(currentPath);
         if(nextLocation.equals(mazeEnd)){
-            currentPath.takeStep();
+            currentPath.takeStep(nextLocation);
             successfulPaths.add(currentPath);
         }
         else{
-            if(maze[nextY][nextX] == '.'){
+            if(maze[nextLocation.getY()][nextLocation.getX()] == '.'){
                 MazePath forwardPath = new MazePath(currentPath);
-                forwardPath.takeStep();
+                forwardPath.takeStep(nextLocation);
                 findPossiblePaths(new MazePath(forwardPath), successfulPaths);
             }
-
+            if(maze[leftLocation.getY()][leftLocation.getX()] == '.'){
+                MazePath leftPath = new MazePath(currentPath);
+                leftPath.turnLeft();
+                leftPath.takeStep(leftLocation);
+                findPossiblePaths(leftPath, successfulPaths);
+            }
+            if(maze[rightLocation.getY()][rightLocation.getX()] == '.'){
+                MazePath rightPath = new MazePath(currentPath);
+                rightPath.turnRight();
+                rightPath.takeStep(rightLocation);
+                findPossiblePaths(rightPath, successfulPaths);
+            }
         }
     }
     private Coordinate getNextLocation(MazePath path){

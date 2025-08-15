@@ -1,5 +1,6 @@
 package com.example.adventofcode.solutions;
 
+import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 import com.example.adventofcode.utils.SystemOut;
 
@@ -11,5 +12,25 @@ public class DaySixteen2024 {
     }
     public void printMaze(){
         SystemOut.printGrid(maze);
+    }
+    public Coordinate getMazeStart(){
+        for (int y = 0; y < maze.length; y++){
+            for(int x = 0; x < maze[y].length; x++){
+                if(maze[y][x] == 'S'){
+                    return new Coordinate(x, y);
+                }
+            }
+        }
+        return null;
+    }
+    public Coordinate getMazeEnd(){
+        for (int y = 0; y < maze.length; y++){
+            for(int x = 0; x < maze[y].length; x++){
+                if(maze[y][x] == 'E'){
+                    return new Coordinate(x, y);
+                }
+            }
+        }
+        return null;
     }
 }

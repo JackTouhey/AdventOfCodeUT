@@ -44,7 +44,18 @@ public class MazePath {
             default -> this.currentDirection = '^';
         }
     }
-
+    public int getScore(){
+        int count = 0;
+        for(Character c : steps){
+            if(c.equals('L') || c.equals('R')){
+                count += 1000;
+            }
+            else{
+                count++;
+            }
+        }
+        return count;
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

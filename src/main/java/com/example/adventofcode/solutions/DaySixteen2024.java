@@ -1,15 +1,20 @@
 package com.example.adventofcode.solutions;
 
+import java.util.HashSet;
+
 import com.example.adventofcode.utils.Coordinate;
 import com.example.adventofcode.utils.DataLoader;
 import com.example.adventofcode.utils.MazePath;
 import com.example.adventofcode.utils.SystemOut;
 
-public class DaySixteen2024 {
+public final class DaySixteen2024 {
     private final char[][] maze;
-
+    private final Coordinate mazeStart;
+    private final Coordinate mazeEnd;
     public DaySixteen2024(String filePath){
         this.maze = DataLoader.generateCharGrid(filePath);
+        this.mazeStart = getMazeStart();
+        this.mazeEnd = getMazeEnd();
     }
     public void printMaze(){
         SystemOut.printGrid(maze);
@@ -34,8 +39,14 @@ public class DaySixteen2024 {
         }
         return null;
     }
-    public HashSet<MazePath> findPossiblePaths(MazePath currentPath){
-        
+    public void findPossiblePaths(MazePath currentPath, HashSet<MazePath> successfulPaths){
+        Coordinate nextLocation = getNextLocation(currentPath);
+        int nextX = nextLocation.getX();
+        int nextY = nextLocation.getY();
+        if(nextLocation.equals(mazeEnd)){
+            currentPath.addStepToPath();
+            successfulPaths.add(currentPath);
+        }
     }
     private Coordinate getNextLocation(MazePath path){
         return switch (path.getCurrentDirection()) {

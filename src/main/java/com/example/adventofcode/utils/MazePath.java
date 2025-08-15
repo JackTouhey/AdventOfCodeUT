@@ -29,9 +29,26 @@ public class MazePath {
     public ArrayList<Character> getSteps(){return this.steps;}
     public char getCurrentDirection(){return this.currentDirection;}
     public Coordinate getCurrentLocation(){return this.currentLocation;}
-    public void setCurrentLocation(Coordinate newLocation){this.currentLocation = newLocation;}
     public void takeStep(){
         steps.add(currentDirection);
+    }
+    public void turnLeft(){
+        steps.add('L');
+        switch(this.currentDirection){
+            case '^' -> this.currentDirection = '<';
+            case '>' -> this.currentDirection = '^';
+            case 'v' -> this.currentDirection = '>';
+            default -> this.currentDirection = 'v';
+        }
+    }
+    public void turnRight(){
+        steps.add('R');
+        switch(this.currentDirection){
+            case '^' -> this.currentDirection = '>';
+            case '>' -> this.currentDirection = 'v';
+            case 'v' -> this.currentDirection = '<';
+            default -> this.currentDirection = '^';
+        }
     }
 
     @Override

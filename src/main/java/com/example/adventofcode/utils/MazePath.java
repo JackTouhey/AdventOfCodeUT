@@ -13,6 +13,7 @@ public class MazePath {
         this.currentLocation = startLocation;
     }
     public MazePath(MazePath priorPath){
+        this.steps = new ArrayList<>();
         for(Character c : priorPath.getSteps()){
             steps.add(c);
         }
@@ -67,5 +68,10 @@ public class MazePath {
     @Override
     public int hashCode() {
         return Objects.hash(steps);
+    }
+
+    @Override
+    public String toString(){
+        return "Steps Taken: " + steps;
     }
 }

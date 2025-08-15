@@ -13,4 +13,8 @@ public class DaySixteenTesting {
         assertEquals(day16.getMazeStart(), new Coordinate(1, 13));
         assertEquals(day16.getMazeEnd(), new Coordinate(13, 1));
     }
+    @Test
+    void testGetLowestPathScore(){
+        assertEquals(7036, day16.getLowestPathScore());
+    }
 }

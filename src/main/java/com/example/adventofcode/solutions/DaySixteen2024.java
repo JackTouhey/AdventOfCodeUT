@@ -39,6 +39,12 @@ public final class DaySixteen2024 {
         }
         return null;
     }
+    public HashSet<MazePath> getPossiblePaths(){
+        MazePath startingPath = new MazePath(mazeStart);
+        HashSet<MazePath> possiblePaths = new HashSet<>();
+        findPossiblePaths(startingPath, possiblePaths);
+        return possiblePaths;
+    }
     public void findPossiblePaths(MazePath currentPath, HashSet<MazePath> successfulPaths){
         Coordinate nextLocation = getNextLocation(currentPath);
         Coordinate leftLocation = getLeftLocation(currentPath);

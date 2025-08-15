@@ -6,28 +6,33 @@ import java.util.Objects;
 public class MazePath {
     private ArrayList<Character> steps;
     private char currentDirection;
-    public MazePath(){
+    private Coordinate currentLocation;
+    public MazePath(Coordinate startLocation){
         steps = new ArrayList<>();
         this.currentDirection = '>';
+        this.currentLocation = startLocation;
     }
-    public MazePath(MazePath priorPath){
+    public MazePath(MazePath priorPath, Coordinate currentLocation){
         for(Character c : priorPath.getSteps()){
             steps.add(c);
         }
         this.currentDirection = priorPath.getCurrentDirection();
+        this.currentLocation = currentLocation;
     }
-    public MazePath(MazePath priorPath, char currentDirection){
+    public MazePath(MazePath priorPath, char currentDirection, Coordinate currentLocation){
         for(Character c : priorPath.getSteps()){
             steps.add(c);
         }
         this.currentDirection = currentDirection;
+        this.currentLocation = currentLocation;
     }
     public ArrayList<Character> getSteps(){return this.steps;}
     public void addStep(Character c){steps.add(c);}
     public char getCurrentDirection(){return this.currentDirection;}
-    public void changeDirection(char newDirection){
-        this.currentDirection = newDirection;
-    }
+    public void changeDirection(char newDirection){this.currentDirection = newDirection;}
+    public Coordinate getCurrentLocation(){return this.currentLocation;}
+    public void setCurrentLocation(Coordinate newLocation){this.currentLocation = newLocation;}
+
 
     @Override
     public boolean equals(Object obj) {

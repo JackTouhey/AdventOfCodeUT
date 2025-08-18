@@ -1,8 +1,8 @@
 package com.example.adventofcode.solutions;
 
 public class SolutionRunner {
-    private static final DaySixteen2024 day16 = new DaySixteen2024("DataFiles\\DaySixteenTestData.txt");
+    private static final DaySixteen2024 day16 = new DaySixteen2024("DataFiles\\DaySixteenData.txt");
     public static void main(String[] args) {
-        day16.printMaze();
+        System.out.println("LowestScore: " + day16.getShortestPathScore());
     }
 }

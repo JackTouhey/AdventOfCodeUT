@@ -1,16 +1,19 @@
 package com.example.adventofcode.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class MazePath {
     private ArrayList<Character> steps;
     private char currentDirection;
     private Coordinate currentLocation;
+    HashSet<Coordinate> locations = new HashSet<>();
     public MazePath(Coordinate startLocation){
         steps = new ArrayList<>();
         this.currentDirection = '>';
         this.currentLocation = startLocation;
+        locations.add(startLocation);
     }
     public MazePath(MazePath priorPath){
         this.steps = new ArrayList<>();
@@ -19,12 +22,15 @@ public class MazePath {
         }
         this.currentDirection = priorPath.getCurrentDirection();
         this.currentLocation = priorPath.getCurrentLocation();
+        this.locations.addAll(priorPath.getLocations());
     }
     public ArrayList<Character> getSteps(){return this.steps;}
     public char getCurrentDirection(){return this.currentDirection;}
     public Coordinate getCurrentLocation(){return this.currentLocation;}
+    public HashSet<Coordinate> getLocations(){return this.locations;}
     public void takeStep(Coordinate newLocation){
         steps.add(currentDirection);
+        locations.add(newLocation);
         this.currentLocation = newLocation;
     }
     public void turnLeft(){

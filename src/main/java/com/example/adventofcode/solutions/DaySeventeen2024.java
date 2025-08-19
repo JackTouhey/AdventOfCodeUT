@@ -36,7 +36,7 @@ public class DaySeventeen2024 {
     public void adv (int literalOperand){
         if(literalOperand < 7){
             int comboOperand = getComboOperand(literalOperand);
-            double divisionResult = this.registerA / (2^comboOperand);
+            double divisionResult = this.registerA / Math.pow(2, comboOperand);;
             this.registerA = (int) Math.floor(divisionResult);
             instructionPointer += 2;
         }

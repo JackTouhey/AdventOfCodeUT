@@ -46,3 +46,5 @@
 [Coordinate](https://github.com/JackTouhey/AdventOfCodeUT/blob/main/src/main/java/com/example/adventofcode/utils/Coordinate.java) - Overrides to allow proper functionality in sets
 
 [2024 day 13](https://github.com/JackTouhey/AdventOfCodeUT/blob/main/src/main/java/com/example/adventofcode/solutions/DayThirteen2024.java) - Optimisation of brute force approach, implementing Cramer's Rule to reduce from O(n^2) to O(1)
+
+[2024 day 16](https://github.com/JackTouhey/AdventOfCodeUT/blob/main/src/main/java/com/example/adventofcode/solutions/DaySixteen2024.java) - Implementation of Breadth-First-Search as my recursive method was too resource intensive

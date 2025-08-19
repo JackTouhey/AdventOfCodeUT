@@ -57,4 +57,9 @@ public class DaySeventeen2024 {
     public void jnz (int literalOperand){
         this.instructionPointer = this.registerA == 0 ? this.instructionPointer += 2 : literalOperand;
     }
+    public void bxc (){
+        this.registerB = this.registerB ^ this.registerC;
+        instructionPointer += 2;
+    }
+    
 }

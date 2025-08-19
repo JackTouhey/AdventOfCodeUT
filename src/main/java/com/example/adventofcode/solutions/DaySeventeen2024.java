@@ -11,17 +11,29 @@ public class DaySeventeen2024 {
     private int registerC;
     private ArrayList<Integer> program;
     private int instructionPointer;
+    private ArrayList<Integer> output;
     public DaySeventeen2024(String filePath){
         this.registerA = DataLoader.daySeventeenRegisterA(filePath);
         this.registerB = DataLoader.daySeventeenRegisterB(filePath);
         this.registerC = DataLoader.daySeventeenRegisterC(filePath);
         this.program = DataLoader.daySeventeenProgram(filePath);
         this.instructionPointer = 0;
+        this.output = new ArrayList<>();
+    }
+    public DaySeventeen2024(String filePath, int registerA){
+        this.registerA = registerA;
+        this.registerB = DataLoader.daySeventeenRegisterB(filePath);
+        this.registerC = DataLoader.daySeventeenRegisterC(filePath);
+        this.program = DataLoader.daySeventeenProgram(filePath);
+        this.instructionPointer = 0;
+        this.output = new ArrayList<>();
     }
     public int getRegisterA(){return this.registerA;}
     public int getRegisterB(){return this.registerB;}
     public int getRegisterC(){return this.registerC;}
     public int getInstructionPointer(){return this.instructionPointer;}
+    public ArrayList<Integer> getProgram(){return this.program;}
+    public ArrayList<Integer> getOutput(){return this.output;}
     public void setRegisterA(int newValue){this.registerA = newValue;}
     public void runProgram(){
         while(instructionPointer < program.size() - 1){
@@ -80,7 +92,7 @@ public class DaySeventeen2024 {
         if(literalOperand < 7){
             int comboOperand = getComboOperand(literalOperand);
             int output = comboOperand % 8;
-            System.out.print(output + ",");
+            this.output.add(output);
         }
         instructionPointer += 2;
     }

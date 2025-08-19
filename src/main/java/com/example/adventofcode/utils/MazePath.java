@@ -22,6 +22,7 @@ public class MazePath {
         }
         this.currentDirection = priorPath.getCurrentDirection();
         this.currentLocation = priorPath.getCurrentLocation();
+        this.locations.addAll(priorPath.getLocations());
     }
     public ArrayList<Character> getSteps(){return this.steps;}
     public char getCurrentDirection(){return this.currentDirection;}

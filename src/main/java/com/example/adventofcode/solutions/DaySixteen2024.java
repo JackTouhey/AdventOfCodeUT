@@ -39,6 +39,10 @@ public final class DaySixteen2024 {
         }
         return null;
     }
+    public int getNumberOfPaths(){
+        HashSet<MazePath> possiblePaths = getPossiblePaths();
+        return possiblePaths.size();
+    }
     public int getLowestPathScore(){
         int lowestScore = Integer.MAX_VALUE;
         HashSet<MazePath> possiblePaths = getPossiblePaths();
@@ -56,9 +60,9 @@ public final class DaySixteen2024 {
         HashSet<MazePath> possiblePaths = new HashSet<>();
         HashSet<Coordinate> visitedLocations = new HashSet<>();
         findPossiblePaths(startingPath, possiblePaths, visitedLocations);
-        for(MazePath mp : possiblePaths){
-            System.out.println(mp.toString());
-        }
+        // for(MazePath mp : possiblePaths){
+        //     System.out.println(mp.toString());
+        // }
         return possiblePaths;
     }
     public void findPossiblePaths(MazePath currentPath, HashSet<MazePath> successfulPaths, HashSet<Coordinate> visitedLocations){
@@ -71,25 +75,27 @@ public final class DaySixteen2024 {
             successfulPaths.add(currentPath);
         }
         else{
-            if(maze[nextLocation.getY()][nextLocation.getX()] == '.' && !visitedLocations.contains(nextLocation)){
-                MazePath forwardPath = new MazePath(currentPath);
-                forwardPath.takeStep(nextLocation);
-                HashSet<Coordinate> forwardVisited = new HashSet<>(visitedLocations);
-                findPossiblePaths(new MazePath(forwardPath), successfulPaths, forwardVisited);
-            }
-            if(maze[leftLocation.getY()][leftLocation.getX()] == '.' && !visitedLocations.contains(leftLocation)){
-                MazePath leftPath = new MazePath(currentPath);
-                leftPath.turnLeft();
-                leftPath.takeStep(leftLocation);
-                HashSet<Coordinate> leftVisited = new HashSet<>(visitedLocations);
-                findPossiblePaths(leftPath, successfulPaths, leftVisited);
-            }
-            if(maze[rightLocation.getY()][rightLocation.getX()] == '.' && !visitedLocations.contains(rightLocation)){
-                MazePath rightPath = new MazePath(currentPath);
-                rightPath.turnRight();
-                rightPath.takeStep(rightLocation);
-                HashSet<Coordinate> rightVisited = new HashSet<>(visitedLocations);
-                findPossiblePaths(rightPath, successfulPaths, rightVisited);
+            if(currentPath.getScore() < 109516){
+                if(maze[nextLocation.getY()][nextLocation.getX()] == '.' && !visitedLocations.contains(nextLocation)){
+                    MazePath forwardPath = new MazePath(currentPath);
+                    forwardPath.takeStep(nextLocation);
+                    HashSet<Coordinate> forwardVisited = new HashSet<>(visitedLocations);
+                    findPossiblePaths(new MazePath(forwardPath), successfulPaths, forwardVisited);
+                }
+                if(maze[leftLocation.getY()][leftLocation.getX()] == '.' && !visitedLocations.contains(leftLocation)){
+                    MazePath leftPath = new MazePath(currentPath);
+                    leftPath.turnLeft();
+                    leftPath.takeStep(leftLocation);
+                    HashSet<Coordinate> leftVisited = new HashSet<>(visitedLocations);
+                    findPossiblePaths(leftPath, successfulPaths, leftVisited);
+                }
+                if(maze[rightLocation.getY()][rightLocation.getX()] == '.' && !visitedLocations.contains(rightLocation)){
+                    MazePath rightPath = new MazePath(currentPath);
+                    rightPath.turnRight();
+                    rightPath.takeStep(rightLocation);
+                    HashSet<Coordinate> rightVisited = new HashSet<>(visitedLocations);
+                    findPossiblePaths(rightPath, successfulPaths, rightVisited);
+                }
             }
         }
     }

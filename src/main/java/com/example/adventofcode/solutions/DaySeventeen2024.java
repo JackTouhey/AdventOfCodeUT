@@ -67,8 +67,8 @@ public class DaySeventeen2024 {
             int comboOperand = getComboOperand(literalOperand);
             double divisionResult = this.registerA / Math.pow(2, comboOperand);;
             this.registerA = (int) Math.floor(divisionResult);
-            instructionPointer += 2;
         }
+        instructionPointer += 2;
     }
     public void bxl (int literalOperand){
         this.registerB = this.registerB ^ literalOperand;
@@ -78,8 +78,8 @@ public class DaySeventeen2024 {
         if(literalOperand < 7){
             int comboOperand = getComboOperand(literalOperand);
             this.registerB = comboOperand % 8;
-            instructionPointer += 2;
         }
+        instructionPointer += 2;
     }
     public void jnz (int literalOperand){
         this.instructionPointer = this.registerA == 0 ? this.instructionPointer += 2 : literalOperand;
@@ -101,15 +101,15 @@ public class DaySeventeen2024 {
             int comboOperand = getComboOperand(literalOperand);
             double divisionResult = this.registerA / Math.pow(2, comboOperand);;
             this.registerB = (int) Math.floor(divisionResult);
-            instructionPointer += 2;
         }
+        instructionPointer += 2;
     }
     public void cdv (int literalOperand){
         if(literalOperand < 7){
             int comboOperand = getComboOperand(literalOperand);
             double divisionResult = this.registerA / Math.pow(2, comboOperand);;
             this.registerC = (int) Math.floor(divisionResult);
-            instructionPointer += 2;
         }
+        instructionPointer += 2;
     }
 }

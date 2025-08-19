@@ -43,12 +43,14 @@ public final class DaySixteen2024 {
         }
         return null;
     }
+
     public HashSet<Coordinate> getTilesVisitedByOptimalRoutes(){
         HashSet<Coordinate> returnSet = new HashSet<>();
         for(MazePath mp : getAllOptimalPaths()){
             returnSet.addAll(mp.getLocations());
         }
         return returnSet;
+
     }
     public int getShortestPathScore() {
         // State class to track position, direction, and score
@@ -65,6 +67,7 @@ public final class DaySixteen2024 {
                 this.path = path;
             }
         }
+
         
         // Use a priority queue to always explore the lowest-cost paths first
         PriorityQueue<State> queue = new PriorityQueue<>((a, b) -> Integer.compare(a.score, b.score));

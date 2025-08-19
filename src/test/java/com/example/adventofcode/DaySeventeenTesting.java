@@ -40,6 +40,15 @@ public class DaySeventeenTesting {
         assertEquals(5, testBxlInstruction(5));
         assertEquals(6, testBxlInstruction(6));
         assertEquals(7, testBxlInstruction(7));
+
+        assertEquals(1, testDoubleBxlInstruction(0));
+        assertEquals(0, testDoubleBxlInstruction(1));
+        assertEquals(3, testDoubleBxlInstruction(2));
+        assertEquals(2, testDoubleBxlInstruction(3));
+        assertEquals(5, testDoubleBxlInstruction(4));
+        assertEquals(4, testDoubleBxlInstruction(5));
+        assertEquals(7, testDoubleBxlInstruction(6));
+        assertEquals(6, testDoubleBxlInstruction(7));
     }
     int testAdvInstruction(int literalOperand){
         DaySeventeen2024 day17 = new DaySeventeen2024(filePath);
@@ -48,6 +57,12 @@ public class DaySeventeenTesting {
     }
     int testBxlInstruction(int literalOperand){
         DaySeventeen2024 day17 = new DaySeventeen2024(filePath);
+        day17.bxl(literalOperand);
+        return day17.getRegisterB();
+    }
+    int testDoubleBxlInstruction(int literalOperand){
+        DaySeventeen2024 day17 = new DaySeventeen2024(filePath);
+        day17.bxl(1);
         day17.bxl(literalOperand);
         return day17.getRegisterB();
     }

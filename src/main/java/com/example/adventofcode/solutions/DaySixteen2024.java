@@ -224,6 +224,7 @@ public final class DaySixteen2024 {
             // Check if we reached the end with target score
             if (current.position.equals(mazeEnd) && current.score == targetScore) {
                 optimalPaths.add(new MazePath(current.path));
+                System.out.println("Locations of optimal path: " + current.path.getLocations().size());
                 continue; // Continue to find other optimal paths
             }
             

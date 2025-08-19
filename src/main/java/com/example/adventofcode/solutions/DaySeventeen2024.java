@@ -41,4 +41,8 @@ public class DaySeventeen2024 {
             instructionPointer += 2;
         }
     }
+    public void bxl (int literalOperand){
+        this.registerB = this.registerB ^ literalOperand;
+        instructionPointer += 2;
+    }
 }

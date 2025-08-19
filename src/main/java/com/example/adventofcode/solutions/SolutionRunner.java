@@ -9,6 +9,7 @@ public class SolutionRunner {
         System.out.println("Locations found: " + day16.getTilesVisitedByOptimalRoutes().size());
     }
     private static void runDay17(){
-        DaySeventeen2024 day = new DaySeventeen2024("DataFiles\\DaySeventeenTestData.txt");
+        DaySeventeen2024 day17 = new DaySeventeen2024("DataFiles\\DaySeventeenData.txt");
+        day17.runProgram();
     }
 }

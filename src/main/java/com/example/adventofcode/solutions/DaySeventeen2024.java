@@ -24,7 +24,8 @@ public class DaySeventeen2024 {
     public int getInstructionPointer(){return this.instructionPointer;}
     public void setRegisterA(int newValue){this.registerA = newValue;}
     public void runProgram(){
-        while(instructionPointer < program.size() - 2){
+        while(instructionPointer < program.size() - 1){
+            // System.out.println("Running opcode: " + program.get(instructionPointer) + " with operand: " + program.get(program.get(instructionPointer+1)));
             switch(program.get(instructionPointer)){
                 case 0 -> adv(program.get(instructionPointer+1));
                 case 1 -> bxl(program.get(instructionPointer+1));

@@ -1,5 +1,6 @@
 package com.example.adventofcode.solutions;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.example.adventofcode.utils.DataLoader;
@@ -17,6 +18,9 @@ public class DaySeventeen2024 {
         this.program = DataLoader.daySeventeenProgram(filePath);
         this.instructionPointer = 0;
     }
+    public int getRegisterA(){return this.registerA;}
+    public int getRegisterB(){return this.registerB;}
+    public int getRegisterC(){return this.registerC;}
     public int getComboOperand(int literalOperand){
         return switch(literalOperand){
             case 0 -> 0;
@@ -28,5 +32,13 @@ public class DaySeventeen2024 {
             case 6 -> this.registerC;
             default -> -1;
         };
+    }
+    public void adv (int literalOperand){
+        if(literalOperand < 7){
+            int comboOperand = getComboOperand(literalOperand);
+            double divisionResult = this.registerA / (2^comboOperand);
+            this.registerA = (int) Math.floor(divisionResult);
+            instructionPointer += 2;
+        }
     }
 }

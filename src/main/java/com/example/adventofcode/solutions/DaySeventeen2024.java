@@ -61,5 +61,11 @@ public class DaySeventeen2024 {
         this.registerB = this.registerB ^ this.registerC;
         instructionPointer += 2;
     }
-    
+    public void out(int literalOperand){
+        if(literalOperand < 7){
+            int comboOperand = getComboOperand(literalOperand);
+            int output = comboOperand % 8;
+            System.out.print(output + ",");
+        }
+    }
 }

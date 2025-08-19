@@ -52,4 +52,12 @@ public class DaySeventeen2024 {
             instructionPointer += 2;
         }
     }
+    public void jnz (int literalOperand){
+        if(this.registerA != 0){
+            this.instructionPointer = literalOperand;
+        }
+        else{
+            this.instructionPointer += 2;
+        }
+    }
 }

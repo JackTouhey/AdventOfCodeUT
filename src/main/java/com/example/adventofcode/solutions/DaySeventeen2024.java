@@ -14,6 +14,7 @@ public class DaySeventeen2024 {
         this.registerA = DataLoader.daySeventeenRegisterA(filePath);
         this.registerB = DataLoader.daySeventeenRegisterB(filePath);
         this.registerC = DataLoader.daySeventeenRegisterC(filePath);
-        System.out.println(registerA + " register b: " + registerB + " registerc: " + registerC);
+        this.program = DataLoader.daySeventeenProgram(filePath);
+        System.out.println(program);
     }
 }

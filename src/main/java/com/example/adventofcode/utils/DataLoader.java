@@ -323,4 +323,22 @@ public class DataLoader {
         }catch(FileNotFoundException e){}
         return -1;
     }
+    public static ArrayList<Integer> daySeventeenProgram(String filePath){
+        ArrayList<Integer> returnList = new ArrayList<>();
+        try(Scanner sc = new Scanner(new File(filePath))){
+            sc.nextLine();
+            sc.nextLine();
+            sc.nextLine();
+            sc.useDelimiter(":");
+           sc.next();
+            sc.useDelimiter("");
+            sc.next();
+            sc.next();
+            sc.useDelimiter(",");
+            while(sc.hasNextInt()){
+                returnList.add(sc.nextInt());
+            }
+        }catch(FileNotFoundException e){}
+        return returnList;
+    }
 }

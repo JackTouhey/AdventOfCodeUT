@@ -43,85 +43,13 @@ public final class DaySixteen2024 {
         }
         return null;
     }
-    public int getLowestPathScore(){
-        int lowestScore = Integer.MAX_VALUE;
-        HashSet<MazePath> possiblePaths = getPossiblePaths();
-        for(MazePath mp : possiblePaths){
-            int pathScore = mp.getScore();
-            if(pathScore < lowestScore){
-                lowestScore = pathScore; 
-            }
+    public HashSet<Coordinate> getTilesVisitedByOptimalRoutes(){
+        HashSet<Coordinate> returnSet = new HashSet<>();
+        for(MazePath mp : getAllOptimalPaths()){
+            returnSet.addAll(mp.getLocations());
         }
-        System.out.println("Lowest score found: " + lowestScore);
-        return lowestScore;
+        return returnSet;
     }
-    public HashSet<MazePath> getPossiblePaths(){
-        MazePath startingPath = new MazePath(mazeStart);
-        HashSet<MazePath> possiblePaths = new HashSet<>();
-        HashSet<Coordinate> visitedLocations = new HashSet<>();
-        findPossiblePaths(startingPath, possiblePaths, visitedLocations);
-        for(MazePath mp : possiblePaths){
-            System.out.println(mp.toString());
-        }
-        return possiblePaths;
-    }
-    public void findPossiblePaths(MazePath currentPath, HashSet<MazePath> successfulPaths, HashSet<Coordinate> visitedLocations){
-        visitedLocations.add(currentPath.getCurrentLocation());
-        Coordinate nextLocation = getNextLocation(currentPath);
-        Coordinate leftLocation = getLeftLocation(currentPath);
-        Coordinate rightLocation = getRightLocation(currentPath);
-        if(nextLocation.equals(mazeEnd)){
-            currentPath.takeStep(nextLocation);
-            successfulPaths.add(currentPath);
-        }
-        else{
-            if(maze[nextLocation.getY()][nextLocation.getX()] == '.' && !visitedLocations.contains(nextLocation)){
-                MazePath forwardPath = new MazePath(currentPath);
-                forwardPath.takeStep(nextLocation);
-                HashSet<Coordinate> forwardVisited = new HashSet<>(visitedLocations);
-                findPossiblePaths(new MazePath(forwardPath), successfulPaths, forwardVisited);
-            }
-            if(maze[leftLocation.getY()][leftLocation.getX()] == '.' && !visitedLocations.contains(leftLocation)){
-                MazePath leftPath = new MazePath(currentPath);
-                leftPath.turnLeft();
-                leftPath.takeStep(leftLocation);
-                HashSet<Coordinate> leftVisited = new HashSet<>(visitedLocations);
-                findPossiblePaths(leftPath, successfulPaths, leftVisited);
-            }
-            if(maze[rightLocation.getY()][rightLocation.getX()] == '.' && !visitedLocations.contains(rightLocation)){
-                MazePath rightPath = new MazePath(currentPath);
-                rightPath.turnRight();
-                rightPath.takeStep(rightLocation);
-                HashSet<Coordinate> rightVisited = new HashSet<>(visitedLocations);
-                findPossiblePaths(rightPath, successfulPaths, rightVisited);
-            }
-        }
-    }
-    private Coordinate getNextLocation(MazePath path){
-        return switch (path.getCurrentDirection()) {
-            case '^' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() - 1);
-            case '>' -> new Coordinate(path.getCurrentLocation().getX() + 1, path.getCurrentLocation().getY());
-            case 'v' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() + 1);
-            default -> new Coordinate(path.getCurrentLocation().getX() - 1, path.getCurrentLocation().getY());
-        };
-    }
-    private Coordinate getLeftLocation(MazePath path){
-        return switch (path.getCurrentDirection()) {
-            case '^' -> new Coordinate(path.getCurrentLocation().getX() - 1, path.getCurrentLocation().getY());
-            case '>' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() - 1);
-            case 'v' -> new Coordinate(path.getCurrentLocation().getX() + 1, path.getCurrentLocation().getY());
-            default -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() + 1);
-        };
-    }
-    private Coordinate getRightLocation(MazePath path){
-        return switch (path.getCurrentDirection()) {
-            case '^' -> new Coordinate(path.getCurrentLocation().getX() + 1, path.getCurrentLocation().getY());
-            case '>' -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() + 1);
-            case 'v' -> new Coordinate(path.getCurrentLocation().getX() - 1, path.getCurrentLocation().getY());
-            default -> new Coordinate(path.getCurrentLocation().getX(), path.getCurrentLocation().getY() - 1);
-        };
-    }
-
     public int getShortestPathScore() {
         // State class to track position, direction, and score
         class State {

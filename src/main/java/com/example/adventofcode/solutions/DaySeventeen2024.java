@@ -45,4 +45,11 @@ public class DaySeventeen2024 {
         this.registerB = this.registerB ^ literalOperand;
         instructionPointer += 2;
     }
+    public void bst (int literalOperand){
+        if(literalOperand < 7){
+            int comboOperand = getComboOperand(literalOperand);
+            this.registerB = comboOperand % 8;
+            instructionPointer += 2;
+        }
+    }
 }

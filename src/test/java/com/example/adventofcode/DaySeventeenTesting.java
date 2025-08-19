@@ -61,6 +61,15 @@ public class DaySeventeenTesting {
         assertEquals(0, testBstInstruction(6));
         assertEquals(0, testBstInstruction(7));
     }
+    @Test
+    void testJnz(){
+        DaySeventeen2024 day17 = new DaySeventeen2024(filePath);
+        day17.jnz(3);
+        assertEquals(3, day17.getInstructionPointer());
+        day17.setRegisterA(0);
+        day17.jnz(4);
+        assertEquals(5, day17.getInstructionPointer());
+    }
     int testAdvInstruction(int literalOperand){
         DaySeventeen2024 day17 = new DaySeventeen2024(filePath);
         day17.adv(literalOperand);

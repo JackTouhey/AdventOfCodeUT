@@ -21,6 +21,8 @@ public class DaySeventeen2024 {
     public int getRegisterA(){return this.registerA;}
     public int getRegisterB(){return this.registerB;}
     public int getRegisterC(){return this.registerC;}
+    public int getInstructionPointer(){return this.instructionPointer;}
+    public void setRegisterA(int newValue){this.registerA = newValue;}
     public int getComboOperand(int literalOperand){
         return switch(literalOperand){
             case 0 -> 0;
@@ -53,11 +55,6 @@ public class DaySeventeen2024 {
         }
     }
     public void jnz (int literalOperand){
-        if(this.registerA != 0){
-            this.instructionPointer = literalOperand;
-        }
-        else{
-            this.instructionPointer += 2;
-        }
+        this.instructionPointer = this.registerA == 0 ? this.instructionPointer += 2 : literalOperand;
     }
 }

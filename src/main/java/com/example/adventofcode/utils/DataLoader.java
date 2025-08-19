@@ -293,4 +293,34 @@ public class DataLoader {
         }
         return returnGrid;
     }
+    public static int daySeventeenRegisterA(String filePath){
+        try(Scanner sc = new Scanner(new File(filePath))){
+            while(!sc.hasNextInt()){
+                sc.next();
+            }
+            return sc.nextInt();
+        }catch(FileNotFoundException e){}
+        return -1;
+    }
+    public static int daySeventeenRegisterB(String filePath){
+        try(Scanner sc = new Scanner(new File(filePath))){
+            sc.nextLine();
+            while(!sc.hasNextInt()){
+                sc.next();
+            }
+            return sc.nextInt();
+        }catch(FileNotFoundException e){}
+        return -1;
+    }
+    public static int daySeventeenRegisterC(String filePath){
+        try(Scanner sc = new Scanner(new File(filePath))){
+            sc.nextLine();
+            sc.nextLine();
+            while(!sc.hasNextInt()){
+                sc.next();
+            }
+            return sc.nextInt();
+        }catch(FileNotFoundException e){}
+        return -1;
+    }
 }

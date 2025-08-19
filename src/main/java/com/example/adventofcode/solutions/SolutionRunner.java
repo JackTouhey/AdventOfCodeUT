@@ -1,10 +1,14 @@
 package com.example.adventofcode.solutions;
 
 public class SolutionRunner {
-    private static final DaySixteen2024 day16 = new DaySixteen2024("DataFiles\\DaySixteenData.txt");
     public static void main(String[] args) {
+        runDay17();
     }
-  private static void runDay16(){
-    System.out.println("Locations found: " + day16.getTilesVisitedByOptimalRoutes().size());
-   }
+    private static void runDay16(){
+        DaySixteen2024 day16 = new DaySixteen2024("DataFiles\\DaySixteenData.txt");
+        System.out.println("Locations found: " + day16.getTilesVisitedByOptimalRoutes().size());
+    }
+    private static void runDay17(){
+        DaySeventeen2024 day = new DaySeventeen2024("DataFiles\\DaySeventeenTestData.txt");
+    }
 }

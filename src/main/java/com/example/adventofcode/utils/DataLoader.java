@@ -330,7 +330,7 @@ public class DataLoader {
             sc.nextLine();
             sc.nextLine();
             sc.useDelimiter(":");
-           sc.next();
+            sc.next();
             sc.useDelimiter("");
             sc.next();
             sc.next();

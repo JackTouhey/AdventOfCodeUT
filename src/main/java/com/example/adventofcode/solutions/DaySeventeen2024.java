@@ -15,6 +15,18 @@ public class DaySeventeen2024 {
         this.registerB = DataLoader.daySeventeenRegisterB(filePath);
         this.registerC = DataLoader.daySeventeenRegisterC(filePath);
         this.program = DataLoader.daySeventeenProgram(filePath);
-        System.out.println(program);
+        this.instructionPointer = 0;
+    }
+    public int getComboOperand(int literalOperand){
+        return switch(literalOperand){
+            case 0 -> 0;
+            case 1 -> 1;
+            case 2 -> 2;
+            case 3 -> 3;
+            case 4 -> this.registerA;
+            case 5 -> this.registerB;
+            case 6 -> this.registerC;
+            default -> -1;
+        };
     }
 }

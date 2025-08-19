@@ -23,6 +23,20 @@ public class DaySeventeen2024 {
     public int getRegisterC(){return this.registerC;}
     public int getInstructionPointer(){return this.instructionPointer;}
     public void setRegisterA(int newValue){this.registerA = newValue;}
+    public void runProgram(){
+        while(instructionPointer < program.size() - 2){
+            switch(program.get(instructionPointer)){
+                case 0 -> adv(program.get(instructionPointer+1));
+                case 1 -> bxl(program.get(instructionPointer+1));
+                case 2 -> bst(program.get(instructionPointer+1));
+                case 3 -> jnz(program.get(instructionPointer+1));
+                case 4 -> bxc();
+                case 5 -> out(program.get(instructionPointer+1));
+                case 6 -> bdv(program.get(instructionPointer+1));
+                case 7 -> cdv(program.get(instructionPointer+1));
+            }
+        }
+    }
     public int getComboOperand(int literalOperand){
         return switch(literalOperand){
             case 0 -> 0;

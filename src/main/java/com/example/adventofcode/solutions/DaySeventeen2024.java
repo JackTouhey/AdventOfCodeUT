@@ -61,11 +61,28 @@ public class DaySeventeen2024 {
         this.registerB = this.registerB ^ this.registerC;
         instructionPointer += 2;
     }
-    public void out(int literalOperand){
+    public void out (int literalOperand){
         if(literalOperand < 7){
             int comboOperand = getComboOperand(literalOperand);
             int output = comboOperand % 8;
             System.out.print(output + ",");
+        }
+        instructionPointer += 2;
+    }
+    public void bdv (int literalOperand){
+        if(literalOperand < 7){
+            int comboOperand = getComboOperand(literalOperand);
+            double divisionResult = this.registerA / Math.pow(2, comboOperand);;
+            this.registerB = (int) Math.floor(divisionResult);
+            instructionPointer += 2;
+        }
+    }
+    public void cdv (int literalOperand){
+        if(literalOperand < 7){
+            int comboOperand = getComboOperand(literalOperand);
+            double divisionResult = this.registerA / Math.pow(2, comboOperand);;
+            this.registerC = (int) Math.floor(divisionResult);
+            instructionPointer += 2;
         }
     }
 }
